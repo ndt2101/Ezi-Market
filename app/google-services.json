@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "354983660346",
+    "project_id": "ezi-market",
+    "storage_bucket": "ezi-market.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354983660346:android:0aafdfbf53a63910c79e03",
+        "android_client_info": {
+          "package_name": "com.tuan2101.ezimarket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354983660346-n6oppkc2lj1562hvdt7rfaof0c28lu04.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tuan2101.ezimarket",
+            "certificate_hash": "7fc8b256fdefa55d96054063f38bb1a632b6919f"
+          }
+        },
+        {
+          "client_id": "354983660346-753hmg0uudundh5rlmj484ghn7nogktk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzTEIE4O53eTwsNWkZRk-A5EVGiiOst2E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354983660346-753hmg0uudundh5rlmj484ghn7nogktk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
