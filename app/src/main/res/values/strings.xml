@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Ezi Market</string>
+    <string name="Chao">Chào mừng bạn đến Ezi Market!</string>
+    <string name="mua_sam_de_dang">Mua sắm dễ dàng</string>
+    <string name="da_dang_mat_hang">Đa dạng mặt hàng</string>
+    <string name="bat_dau">Bắt đầu</string>
+    <string name="bat_thong_bao">Bật thông báo để không bỏ sót ưu đãi</string>
 </resources>
