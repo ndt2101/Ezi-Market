@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="Trang chủ"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_baseline_home_24"/>
+
+    <item android:title="Danh mục"
+        app:showAsAction="always"
+        android:icon="@drawable/category"/>
+    <item android:title="Lướt"
+        app:showAsAction="always"
+        android:icon="@drawable/new_feed"/>
+    <item android:title="Cá nhân"
+        app:showAsAction="always"
+        android:icon="@drawable/individual"/>
+</menu>

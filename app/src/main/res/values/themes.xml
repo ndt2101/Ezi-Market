@@ -17,4 +17,8 @@
     <style name="Theme.SplashActivity" parent="Theme.EziMarket">
         <item name="colorPrimaryVariant">#95a2f1</item>
     </style>
+
+    <style name="Theme.HomeFragment" parent="Theme.EziMarket">
+        <item name="colorPrimaryVariant">#95a2f1</item>
+    </style>
 </resources>
