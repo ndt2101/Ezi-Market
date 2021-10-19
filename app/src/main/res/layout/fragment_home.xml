@@ -24,6 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:scrimVisibleHeightTrigger="90dp"
+                app:scrimAnimationDuration="0"
                 app:titleEnabled="false"
                 android:fitsSystemWindows="true">
 
