@@ -4,57 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <fragment
-        android:id="@+id/test"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.tuan2101.ezimarket.HomeFragment"/>
+        android:orientation="vertical">
 
-    <!-- TODO: Update viewpager2  -->
-
-   <com.google.android.material.bottomappbar.BottomAppBar
-       android:id="@+id/bottom_app_bar"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_gravity="bottom"
-       app:fabAlignmentMode="center"
-       app:contentInsetStart="0dp"
-       app:contentInsetStartWithNavigation="0dp"
-       app:hideOnScroll="true"
-       app:layout_scrollFlags="scroll|enterAlways">
-
-       <com.google.android.material.bottomnavigation.BottomNavigationView
-           android:id="@+id/bottom_nav_view"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:background="@color/white"
-           app:itemTextColor="@drawable/selected_tab"
-           app:itemIconTint="@drawable/selected_tab"
-           app:layout_behavior="com.tuan2101.ezimarket.BottomNavigationBehavior"
-           app:menu="@menu/bottom_nav_view_menu"/>
-   </com.google.android.material.bottomappbar.BottomAppBar>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/cart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#95a2f1"
-        android:layout_marginBottom="3dp"
-        android:src="@drawable/ic_baseline_shopping_cart_24"
-        app:layout_anchor="@id/bottom_app_bar"
-        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <fragment
+            android:id="@+id/host_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:navGraph="@navigation/nav_graph"
+            app:defaultNavHost="true"/>
+    </LinearLayout>
 </layout>
-
-<!--<androidx.viewpager2.widget.ViewPager2-->
-<!--android:id="@+id/view_pager"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="match_parent"-->
-<!--app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->

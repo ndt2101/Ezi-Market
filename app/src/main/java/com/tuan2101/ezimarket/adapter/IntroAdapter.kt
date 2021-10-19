@@ -1,8 +1,9 @@
-package com.tuan2101.ezimarket
+package com.tuan2101.ezimarket.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.tuan2101.ezimarket.dataclasses.IntroPhoto
 import com.tuan2101.ezimarket.databinding.IntroScreenBinding
 
 class IntroAdapter(private val listIntroPhoto: List<IntroPhoto>) : RecyclerView.Adapter<IntroAdapter.IntroViewHolder>() {

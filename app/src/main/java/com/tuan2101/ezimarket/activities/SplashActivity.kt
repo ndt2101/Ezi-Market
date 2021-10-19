@@ -1,4 +1,4 @@
-package com.tuan2101.ezimarket
+package com.tuan2101.ezimarket.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -12,7 +12,10 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
+import com.tuan2101.ezimarket.R
+import com.tuan2101.ezimarket.adapter.IntroAdapter
 import com.tuan2101.ezimarket.databinding.ActivitySplashBinding
+import com.tuan2101.ezimarket.dataclasses.IntroPhoto
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -79,7 +82,9 @@ class SplashActivity : AppCompatActivity() {
     private fun addList() : ArrayList<IntroPhoto> {
         val arrayList = ArrayList<IntroPhoto>()
         arrayList.add(IntroPhoto(resources.getString(R.string.Chao), R.drawable.logo_transparent))
-        arrayList.add(IntroPhoto(resources.getString(R.string.mua_sam_de_dang), R.drawable.mua_sam_de_dang))
+        arrayList.add(IntroPhoto(resources.getString(R.string.mua_sam_de_dang),
+            R.drawable.mua_sam_de_dang
+        ))
         arrayList.add(IntroPhoto(resources.getString(R.string.da_dang_mat_hang), R.drawable.da_dang))
         arrayList.add(IntroPhoto(resources.getString(R.string.bat_thong_bao), R.drawable.bell))
         return arrayList

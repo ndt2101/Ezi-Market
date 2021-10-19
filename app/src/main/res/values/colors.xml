@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="custom">#DD2020</color>
+    <color name="themeColor">#95a2f1</color>
 </resources>

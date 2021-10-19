@@ -1,4 +1,4 @@
-package com.tuan2101.ezimarket
+package com.tuan2101.ezimarket.dataclasses
 
 class IntroPhoto(val text: String,
                  val src: Int

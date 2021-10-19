@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context=".outsidefragment.HostFragment">
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/test"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:name="com.tuan2101.ezimarket.outsidefragment.HomeFragment"/>-->
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <!--    <androidx.core.widget.NestedScrollView-->
+    <!--        android:id="@+id/nested_scroll_view"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:fillViewport="true">-->
+
+    <!--        <fragment-->
+    <!--            android:id="@+id/fr"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:name="com.tuan2101.ezimarket.outsidefragment.HomeFragment"-->
+    <!--            app:layout_scrollFlags="noScroll"-->
+    <!--            />-->
+    <!--    </androidx.core.widget.NestedScrollView>-->
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:fabAlignmentMode="center"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:hideOnScroll="true"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:itemTextColor="@drawable/selected_tab"
+            app:itemIconTint="@drawable/selected_tab"
+            app:layout_behavior="com.tuan2101.ezimarket.BottomNavigationBehavior"
+            app:menu="@menu/bottom_nav_view_menu"/>
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#95a2f1"
+        android:layout_marginBottom="3dp"
+        android:src="@drawable/ic_baseline_shopping_cart_24"
+        app:layout_anchor="@id/bottom_app_bar"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
