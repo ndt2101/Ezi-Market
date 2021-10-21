@@ -107,13 +107,13 @@
                     app:contentInsetStartWithNavigation="0dp"
                     app:layout_collapseMode="pin">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <EditText
                             android:id="@+id/search"
-                            android:layout_width="300dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:background="@drawable/search_edittext_background"
@@ -123,32 +123,28 @@
                             android:paddingStart="10dp"
                             android:textColor="@color/black"
                             android:textColorHint="#888585"
-                            android:textSize="18dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:layout_weight="3"
+                            android:textSize="18dp"/>
 
                         <ImageView
                             android:id="@+id/chat"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:src="@drawable/ic_baseline_chat_24"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/notification"
-                            app:layout_constraintStart_toEndOf="@id/search"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:layout_marginTop="9dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_baseline_chat_24" />
 
                         <ImageView
                             android:id="@+id/notification"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:src="@drawable/notification"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/chat"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            android:layout_weight="1"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/notification" />
+                    </LinearLayout>
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
