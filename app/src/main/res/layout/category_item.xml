@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="item"
+            type="com.tuan2101.ezimarket.dataclasses.CategoryItem" />
+    </data>
+    <RelativeLayout
+        android:id="@+id/shopping"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="100dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/category_item_img"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            loadImageFromResource="@{item.img}"
+            app:shapeAppearanceOverlay="@style/roundImageView"
+            android:cropToPadding="true"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/category_item_name"
+            android:text="@{item.name}"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/category_item_img"
+            tools:text="Sửa chữa đồ gia dụng"/>
+
+    </RelativeLayout>
+</layout>

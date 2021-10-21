@@ -10,14 +10,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.palette.graphics.Palette
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.tuan2101.ezimarket.R
 import com.tuan2101.ezimarket.adapter.AdvertisementAdapter
 import com.tuan2101.ezimarket.adapter.FlashSaleAdapter
+import com.tuan2101.ezimarket.adapter.TopCategoryItemAdapter
 import com.tuan2101.ezimarket.databinding.FragmentHomeBinding
 import com.tuan2101.ezimarket.dataclasses.AdvertisementPhoto
 import com.tuan2101.ezimarket.dataclasses.Product
+import com.tuan2101.ezimarket.dataclasses.CategoryItem
 import com.tuan2101.ezimarket.utils.ZoomOutPageTransformer
 
 
@@ -47,10 +50,11 @@ class HomeFragment : Fragment() {
         val dummyProductList = dummyDataForFlashSale()
 
         val advertisementAdapter = AdvertisementAdapter(listAdPhoto)
-        val layoutManager: LinearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val topSaleLayoutManager: LinearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val adapter = FlashSaleAdapter()
+        val topCategoryItemLayoutManager: GridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
         adapter.submitList(dummyProductList)
-        binding.topSaleRcv.layoutManager = layoutManager
+        binding.topSaleRcv.layoutManager = topSaleLayoutManager
         binding.topSaleRcv.adapter = adapter
         binding.advertisementSlide.adapter = advertisementAdapter
         binding.ciIndicator.setViewPager(binding.advertisementSlide)
@@ -71,6 +75,10 @@ class HomeFragment : Fragment() {
         })
         binding.advertisementSlide.setPageTransformer(ZoomOutPageTransformer())
 
+        binding.topCategoryItem.layoutManager = topCategoryItemLayoutManager
+        binding.topCategoryItem.adapter = TopCategoryItemAdapter(dataForTopCategoryItem())
+
+
 
         return binding.root
     }
@@ -84,6 +92,23 @@ class HomeFragment : Fragment() {
         listImg.add(AdvertisementPhoto("https://cafefcdn.com/thumb_w/650/pr/2020/1606892520840-0-0-375-600-crop-1606892525006-63742515071978.jpg"))
         listImg.add(AdvertisementPhoto("https://file.publish.vn/blogktcity/flash-sale-shopee-1593746001532.jpg"))
         return listImg
+    }
+
+    private fun dataForTopCategoryItem() : ArrayList<CategoryItem> {
+        val listItem = ArrayList<CategoryItem>()
+        listItem.add(CategoryItem(0, R.drawable.go_market, "Đi chợ"))
+        listItem.add(CategoryItem(1, R.drawable.cosmetics, "Mỹ phẩm"))
+        listItem.add(CategoryItem(2, R.drawable.customer_care, "Chat hỗ trợ"))
+        listItem.add(CategoryItem(3, R.drawable.sneakers, "Giày dép"))
+        listItem.add(CategoryItem(4, R.drawable.voucher, "Ưu đãi"))
+        listItem.add(CategoryItem(5, R.drawable.beef, "Đồ tươi sống"))
+        listItem.add(CategoryItem(6, R.drawable.fast_food, "Ăn vặt"))
+        listItem.add(CategoryItem(7, R.drawable.outfit, "Quần áo"))
+        listItem.add(CategoryItem(8, R.drawable.gift, "Quà tặng"))
+        listItem.add(CategoryItem(9, R.drawable.devices, "Đồ điện tử"))
+        listItem.add(CategoryItem(10, R.drawable.fridge, "Đồ gia dụng"))
+        listItem.add(CategoryItem(11, R.drawable.engineer, "Sửa chữa đồ gia dụng"))
+        return listItem
     }
 
     private fun dummyDataForFlashSale(): ArrayList<Product> {

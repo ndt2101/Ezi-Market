@@ -31,17 +31,27 @@
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textAlignment">center</item>
+        <item name="maxWidth">80dp</item>
+        <item name="maxLines">3</item>
     </style>
 
     <style name="hsv_wrapper_item">
         <item name="android:layout_margin">5dp</item>
-        <item name="android:layout_height">90dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
 
     <style name="hsv_img_item">
         <item name="android:layout_height">70dp</item>
         <item name="android:layout_width">70dp</item>
+        <item name="android:scaleType">fitCenter</item>
         <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="roundImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">25dp</item>
+        <item name="color">@color/white</item>
+        <item name="android:shape">rectangle</item>
     </style>
 </resources>

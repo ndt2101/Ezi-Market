@@ -1,8 +1,12 @@
 package com.tuan2101.ezimarket.dataclasses
 
-class IntroPhoto(val text: String,
+data class IntroPhoto(val text: String,
                  val src: Int
 )
 
-class AdvertisementPhoto(val img: String) {
-}
+data class AdvertisementPhoto(val img: String)
+
+data class CategoryItem(val id: Int,
+                        val img: Int,
+                        val name: String
+)

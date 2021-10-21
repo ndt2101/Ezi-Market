@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.google.android.material.imageview.ShapeableImageView
 import com.tuan2101.ezimarket.R
 
 @BindingAdapter("setOldPrice")
@@ -15,4 +16,9 @@ fun TextView.setOldPrice(price: Long) {
 @BindingAdapter("loadImage")
 fun ImageView.loadImage(imageUrl: String) {
     Glide.with(context).load(imageUrl).into(this)
+}
+
+@BindingAdapter("loadImageFromResource")
+fun ShapeableImageView.loadImageFromResource(src: Int) {
+    this.setImageResource(src)
 }
