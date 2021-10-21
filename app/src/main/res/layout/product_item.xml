@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="product"
+            type="com.tuan2101.ezimarket.dataclasses.Product" />
+    </data>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <ImageView
+        android:id="@+id/product_img"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/logo"
+        android:scaleType="centerCrop"
+        loadImage="@{product.imageProduct}"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/product_img"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="16sp"
+        android:layout_margin="5dp"
+        android:text="@{product.nameProduct}"
+        tools:text="Áo khoác nam Hàn Quốc Blaze đủ size"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:id="@+id/price_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/product_name"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/old_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:maxWidth="75dp"
+            android:layout_marginEnd="20dp"
+            android:maxLines="1"
+            android:textColor="#938D8D"
+            app:setOldPrice="@{product.oldPrice}"
+            android:ellipsize="end"
+            tools:text="d 180000" />
+
+        <TextView
+            android:id="@+id/new_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="d 90000"
+            android:maxWidth="100dp"
+            android:text="@{String.valueOf(product.newPrice)}"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/themeColor"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/vote_area"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/price_area">
+
+        <RatingBar
+            android:id="@+id/rating_bar"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toStartOf="@id/num_of_sold_product"
+            android:numStars="5"
+            android:rating="4.1"
+            android:stepSize="0.1" />
+
+        <TextView
+            android:id="@+id/num_of_sold_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Đã bán 12.5k"
+            android:layout_margin="5dp"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/add_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/price_area"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/vote_area"
+        android:layout_marginTop="3dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_baseline_favorite_24"
+        app:tint="#8C8A8A" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="5dp"
+        android:visibility="gone"
+        tools:text="Hồ Chí Minh"
+        android:drawablePadding="5dp"
+        app:layout_constraintTop_toBottomOf="@id/vote_area"
+        app:drawableStartCompat="@drawable/ic_baseline_location_searching_24"
+        app:drawableTint="#8C8A8A" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

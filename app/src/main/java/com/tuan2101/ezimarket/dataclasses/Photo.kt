@@ -4,4 +4,5 @@ class IntroPhoto(val text: String,
                  val src: Int
 )
 
-class AdvertisementPhoto(val img: String)
+class AdvertisementPhoto(val img: String) {
+}

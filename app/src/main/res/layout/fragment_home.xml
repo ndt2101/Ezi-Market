@@ -22,9 +22,10 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:scrimVisibleHeightTrigger="90dp"
+                android:minHeight="100dp"
+                app:scrimVisibleHeightTrigger="58dp"
                 app:scrimAnimationDuration="0"
                 app:titleEnabled="false"
                 android:fitsSystemWindows="true">
@@ -51,6 +52,40 @@
                         android:layout_marginBottom="10dp"
                         app:ci_margin="5dp"
                         app:ci_drawable="@drawable/circle_indicator_background" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/top_sale_card_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/advertisement_slide" >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Top Flash Sales"
+                                android:textColor="@color/black"
+                                android:textSize="20dp"
+                                android:layout_margin="5dp"
+                                />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/top_sale_rcv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="5dp"
+                                tools:listitem="@layout/product_item"
+                                tools:itemCount="1" />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,6 +142,8 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
