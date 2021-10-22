@@ -98,13 +98,13 @@ class FooterViewHolder(val binding: FooterBinding) : RecyclerView.ViewHolder(bin
         }
     }
 
-    fun bindFooter(listener: ProductItemClickListener) {
+    fun bindFooter(listener: FooterListener) {
         binding.action = listener
     }
 }
 
-class ProductItemClickListener(val clickFooter: () -> Unit, val clickItem: (id: String) -> Unit) {
-    fun onClickFooter() {
+class ProductItemClickListener(val clickFooter: () -> Unit, val clickItem: (id: String) -> Unit) : FooterListener() {
+    override fun onClickFooter() {
         clickFooter()
     }
     fun onClickItem(id: String) {

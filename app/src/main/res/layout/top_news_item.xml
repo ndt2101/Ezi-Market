@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="news"
+            type="com.tuan2101.ezimarket.dataclasses.News" />
+
+        <variable
+            name="action"
+            type="com.tuan2101.ezimarket.adapter.TopNewsAdapter.TopNewsItemClickListener" />
+    </data>
+
+<LinearLayout
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:onClick="@{() -> action.onClickItem(news.id)}">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        card_view:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/news_img"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                tools:src="@drawable/logo"
+                loadImage="@{news.contentImg}"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/news_title"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_margin="5dp"
+                android:layout_marginTop="5dp"
+                android:textAllCaps="true"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="@{news.title}"
+                tools:text="Chương trình giảm giá shock trong mùa dịch covid" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
+
+</layout>
