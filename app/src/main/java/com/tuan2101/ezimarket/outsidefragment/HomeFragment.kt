@@ -4,24 +4,26 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.tuan2101.ezimarket.R
-import com.tuan2101.ezimarket.adapter.AdvertisementAdapter
-import com.tuan2101.ezimarket.adapter.FlashSaleAdapter
-import com.tuan2101.ezimarket.adapter.TopCategoryItemAdapter
+import com.tuan2101.ezimarket.adapter.*
 import com.tuan2101.ezimarket.databinding.FragmentHomeBinding
 import com.tuan2101.ezimarket.dataclasses.AdvertisementPhoto
 import com.tuan2101.ezimarket.dataclasses.Product
 import com.tuan2101.ezimarket.dataclasses.CategoryItem
 import com.tuan2101.ezimarket.utils.ZoomOutPageTransformer
+import java.time.LocalDate
 
 
 class HomeFragment : Fragment() {
@@ -30,6 +32,10 @@ class HomeFragment : Fragment() {
     lateinit var listAdPhoto: List<AdvertisementPhoto>
     lateinit var runnable: Runnable
     val handler = Handler(Looper.getMainLooper())
+
+    var testCheck: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+    var testCheck2: MutableLiveData<String> = MutableLiveData<String>("teststss")
+    var topCategoryClickedItem = MutableLiveData<Int>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,14 +54,14 @@ class HomeFragment : Fragment() {
         listAdPhoto = dummyDataForAdvertisement()
 
         val dummyProductList = dummyDataForFlashSale()
-
         val advertisementAdapter = AdvertisementAdapter(listAdPhoto)
         val topSaleLayoutManager: LinearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val adapter = FlashSaleAdapter()
+        testCheck.value = false
+        val flashSaleAdapter = FlashSaleAdapter(ProductItemClickListener({ testClick1() }, { id -> testClick2(id) }))
         val topCategoryItemLayoutManager: GridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
-        adapter.submitList(dummyProductList)
+        flashSaleAdapter.customSubmitList(dummyProductList)
         binding.topSaleRcv.layoutManager = topSaleLayoutManager
-        binding.topSaleRcv.adapter = adapter
+        binding.topSaleRcv.adapter = flashSaleAdapter
         binding.advertisementSlide.adapter = advertisementAdapter
         binding.ciIndicator.setViewPager(binding.advertisementSlide)
         runnable = Runnable {
@@ -76,11 +82,31 @@ class HomeFragment : Fragment() {
         binding.advertisementSlide.setPageTransformer(ZoomOutPageTransformer())
 
         binding.topCategoryItem.layoutManager = topCategoryItemLayoutManager
-        binding.topCategoryItem.adapter = TopCategoryItemAdapter(dataForTopCategoryItem())
-
-
+        binding.topCategoryItem.adapter = TopCategoryItemAdapter(dataForTopCategoryItem(), TopCategoryItemViewHolder.TopCategoryItemClickListener { id -> onClickTopCategoryItem(id) })
+        testCheck.observe(viewLifecycleOwner, {
+            if (it) {
+                Toast.makeText(context, "chuyen", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         return binding.root
+    }
+
+    fun testClick1(){
+        if (!testCheck.value!!) {
+            testCheck.value = true
+        }
+        Log.i("aaa", "${testCheck.value}")
+    }
+
+    fun testClick2(idItem: String) {
+        testCheck2.value = idItem
+        Log.i("aaa", idItem)
+    }
+
+    fun onClickTopCategoryItem(id: Int) {
+        topCategoryClickedItem.value = id
+        Log.i("ItemId", id.toString())
     }
 
     private fun dummyDataForAdvertisement(): ArrayList<AdvertisementPhoto> {
@@ -122,6 +148,7 @@ class HomeFragment : Fragment() {
             "Ho Chi Minh",
             2900
         ))
+        Thread.sleep(1)
         listProduct.add(Product(System.currentTimeMillis().toString(),
             "https://thatlungnam.com.vn/wp-content/uploads/2019/04/3.jpg",
             "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
@@ -131,6 +158,7 @@ class HomeFragment : Fragment() {
             "Ho Chi Minh",
             2900
         ))
+        Thread.sleep(1)
         listProduct.add(Product(System.currentTimeMillis().toString(),
             "https://media3.scdn.vn/img4/2021/06_04/epQjaa1kpxpng0MKD3rh.jpg",
             "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
@@ -140,6 +168,7 @@ class HomeFragment : Fragment() {
             "Ho Chi Minh",
             2900
         ))
+        Thread.sleep(1)
         listProduct.add(Product(System.currentTimeMillis().toString(),
             "https://sakurafashion.vn/upload/a/1285-doc-menswear-7749.jpg",
             "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
@@ -149,6 +178,7 @@ class HomeFragment : Fragment() {
             "Ho Chi Minh",
             2900
         ))
+        Thread.sleep(1)
         listProduct.add(Product(System.currentTimeMillis().toString(),
             "https://cf.shopee.vn/file/46b13304e62d5ad704ef9ee99a1b9d22",
             "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
@@ -158,6 +188,7 @@ class HomeFragment : Fragment() {
             "Ho Chi Minh",
             2900
         ))
+        Thread.sleep(1)
         listProduct.add(Product(System.currentTimeMillis().toString(),
             "https://aristino.com/Data/upload/images/Product/ao-blazer/ABZ00908/ao-blazer-nam-aristino-ABZ00908-02.jpg",
             "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",

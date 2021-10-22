@@ -43,8 +43,3 @@ class AdvertisementAdapter(val listImg: List<AdvertisementPhoto>) :
     }
 
 }
-
-sealed class DataItem() {
-    class Item(val advertisementPhoto: AdvertisementPhoto): DataItem()
-    class Footer() : DataItem()
-}
