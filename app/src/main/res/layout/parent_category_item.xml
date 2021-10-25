@@ -5,17 +5,17 @@
     <data>
         <variable
             name="item"
-            type="com.tuan2101.ezimarket.dataclasses.CategoryItem" />
+            type="com.tuan2101.ezimarket.dataclasses.ParentCategory" />
         <variable
             name="listener"
-            type="com.tuan2101.ezimarket.adapter.TopCategoryItemViewHolder.TopCategoryItemClickListener" />
+            type="com.tuan2101.ezimarket.adapter.ParentCategoryItemViewHolder.ParentCategoryItemClickListener" />
+
     </data>
     <RelativeLayout
         android:id="@+id/shopping"
-        android:layout_margin="10dp"
         android:layout_height="wrap_content"
         android:layout_width="100dp"
-        android:onClick="@{() -> listener.onItemClickListener(item.id)}">
+        android:onClick="@{() -> listener.onItemClickListener(item)}">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/category_item_img"

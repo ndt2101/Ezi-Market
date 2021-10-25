@@ -2,6 +2,7 @@ package com.tuan2101.ezimarket.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -80,9 +81,13 @@ class SaleProductViewHolder(val binding: ProductItemBinding) : RecyclerView.View
 
     fun bind(product: Product, holder: SaleProductViewHolder, listener: ProductItemClickListener) {
         binding.product = product
-        binding.executePendingBindings()
         binding.lifecycleOwner = holder
         binding.action = listener
+        binding.voteArea.visibility = View.GONE
+        binding.addFavorite.visibility = View.GONE
+        binding.location.visibility = View.GONE
+        binding.numOfSoldProduct.visibility = View.GONE
+        binding.executePendingBindings()
         Log.i("action", listener.clickItem.toString())
     }
 

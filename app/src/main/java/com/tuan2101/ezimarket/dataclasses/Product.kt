@@ -6,7 +6,7 @@ class Product(
     val nameProduct: String,
     val oldPrice: Long,
     val newPrice: Long,
-    val rate: Double,
+    val rate: Float,
     val location: String,
     val numOfSoldProduct: Long
 ) {

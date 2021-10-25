@@ -5,6 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".outsidefragment.HomeFragment">
 
+    <data>
+        <variable
+            name="model"
+            type="com.tuan2101.ezimarket.viewmodel.HomeFragmentViewModel" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
@@ -73,7 +79,7 @@
                         app:layout_constraintTop_toBottomOf="@id/top_category_item">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
@@ -182,16 +188,171 @@
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="aaaaaaa"
-                android:textColor="@color/black"
-                android:textSize="20sp"
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
                 app:layout_collapseMode="pin"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:layout_constraintTop_toBottomOf="@id/collapsing_toolbar_layout"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:id="@+id/suggested_all_item"
+                        android:layout_width="100dp"
+                        android:padding="3dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:checked="true"
+                        android:focusable="true"
+                        android:onClick="@{() -> model.onClickSuggestedClickedItem(String.valueOf(0))}">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:src="@drawable/logo"/>
+
+                        <TextView
+                            android:text="Tất cả"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:textAlignment="center"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/suggested_discount_hunting_item"
+                        android:layout_width="100dp"
+                        android:padding="3dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:checked="true"
+                        android:focusable="true"
+                        android:onClick="@{() -> model.onClickSuggestedClickedItem(String.valueOf(1))}"
+                        >
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:src="@drawable/logo"/>
+
+                        <TextView
+                            android:text="Săn sale"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:textAlignment="center"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/suggested_outfit_item"
+                        android:layout_width="100dp"
+                        android:padding="3dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:checked="true"
+                        android:focusable="true"
+                        android:onClick="@{() -> model.onClickSuggestedClickedItem(String.valueOf(2))}">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:src="@drawable/logo"/>
+
+                        <TextView
+                            android:text="Thời trang"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:textAlignment="center"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/suggested_make_up_item"
+                        android:layout_width="100dp"
+                        android:padding="3dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:checked="true"
+                        android:focusable="true"
+                        android:onClick="@{() -> model.onClickSuggestedClickedItem(String.valueOf(3))}">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:src="@drawable/logo"/>
+
+                        <TextView
+                            android:text="Làm đẹp"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:textAlignment="center"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/suggested_book_item"
+                        android:layout_width="100dp"
+                        android:padding="3dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:checked="true"
+                        android:focusable="true"
+                        android:onClick="@{() -> model.onClickSuggestedClickedItem(String.valueOf(4))}">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:src="@drawable/logo"/>
+
+                        <TextView
+                            android:text="Sách"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:textAlignment="center"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/suggested_favorite_item"
+                        android:layout_width="100dp"
+                        android:padding="3dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:checked="true"
+                        android:focusable="true"
+                        android:onClick="@{() -> model.onClickSuggestedClickedItem(String.valueOf(5))}">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:src="@drawable/logo"/>
+
+                        <TextView
+                            android:text="Yêu thích"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:textAlignment="center"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
@@ -204,23 +365,13 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/testimg"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/product_rcv"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:src="@drawable/bell"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/testimg2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1000dp"
-                    android:src="@drawable/bell"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/testimg" />
+                    android:layout_height="match_parent"
+                    android:clipToPadding="true" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

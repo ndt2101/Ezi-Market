@@ -10,8 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +26,7 @@ import com.tuan2101.ezimarket.dataclasses.CategoryItem
 import com.tuan2101.ezimarket.dataclasses.News
 import com.tuan2101.ezimarket.dataclasses.Product
 import com.tuan2101.ezimarket.utils.ZoomOutPageTransformer
+import com.tuan2101.ezimarket.viewmodel.HomeFragmentViewModel
 
 
 class HomeFragment : Fragment() {
@@ -36,7 +39,8 @@ class HomeFragment : Fragment() {
     val _testClickedTopNewsFooterItem = MutableLiveData<Boolean>()
     var testClickedTopSaleFooterItem: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     var testClickedTopFlashSaleItemId: MutableLiveData<String> = MutableLiveData<String>("teststss")
-    var topCategoryClickedItem = MutableLiveData<Int>()
+    var topCategoryClickedItem = MutableLiveData<String>()
+    lateinit var homeFragmentViewModel: HomeFragmentViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,6 +77,63 @@ class HomeFragment : Fragment() {
 
         val topNewsAdapter = TopNewsAdapter(TopNewsAdapter.TopNewsItemClickListener({testClickTopNewFooterItem()}, {id -> testClickTopNewsItem(id) }))
 
+        homeFragmentViewModel = ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
+
+        binding.productRcv.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+        val productAdapter = ProductAdapter(ProductItemClickListener({testClickFooterTopFlashSale()}, {id -> testClickTopFlashSaleItem(id)}))
+        val topCategoryAdapter = TopCategoryItemAdapter(
+            TopCategoryItemViewHolder.TopCategoryItemClickListener { id -> onClickTopCategoryItem(id) })
+
+        binding.model = homeFragmentViewModel
+
+        homeFragmentViewModel.suggestedClickedItem.observe(viewLifecycleOwner, {
+            if (it == "0") {
+                productAdapter.submitList(dummyDataForFlashSale())
+                binding.suggestedAllItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
+            } else {
+                binding.suggestedAllItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.unselected_suggest_item_bg)
+            }
+
+            if (it == "1") {
+                productAdapter.submitList(dummyDataForFlashSale())
+                binding.suggestedDiscountHuntingItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
+            } else {
+                binding.suggestedDiscountHuntingItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.unselected_suggest_item_bg)
+            }
+
+            if (it == "2") {
+                productAdapter.submitList(dummyDataForFlashSale())
+                binding.suggestedOutfitItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
+            } else {
+                binding.suggestedOutfitItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.unselected_suggest_item_bg)
+            }
+
+            if (it == "3") {
+                productAdapter.submitList(dummyDataForFlashSale())
+                binding.suggestedMakeUpItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
+            } else {
+                binding.suggestedMakeUpItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.unselected_suggest_item_bg)
+            }
+
+            if (it == "4") {
+                productAdapter.submitList(dummyDataForFlashSale())
+                binding.suggestedBookItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
+            } else {
+                binding.suggestedBookItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.unselected_suggest_item_bg)
+            }
+
+            if (it == "5") {
+                productAdapter.submitList(dummyDataForFlashSale())
+                binding.suggestedFavoriteItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
+            } else {
+                binding.suggestedFavoriteItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.unselected_suggest_item_bg)
+            }
+        })
+
+        binding.productRcv.adapter = productAdapter
+
+
+
         flashSaleAdapter.customSubmitList(dummyProductList)
         binding.topSaleRcv.layoutManager = topSaleLayoutManager
         binding.topSaleRcv.adapter = flashSaleAdapter
@@ -94,12 +155,16 @@ class HomeFragment : Fragment() {
                 handler.postDelayed(runnable, 2500)
             }
         })
+
+
         binding.advertisementSlide.setPageTransformer(ZoomOutPageTransformer())
 
         binding.topCategoryItem.layoutManager = topCategoryItemLayoutManager
-        binding.topCategoryItem.adapter = TopCategoryItemAdapter(
-            dataForTopCategoryItem(),
-            TopCategoryItemViewHolder.TopCategoryItemClickListener { id -> onClickTopCategoryItem(id) })
+
+        topCategoryAdapter.submitList(dataForTopCategoryItem())
+
+        binding.topCategoryItem.adapter = topCategoryAdapter
+
 
         val dummyNewsList = dummyDataForTopNews()
         binding.topNewsRcv.layoutManager = topNewsLayoutManager
@@ -116,18 +181,18 @@ class HomeFragment : Fragment() {
 
     private fun dataForTopCategoryItem(): ArrayList<CategoryItem> {
         val listItem = ArrayList<CategoryItem>()
-        listItem.add(CategoryItem(0, R.drawable.go_market, "Đi chợ"))
-        listItem.add(CategoryItem(1, R.drawable.cosmetics, "Mỹ phẩm"))
-        listItem.add(CategoryItem(2, R.drawable.customer_care, "Chat hỗ trợ"))
-        listItem.add(CategoryItem(3, R.drawable.sneakers, "Giày dép"))
-        listItem.add(CategoryItem(4, R.drawable.voucher, "Ưu đãi"))
-        listItem.add(CategoryItem(5, R.drawable.beef, "Đồ tươi sống"))
-        listItem.add(CategoryItem(6, R.drawable.fast_food, "Ăn vặt"))
-        listItem.add(CategoryItem(7, R.drawable.outfit, "Quần áo"))
-        listItem.add(CategoryItem(8, R.drawable.gift, "Quà tặng"))
-        listItem.add(CategoryItem(9, R.drawable.devices, "Đồ điện tử"))
-        listItem.add(CategoryItem(10, R.drawable.fridge, "Đồ gia dụng"))
-        listItem.add(CategoryItem(11, R.drawable.engineer, "Sửa chữa đồ gia dụng"))
+        listItem.add(CategoryItem("0", R.drawable.go_market, "Đi chợ"))
+        listItem.add(CategoryItem("1", R.drawable.cosmetics, "Mỹ phẩm"))
+        listItem.add(CategoryItem("2", R.drawable.customer_care, "Chat hỗ trợ"))
+        listItem.add(CategoryItem("3", R.drawable.sneakers, "Giày dép"))
+        listItem.add(CategoryItem("4", R.drawable.voucher, "Ưu đãi"))
+        listItem.add(CategoryItem("5", R.drawable.beef, "Đồ tươi sống"))
+        listItem.add(CategoryItem("6", R.drawable.fast_food, "Ăn vặt"))
+        listItem.add(CategoryItem("7", R.drawable.outfit, "Quần áo"))
+        listItem.add(CategoryItem("8", R.drawable.gift, "Quà tặng"))
+        listItem.add(CategoryItem("9", R.drawable.devices, "Đồ điện tử"))
+        listItem.add(CategoryItem("10", R.drawable.fridge, "Đồ gia dụng"))
+        listItem.add(CategoryItem("11", R.drawable.engineer, "Sửa chữa đồ gia dụng"))
         return listItem
     }
 
@@ -156,7 +221,7 @@ class HomeFragment : Fragment() {
         Log.i("bbb", _testClickedTopNewsFooterItem.value.toString())
     }
 
-    fun onClickTopCategoryItem(id: Int) {
+    fun onClickTopCategoryItem(id: String) {
         topCategoryClickedItem.value = id
         Log.i("ItemId", id.toString())
     }
@@ -192,9 +257,9 @@ class HomeFragment : Fragment() {
                 "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
                 400000,
                 299000,
-                4.5,
+                4.5f,
                 "Ho Chi Minh",
-                2900
+                900
             )
         )
         Thread.sleep(1)
@@ -203,9 +268,9 @@ class HomeFragment : Fragment() {
                 System.currentTimeMillis().toString(),
                 "https://thatlungnam.com.vn/wp-content/uploads/2019/04/3.jpg",
                 "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
-                400000,
                 299000,
-                4.5,
+                299000,
+                4.5f,
                 "Ho Chi Minh",
                 2900
             )
@@ -218,9 +283,9 @@ class HomeFragment : Fragment() {
                 "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
                 400000,
                 299000,
-                4.5,
+                4.5f,
                 "Ho Chi Minh",
-                2900
+                29499
             )
         )
         Thread.sleep(1)
@@ -231,9 +296,9 @@ class HomeFragment : Fragment() {
                 "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
                 400000,
                 299000,
-                4.5,
+                4.0f,
                 "Ho Chi Minh",
-                2900
+                900
             )
         )
         Thread.sleep(1)
@@ -244,9 +309,9 @@ class HomeFragment : Fragment() {
                 "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
                 400000,
                 299000,
-                4.5,
+                3.5f,
                 "Ho Chi Minh",
-                2900
+                900
             )
         )
         Thread.sleep(1)
@@ -257,9 +322,9 @@ class HomeFragment : Fragment() {
                 "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
                 400000,
                 299000,
-                4.5,
+                2.5f,
                 "Ho Chi Minh",
-                2900
+                900
             )
         )
         return listProduct
