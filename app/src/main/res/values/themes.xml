@@ -35,6 +35,13 @@
         <item name="maxLines">3</item>
     </style>
 
+    <style name="tabItemText" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
     <style name="hsv_wrapper_item">
         <item name="android:layout_margin">5dp</item>
         <item name="android:layout_height">wrap_content</item>
