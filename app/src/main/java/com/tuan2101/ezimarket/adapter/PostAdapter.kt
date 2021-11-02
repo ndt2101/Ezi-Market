@@ -3,10 +3,13 @@ package com.tuan2101.ezimarket.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.tuan2101.ezimarket.R
 import com.tuan2101.ezimarket.databinding.PostItemBinding
 import com.tuan2101.ezimarket.dataclasses.Comment
 import com.tuan2101.ezimarket.dataclasses.Post
+import com.tuan2101.ezimarket.outsidefragment.HostFragmentDirections
 
 /**
  * Created by ndt2101 on 10/31/2021.
@@ -31,6 +34,10 @@ class PostAdapter(val postList: List<Post>, val listener: OnPostClickListener) :
             binding.fullDescription.setOnClickListener {
                 binding.shortDescription.visibility = View.VISIBLE
                 it.visibility = View.GONE
+            }
+
+            binding.postImg.setOnClickListener {
+                it.findNavController().navigate(HostFragmentDirections.actionHostFragmentToImageDetailFragment(post.postContentImage!!))
             }
             binding.post = post
             binding.listener = listener

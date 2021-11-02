@@ -8,5 +8,17 @@
         android:id="@+id/hostFragment"
         android:name="com.tuan2101.ezimarket.outsidefragment.HostFragment"
         android:label="fragment_host"
-        tools:layout="@layout/fragment_host" />
+        tools:layout="@layout/fragment_host" >
+        <action
+            android:id="@+id/action_hostFragment_to_imageDetailFragment"
+            app:destination="@id/imageDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageDetailFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.ImageDetailFragment"
+        android:label="ImageDetailFragment" >
+        <argument
+            android:name="image_url"
+            app:argType="string" />
+    </fragment>
 </navigation>
