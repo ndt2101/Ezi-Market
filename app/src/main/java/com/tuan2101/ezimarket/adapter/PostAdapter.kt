@@ -23,6 +23,15 @@ class PostAdapter(val postList: List<Post>, val listener: OnPostClickListener) :
             if (post.product == null) {
                 binding.voucherArea.visibility = View.GONE
             }
+            binding.shortDescription.setOnClickListener {
+                binding.fullDescription.visibility = View.VISIBLE
+                it.visibility = View.GONE
+            }
+
+            binding.fullDescription.setOnClickListener {
+                binding.shortDescription.visibility = View.VISIBLE
+                it.visibility = View.GONE
+            }
             binding.post = post
             binding.listener = listener
         }

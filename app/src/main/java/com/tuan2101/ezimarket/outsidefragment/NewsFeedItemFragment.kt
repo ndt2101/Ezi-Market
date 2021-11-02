@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tuan2101.ezimarket.R
 import com.tuan2101.ezimarket.adapter.PostAdapter
 import com.tuan2101.ezimarket.databinding.FragmentNewsFeedItemBinding

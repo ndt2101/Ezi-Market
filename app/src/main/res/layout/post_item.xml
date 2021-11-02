@@ -114,18 +114,38 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/short_description"
+        <LinearLayout
+            android:id="@+id/text_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:ellipsize="end"
-            android:text="@{post.postContentText}"
-            android:maxLines="3"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@id/profile_area"
-            tools:text="Sự thật thì luôn đơn giản mà mọi người cứ make it complicated nên là mình cứ enjoin cái moment này thôi. Sắp tới mình sẽ có một số hoạt activity cùng với mọi người" />
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/profile_area">
+
+            <TextView
+                android:id="@+id/short_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:text="@{post.postContentText}"
+                android:maxLines="3"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:visibility="visible"
+                tools:text="@tools:sample/lorem/random"/>
+
+            <TextView
+                android:id="@+id/full_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@{post.postContentText}"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:text="@tools:sample/lorem/random"
+                android:visibility="gone"/>
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/post_img"
@@ -134,7 +154,7 @@
             android:layout_marginTop="10dp"
             android:scaleType="centerCrop"
             loadImage="@{post.postContentImage}"
-            app:layout_constraintTop_toBottomOf="@id/short_description"
+            app:layout_constraintTop_toBottomOf="@id/text_area"
             tools:src="@drawable/logo" />
 
         <LinearLayout

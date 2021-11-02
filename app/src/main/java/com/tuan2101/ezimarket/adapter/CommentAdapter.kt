@@ -1,6 +1,7 @@
 package com.tuan2101.ezimarket.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -38,6 +39,15 @@ class CommentAdapter() : ListAdapter<Comment, CommentAdapter.CommentViewHolder>(
 
         fun bind(comment: Comment) {
             binding.comment = comment
+            binding.shortCommentContent.setOnClickListener {
+                binding.fullCommentContent.visibility = View.VISIBLE
+                it.visibility = View.GONE
+            }
+
+            binding.fullCommentContent.setOnClickListener {
+                binding.shortCommentContent.visibility = View.VISIBLE
+                it.visibility  = View.GONE
+            }
         }
     }
 
