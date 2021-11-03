@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E8EAF4"
+        tools:context=".outsidefragment.CartFragment">
+
+
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/confirm_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                android:id="@+id/market_voucher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:drawablePadding="5dp"
+                android:text="Khuyến mãi của chợ"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/outline_confirmation_number_24"
+                app:drawableTint="@color/themeColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/choose_voucher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Nhập hoặc chọn mã"
+                android:textSize="16sp"
+                app:drawableEndCompat="@drawable/arrow_right"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/total_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng cộng"
+                android:textSize="16sp"
+                android:layout_margin="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/market_voucher"/>
+
+
+            <TextView
+                android:id="@+id/total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Vui lòng chọn sản phẩm"
+                tools:textSize="16sp"
+                android:layout_margin="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/custom"
+                app:layout_constraintTop_toBottomOf="@id/total_label"/>
+
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/choose_voucher"
+                android:background="#D5FF0000"
+                android:padding="7dp"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:text="@{@string/paid_product_total(1)}"
+                tools:text="Mua hàng (1)"
+                android:layout_margin="10dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+</layout>

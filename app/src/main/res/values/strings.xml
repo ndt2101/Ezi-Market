@@ -7,6 +7,7 @@
     <string name="bat_thong_bao">Bật thông báo để không bỏ sót ưu đãi</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="paid_product_total">Mua hàng (%d)</string>
 
     <string name="new_price">đ %d</string>
     <string name="exp">Hạn sử dụng: %d/%d/%d.</string>

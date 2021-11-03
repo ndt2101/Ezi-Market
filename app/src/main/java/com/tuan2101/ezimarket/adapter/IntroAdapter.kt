@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tuan2101.ezimarket.dataclasses.IntroPhoto
 import com.tuan2101.ezimarket.databinding.IntroScreenBinding
+import com.tuan2101.ezimarket.dataclasses.Product
+import java.util.*
+import kotlin.collections.HashMap
 
 class IntroAdapter(private val listIntroPhoto: List<IntroPhoto>) : RecyclerView.Adapter<IntroAdapter.IntroViewHolder>() {
 
