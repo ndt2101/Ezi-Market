@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -9,15 +10,134 @@
         tools:context=".outsidefragment.CartFragment">
 
 
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/confirm_area">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#CDCDCD">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_marginBottom="5dp"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                    <TextView
+                        android:id="@+id/receiver"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:padding="2dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/ic_baseline_location_on_24"
+                        app:drawableTint="@color/themeColor"
+                        app:layout_constraintEnd_toStartOf="@+id/view"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="200"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Nguyen Dinh Tuan" />
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="0dp"
+                        android:layout_height="26dp"
+                        android:layout_margin="5dp"
+                        android:background="#C0C1C5"
+                        app:layout_constraintEnd_toStartOf="@+id/phone_number"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@+id/receiver"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/phone_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:padding="2dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="200"
+                        app:layout_constraintStart_toEndOf="@+id/view"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="0789266255" />
+
+                    <TextView
+                        android:id="@+id/address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:textSize="17sp"
+                        app:drawableEndCompat="@drawable/arrow_right"
+                        app:layout_constraintTop_toBottomOf="@id/phone_number"
+                        tools:text="@string/test_text" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <CheckBox
+                        android:id="@+id/count_total_checkbox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/white"
+                        android:padding="5dp"
+                        android:layout_weight="5"
+                        android:text="@{@string/count_total(1)}"
+                        app:layout_collapseMode="pin"
+                        tools:text="Tất cả (1 sản phẩm)" />
+
+                    <ImageView
+                        android:id="@+id/delete_all"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"
+                        android:background="@color/white"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/ic_baseline_delete_forever_24"/>
+                </LinearLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
 
+            <LinearLayout
+                android:id="@+id/transaction_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="fill_vertical"
+                android:orientation="vertical"
+                android:fillViewport="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/product_via_shop_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/confirm_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/market_voucher"
@@ -48,42 +168,41 @@
                 android:id="@+id/total_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tổng cộng"
-                android:textSize="16sp"
                 android:layout_margin="5dp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="Tổng cộng"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toBottomOf="@id/market_voucher"/>
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/market_voucher" />
 
 
             <TextView
                 android:id="@+id/total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Vui lòng chọn sản phẩm"
-                tools:textSize="16sp"
                 android:layout_margin="5dp"
-                app:layout_constraintStart_toStartOf="parent"
                 android:textColor="@color/custom"
-                app:layout_constraintTop_toBottomOf="@id/total_label"/>
-
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/total_label"
+                tools:text="Vui lòng chọn sản phẩm"
+                tools:textSize="16sp" />
 
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#D5FF0000"
+                android:padding="7dp"
+                android:text="@{@string/paid_product_total(1)}"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/choose_voucher"
-                android:background="#D5FF0000"
-                android:padding="7dp"
-                android:textAllCaps="false"
-                android:textSize="18sp"
-                android:textColor="@color/white"
-                android:text="@{@string/paid_product_total(1)}"
-                tools:text="Mua hàng (1)"
-                android:layout_margin="10dp"/>
+                tools:text="Mua hàng (1)" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>

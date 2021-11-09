@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="productInCart"
+            type="com.tuan2101.ezimarket.dataclasses.ProductInCart" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:padding="5dp">
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:checked="@{productInCart.status}"/>
+
+        <ImageView
+            android:id="@+id/product_img"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toEndOf="@id/checkbox"
+            loadImage="@{productInCart.imageProduct}"
+            tools:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:text="@{productInCart.nameProduct}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/product_img"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Đừng lựa chọn an nhàn khi còn trẻ (Tái bản)" />
+
+
+        <LinearLayout
+            android:id="@+id/price_area"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@id/product_img"
+            app:layout_constraintTop_toBottomOf="@id/product_name">
+
+            <TextView
+                android:id="@+id/new_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxWidth="100dp"
+                android:maxLines="1"
+                android:textColor="@color/themeColor"
+                android:textSize="18sp"
+                android:text="@{@string/new_price(productInCart.newPrice)}"
+                tools:text="d 90000" />
+
+            <TextView
+                android:id="@+id/old_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:ellipsize="end"
+                android:maxWidth="75dp"
+                android:maxLines="1"
+                android:textColor="#938D8D"
+                android:textSize="14sp"
+                setOldPrice="@{productInCart}"
+                tools:text="d 180000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/adjust_area"
+            android:layout_width="78dp"
+            android:layout_height="28dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/price_area"
+            app:layout_constraintStart_toEndOf="@id/product_img"
+            android:layout_margin="10dp"
+            android:background="#E5E6E6">
+
+            <ImageView
+                android:id="@+id/decrease"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:src="@drawable/minus_icon"
+                android:layout_margin="1dp"/>
+
+            <TextView
+                android:id="@+id/product_quantity"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                tools:text="20"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:layout_margin="1dp"
+                android:background="@color/white"
+                android:text="@{String.valueOf(productInCart.productQuantity)}"
+                android:textColor="@color/black"/>
+
+            <ImageView
+                android:id="@+id/increase"
+                android:layout_width="0dp"
+                android:background="@color/white"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/plus_icon"
+                android:layout_margin="1dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/price_area"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="10dp"
+            android:text="Xóa"
+            android:textSize="16sp"
+            android:textColor="@color/purple_200"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

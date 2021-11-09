@@ -8,5 +8,6 @@ class Shop(id: String,
            shopName: String,
            override var vital: String = "shop",
            followerList: List<User>?,
-           followingList: List<User>?
-) : User(id, shopName, avatar, vital, followerList, followingList)
+           followingList: List<User>?,
+           location: Location
+) : User(id, shopName, avatar, vital, followerList, followingList, location)

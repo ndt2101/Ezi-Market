@@ -12,7 +12,7 @@
     </data>
     <RelativeLayout
         android:id="@+id/shopping"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:layout_height="wrap_content"
         android:layout_width="100dp"
         android:onClick="@{() -> listener.onItemClickListener(item.id)}">
@@ -20,8 +20,8 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/category_item_img"
             loadImageFromResource="@{item.img}"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
             android:cropToPadding="true"

@@ -21,10 +21,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.tuan2101.ezimarket.R
 import com.tuan2101.ezimarket.adapter.*
 import com.tuan2101.ezimarket.databinding.FragmentHomeBinding
-import com.tuan2101.ezimarket.dataclasses.AdvertisementPhoto
-import com.tuan2101.ezimarket.dataclasses.CategoryItem
-import com.tuan2101.ezimarket.dataclasses.News
-import com.tuan2101.ezimarket.dataclasses.Product
+import com.tuan2101.ezimarket.dataclasses.*
 import com.tuan2101.ezimarket.utils.ZoomOutPageTransformer
 import com.tuan2101.ezimarket.viewmodel.HomeFragmentViewModel
 
@@ -175,7 +172,6 @@ class HomeFragment : Fragment() {
                 Toast.makeText(context, "chuyen", Toast.LENGTH_SHORT).show()
             }
         })
-
         return binding.root
     }
 
@@ -258,7 +254,7 @@ class HomeFragment : Fragment() {
                 400000,
                 299000,
                 4.5f,
-                "Ho Chi Minh",
+                Location("Doi 6 An Doai", "An binh", "Nam Sach", "Hai Duong"),
                 900
             )
         )
@@ -271,7 +267,7 @@ class HomeFragment : Fragment() {
                 299000,
                 299000,
                 4.5f,
-                "Ho Chi Minh",
+                Location("Doi 6 An Doai", "An binh", "Nam Sach", "Hai Duong"),
                 2900
             )
         )
@@ -284,7 +280,7 @@ class HomeFragment : Fragment() {
                 400000,
                 299000,
                 4.5f,
-                "Ho Chi Minh",
+                Location("Doi 6 An Doai", "An binh", "Nam Sach", "Hai Duong"),
                 29499
             )
         )
@@ -297,7 +293,7 @@ class HomeFragment : Fragment() {
                 400000,
                 299000,
                 4.0f,
-                "Ho Chi Minh",
+                Location("Doi 6 An Doai", "An binh", "Nam Sach", "Hai Duong"),
                 900
             )
         )
@@ -310,7 +306,7 @@ class HomeFragment : Fragment() {
                 400000,
                 299000,
                 3.5f,
-                "Ho Chi Minh",
+                Location("Doi 6 An Doai", "An binh", "Nam Sach", "Hai Duong"),
                 900
             )
         )
@@ -323,7 +319,7 @@ class HomeFragment : Fragment() {
                 400000,
                 299000,
                 2.5f,
-                "Ho Chi Minh",
+                Location("Doi 6 An Doai", "An binh", "Nam Sach", "Hai Duong"),
                 900
             )
         )

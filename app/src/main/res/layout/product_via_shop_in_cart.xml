@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="productViaShopInCart"
+            type="com.tuan2101.ezimarket.dataclasses.ProductViaShopInCart" />
+        <variable
+            name="listener"
+            type="com.tuan2101.ezimarket.adapter.CartAdapter.ClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginBottom="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/all_product_via_shop_check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@{productViaShopInCart.status}"
+                android:onClick="@{() -> listener.onSelectAllProductViaShop(productViaShopInCart.shopId)}"/>
+
+            <TextView
+                android:id="@+id/shop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:text="@{productViaShopInCart.shopName}"
+                tools:text="Vadata"
+                android:onClick="@{() -> listener.onClickVisitShop(productViaShopInCart.shopId)}"
+                app:drawableEndCompat="@drawable/arrow_right" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/product_via_shop_rcv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:onClick="@{() -> listener.onClickSelectVoucher(productViaShopInCart.shopId)}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:text="Shop khuyến mãi"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/text_voucher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="@color/gray"
+                android:padding="2dp"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:drawableEndCompat="@drawable/arrow_right"
+                app:drawableStartCompat="@drawable/coupon_icon"
+                tools:text="Giảm 20%" />
+
+            <TextView
+                android:id="@+id/unselect_any_product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:text="Vui lòng chọn sản phẩm trước"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/nothing_voucher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dp"
+                app:drawableEndCompat="@drawable/arrow_right" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

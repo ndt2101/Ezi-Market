@@ -5,56 +5,45 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tuan2101.ezimarket.R
+import com.tuan2101.ezimarket.adapter.CartAdapter
+import com.tuan2101.ezimarket.databinding.FragmentCartBinding
+import com.tuan2101.ezimarket.dataclasses.Location
+import com.tuan2101.ezimarket.dataclasses.Product
+import com.tuan2101.ezimarket.dataclasses.ProductInCart
+import com.tuan2101.ezimarket.dataclasses.ProductViaShopInCart
+import com.tuan2101.ezimarket.viewmodel.CartFragmentViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CartFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CartFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var binding: FragmentCartBinding
+    lateinit var adapter: CartAdapter
+    lateinit var viewModel: CartFragmentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false)
+        binding = FragmentCartBinding.inflate(inflater, container, false)
+
+        viewModel = ViewModelProvider(this)[CartFragmentViewModel::class.java]
+        binding.productViaShopRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        adapter = CartAdapter(CartAdapter.ClickListener(
+            {shopId -> viewModel.clickAllProductViaShop(shopId) },
+            {shopId -> viewModel.clickVisitShop(shopId) },
+            {shopId -> viewModel.clickSelectVoucher(shopId) }
+        ), viewModel, viewLifecycleOwner)
+        binding.productViaShopRecyclerView.adapter = adapter
+        binding.address.text = Location("Doi 6 An Doai", "An binh", "Nam Sach", "Hai Duong").toString()
+        binding.phoneNumber.text = "0789266255"
+        binding.receiver.text = "Nguyen Dinh Tuan"
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CartFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CartFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationBarView
 import com.tuan2101.ezimarket.R
@@ -45,6 +46,7 @@ class HostFragment : Fragment() {
             }
         })
 
+
         binding.bottomNavView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_home -> binding.viewpager.currentItem = 0
@@ -53,6 +55,10 @@ class HostFragment : Fragment() {
                 R.id.menu_individual -> binding.viewpager.currentItem = 3
             }
             true
+        }
+
+        binding.cart.setOnClickListener {
+            findNavController().navigate(HostFragmentDirections.actionHostFragmentToCartFragment())
         }
 
         binding.viewpager.setPageTransformer(DepthPageTransformer())

@@ -65,7 +65,13 @@ class CommentFragment() : BottomSheetDialogFragment() {
                 "",
                 "",
                 null,
-                null
+                null,
+                Location(
+                    "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
+                    "Mỹ Đình 2",
+                    "Nam Từ Liêm",
+                    "Hà Nội"
+                )
             ), 0,
             "",
             "",
@@ -76,7 +82,7 @@ class CommentFragment() : BottomSheetDialogFragment() {
                 0,
                 0,
                 0f,
-                "",
+                Location("Doi 6 An Doai", "An binh", "Nam Sach", "Hai Duong"),
                 0
             ),
             Voucher(
@@ -87,7 +93,13 @@ class CommentFragment() : BottomSheetDialogFragment() {
                     "",
                     "",
                     null,
-                    null
+                    null,
+                    Location(
+                        "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
+                        "Mỹ Đình 2",
+                        "Nam Từ Liêm",
+                        "Hà Nội"
+                    )
                 ),
                 0.0,
                 "",
@@ -104,7 +116,13 @@ class CommentFragment() : BottomSheetDialogFragment() {
                         "",
                         "",
                         null,
-                        null
+                        null,
+                        Location(
+                            "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
+                            "Mỹ Đình 2",
+                            "Nam Từ Liêm",
+                            "Hà Nội"
+                        )
                     ),
                     0,
                     ""

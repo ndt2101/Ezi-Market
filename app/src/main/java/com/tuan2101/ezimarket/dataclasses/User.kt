@@ -8,5 +8,16 @@ open class User(open val id: String,
                 open val avatar: String,
                 open var vital: String = "customer",
                 open val followerList: List<User>?,
-                open val followingList: List<User>?
+                open val followingList: List<User>?,
+                location: Location
 )
+
+class Location(val specificAddress: String,
+               val ward: String,
+               val district: String,
+               val province: String,
+) {
+    override fun toString(): String {
+        return "$specificAddress $ward $district $province"
+    }
+}
