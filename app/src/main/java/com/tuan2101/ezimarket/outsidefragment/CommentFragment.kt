@@ -82,8 +82,21 @@ class CommentFragment() : BottomSheetDialogFragment() {
                 0,
                 0,
                 0f,
-                Location("Doi 6 An Doai", "An binh", "Nam Sach", "Hai Duong"),
-                0
+                0,
+                Shop(
+                    "u1",
+                    "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
+                    "Thùy Dương",
+                    "shop",
+                    null,
+                    null,
+                    Location(
+                        "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
+                        "Mỹ Đình 2",
+                        "Nam Từ Liêm",
+                        "Hà Nội"
+                    )
+                )
             ),
             Voucher(
                 "",

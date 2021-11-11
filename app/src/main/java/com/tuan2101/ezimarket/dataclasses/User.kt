@@ -9,7 +9,7 @@ open class User(open val id: String,
                 open var vital: String = "customer",
                 open val followerList: List<User>?,
                 open val followingList: List<User>?,
-                location: Location
+                open val location: Location
 )
 
 class Location(val specificAddress: String,

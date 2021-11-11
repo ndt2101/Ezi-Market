@@ -14,7 +14,7 @@ class ProductViaShopInCart() : BaseObservable() {
         shopId: String,
         shopName: String,
         status: Boolean,
-        listProduct: MutableLiveData<List<MutableLiveData<ProductInCart>>>?
+        listProduct: MutableLiveData<ArrayList<MutableLiveData<ProductInCart>>>?
     ) : this() {
         this.shopId = shopId
         this.shopName = shopName
@@ -44,7 +44,7 @@ class ProductViaShopInCart() : BaseObservable() {
         }
 
     @get:Bindable
-    var listProduct: MutableLiveData<List<MutableLiveData<ProductInCart>>>? = null
+    var listProduct: MutableLiveData<ArrayList<MutableLiveData<ProductInCart>>>? = null
         set(value) {
             field = value
             notifyPropertyChanged(BR.listProduct)
