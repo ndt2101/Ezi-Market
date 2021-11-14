@@ -21,7 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 @BindingAdapter("setOldPrice")
 fun TextView.setOldPrice(product: Product) {
     if (product.oldPrice > product.newPrice) {
-        this.text = "đ ${product.oldPrice}"
+        this.text = "${product.oldPrice} đ"
         this.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
     } else {
         this.visibility = View.GONE
@@ -77,4 +77,15 @@ fun RelativeLayout.setSelectedItemBackground(id: String ,itemId: MutableLiveData
 
     Log.i("rrr", id)
     itemId.value?.id?.let { Log.i("rr", it) }
+}
+
+@BindingAdapter("setTotalPrice")
+fun TextView.setTotalPrice(totalPrice: Long) {
+    if (totalPrice == 0L) {
+        textSize = resources.getDimension(R.dimen.small)
+        text = "Vui lòng chọn sản phẩm"
+    } else {
+        text = "$totalPrice đ"
+        textSize = resources.getDimension(R.dimen.large)
+    }
 }

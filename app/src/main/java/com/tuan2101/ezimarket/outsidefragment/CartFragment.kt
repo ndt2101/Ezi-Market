@@ -30,38 +30,27 @@ class CartFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentCartBinding.inflate(inflater, container, false)
-
         viewModel = ViewModelProvider(this)[CartFragmentViewModel::class.java]
         binding.productViaShopRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-
-
-
         adapter = CartAdapter(CartAdapter.ClickListener(
-            {shopId -> viewModel.clickAllProductViaShop(shopId) },
+            {productViaShopInCart -> viewModel.clickAllProductViaShop(productViaShopInCart) },
             {shopId -> viewModel.clickVisitShop(shopId) },
             {shopId -> viewModel.clickSelectVoucher(shopId) }
         ), viewModel, viewLifecycleOwner, CartViaShopAdapter.ClickListener(
-            -1,
-            -1,
-            {position, shopPosition -> viewModel.clickToPay(position, shopPosition) },
+            {productInCart, productViaShopInCart -> viewModel.clickToPay(productInCart, productViaShopInCart) },
             {productInCart -> viewModel.clickToVisitProductDetail(productInCart) },
-            {position, shopPosition -> viewModel.clickToBuyMore(position, shopPosition) },
-            {position, shopPosition -> viewModel.clickToBuyLess(position, shopPosition) },
-            {position, shopPosition -> viewModel.clickToDeleteProduct(position, shopPosition) }
+            {productInCart, productViaShopInCart -> viewModel.clickToBuyMore(productInCart, productViaShopInCart) },
+            {productInCart, productViaShopInCart -> viewModel.clickToBuyLess(productInCart, productViaShopInCart) },
+            {productInCart, productViaShopInCart -> viewModel.clickToDeleteProduct(productInCart, productViaShopInCart) }
         ))
-        adapter.submitList(viewModel.listProductInCart.value)
         binding.productViaShopRecyclerView.adapter = adapter
-
         viewModel.listProductInCart.observe(viewLifecycleOwner, {
-            adapter.submitList(viewModel.listProductInCart.value)
+            adapter.submitList(it.clone() as ArrayList<ProductViaShopInCart>)
+            Log.i("aaa", "vua xoa shop")
         })
 
-
-        viewModel.listProductInCart.observe(viewLifecycleOwner, {
-            adapter.notifyDataSetChanged()
-            Log.i("chay vao d", "chay vao d")
-        })
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
 
         binding.address.text = Location("Doi 6 An Doai", "An binh", "Nam Sach", "Hai Duong").toString()
         binding.phoneNumber.text = "0789266255"

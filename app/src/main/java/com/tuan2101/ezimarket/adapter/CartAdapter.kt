@@ -4,13 +4,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.tuan2101.ezimarket.databinding.ProductViaShopInCartBinding
 import com.tuan2101.ezimarket.dataclasses.ProductViaShopInCart
 import com.tuan2101.ezimarket.viewmodel.CartFragmentViewModel
+import java.util.concurrent.Executors
 
 /**
  * Created by ndt2101 on 11/4/2021.
@@ -20,7 +18,11 @@ class CartAdapter(
     val model: CartFragmentViewModel,
     val lifecycleOwner: LifecycleOwner,
     val productClickListener: CartViaShopAdapter.ClickListener
-) : ListAdapter<ProductViaShopInCart , CartAdapter.ProductViaShopViewHolder>(ProductViaShopInCartCallBack()) {
+) : ListAdapter<ProductViaShopInCart, CartAdapter.ProductViaShopViewHolder>(
+    AsyncDifferConfig.Builder(ProductViaShopInCartCallBack())
+        .setBackgroundThreadExecutor(Executors.newSingleThreadExecutor())
+        .build()
+) {
 
     init {
         Log.i("re", "create")
@@ -31,7 +33,14 @@ class CartAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductViaShopViewHolder, position: Int) {
-        holder.bind(getItem(position), clickListener, model, position, lifecycleOwner, productClickListener)
+        holder.bind(
+            getItem(position),
+            clickListener,
+            model,
+            position,
+            lifecycleOwner,
+            productClickListener
+        )
     }
 
     class ProductViaShopViewHolder(val binding: ProductViaShopInCartBinding) :
@@ -57,30 +66,44 @@ class CartAdapter(
             productClickListener: CartViaShopAdapter.ClickListener
         ) {
 
-            model.listProductInCart.value!![position].listProduct?.observe(
-                lifecycleOwner,
-                {
-                    binding.productViaShopRcv.layoutManager =
-                        LinearLayoutManager(
-                            binding.root.context,
-                            LinearLayoutManager.VERTICAL,
-                            false
-                        )
-                    binding.lifecycleOwner = lifecycleOwner
-                    binding.productViaShopInCart = data
-                    binding.listener = clickListener
-                    val cartViaShopAdapter =
-                        CartViaShopAdapter(model, position, lifecycleOwner, productClickListener)
-                    binding.productViaShopRcv.adapter = cartViaShopAdapter
-                })
+            binding.productViaShopRcv.layoutManager =
+                LinearLayoutManager(
+                    binding.root.context,
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+            binding.lifecycleOwner = lifecycleOwner
+            binding.productViaShopInCart = data
+            val clickListenerClone = ClickListener(
+                clickListener.clickAllProductViaShop,
+                clickListener.clickVisitShop, clickListener.clickSelectVoucher
+            )
+            binding.listener = clickListenerClone
+            val cartViaShopAdapter =
+                CartViaShopAdapter(data, model, position, lifecycleOwner, productClickListener)
+            cartViaShopAdapter.submitList(data.listProduct?.value!!)
+            binding.productViaShopRcv.adapter = cartViaShopAdapter
+//            // TODO: lấy chính xác shop position của data trong list ở ViewModel (update khi xoa product)
+//            model.listProductInCart.value!![position].listProduct?.observe(
+//                lifecycleOwner,
+//                {
+//                    val newList = ArrayList(it)
+//                    cartViaShopAdapter.submitList(newList)
+//                    val clickListenerClone2 = ClickListener(
+//                        clickListener.clickAllProductViaShop,
+//                        clickListener.clickVisitShop, clickListener.clickSelectVoucher
+//                    )
+//                    binding.listener = clickListenerClone2
+//                })
         }
     }
 
-    class ProductViaShopInCartCallBack() : DiffUtil.ItemCallback<ProductViaShopInCart>() {
+    class ProductViaShopInCartCallBack : DiffUtil.ItemCallback<ProductViaShopInCart>() {
         override fun areItemsTheSame(
             oldItem: ProductViaShopInCart,
             newItem: ProductViaShopInCart
         ): Boolean {
+            Log.i("so sanh item", (oldItem.shopId == newItem.shopId).toString())
             return oldItem.shopId == newItem.shopId
         }
 
@@ -88,17 +111,18 @@ class CartAdapter(
             oldItem: ProductViaShopInCart,
             newItem: ProductViaShopInCart
         ): Boolean {
-            return oldItem == newItem
+//            Log.i("so sanh noi dung", (oldItem.listProduct!!.value!!.size == newItem.listProduct!!.value!!.size).toString())
+            Log.i("so sanh noi dung", "${oldItem.listProduct!!.value!!.size} == ${newItem.listProduct!!.value!!.size}")
+            return false
         }
-
     }
 
     class ClickListener(
-        val clickAllProductViaShop: (shopId: String) -> Unit,
+        val clickAllProductViaShop: (productViaShopInCart: ProductViaShopInCart) -> Unit,
         val clickVisitShop: (shopId: String) -> Unit,
         val clickSelectVoucher: (shopId: String) -> Unit
     ) {
-        fun onSelectAllProductViaShop(shopId: String) = clickAllProductViaShop(shopId)
+        fun onSelectAllProductViaShop(productViaShopInCart: ProductViaShopInCart) = clickAllProductViaShop(productViaShopInCart)
         fun onClickVisitShop(shopId: String) = clickVisitShop(shopId)
         fun onClickSelectVoucher(shopId: String) = clickSelectVoucher(shopId)
     }

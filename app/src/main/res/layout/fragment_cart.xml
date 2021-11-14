@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.tuan2101.ezimarket.viewmodel.CartFragmentViewModel" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -98,8 +104,10 @@
                         android:background="@color/white"
                         android:padding="5dp"
                         android:layout_weight="5"
-                        android:text="@{@string/count_total(1)}"
+                        android:checked="@{viewModel.selectAllProduct}"
+                        android:text="@{@string/count_total(viewModel.totalProductCount)}"
                         app:layout_collapseMode="pin"
+                        android:onClick="@{() -> viewModel.clickAllProduct()}"
                         tools:text="Tất cả (1 sản phẩm)" />
 
                     <ImageView
@@ -110,6 +118,7 @@
                         android:padding="10dp"
                         android:background="@color/white"
                         android:layout_marginBottom="5dp"
+                        android:onClick="@{() -> viewModel.deleteAll()}"
                         android:src="@drawable/ic_baseline_delete_forever_24"/>
                 </LinearLayout>
             </com.google.android.material.appbar.AppBarLayout>
@@ -158,6 +167,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:onClick="@{() -> viewModel.onNavigateToMarketVoucherFragment()}"
                 android:text="Nhập hoặc chọn mã"
                 android:textSize="16sp"
                 app:drawableEndCompat="@drawable/arrow_right"
@@ -181,11 +191,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                setTotalPrice="@{viewModel.totalPrice}"
                 android:textColor="@color/custom"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/total_label"
-                tools:text="Vui lòng chọn sản phẩm"
-                tools:textSize="16sp" />
+                tools:text="36000 d"
+                tools:textSize="25sp" />
 
 
             <androidx.appcompat.widget.AppCompatButton
@@ -195,7 +206,7 @@
                 android:layout_margin="10dp"
                 android:background="#D5FF0000"
                 android:padding="7dp"
-                android:text="@{@string/paid_product_total(1)}"
+                android:text="@{@string/paid_product_total(viewModel.totalProductCount)}"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="18sp"

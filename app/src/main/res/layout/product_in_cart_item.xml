@@ -13,6 +13,10 @@
         <variable
             name="listener"
             type="com.tuan2101.ezimarket.adapter.CartViaShopAdapter.ClickListener" />
+
+        <variable
+            name="productViaShopInCart"
+            type="com.tuan2101.ezimarket.dataclasses.ProductViaShopInCart" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:checked="@{productInCart.productStatus}"
-            android:onClick="@{() -> listener.onClickToPay(listener.position, listener.shopPosition)}"
+            android:onClick="@{() -> listener.onClickToPay(productInCart, productViaShopInCart)}"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
@@ -109,7 +113,7 @@
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:onClick="@{() -> listener.onClickToBuyLess(listener.position, listener.shopPosition)}"
+                android:onClick="@{() -> listener.onClickToBuyLess(productInCart, productViaShopInCart)}"
                 android:src="@drawable/minus_icon" />
 
             <TextView
@@ -132,7 +136,7 @@
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:onClick="@{() -> listener.onClickToBuyMore(listener.position, listener.shopPosition)}"
+                android:onClick="@{() -> listener.onClickToBuyMore(productInCart, productViaShopInCart)}"
                 android:src="@drawable/plus_icon" />
         </LinearLayout>
 
@@ -144,7 +148,7 @@
             android:text="Xóa"
             android:textColor="@color/purple_200"
             android:textSize="16sp"
-            android:onClick="@{() -> listener.onClickToDeleteProduct(listener.position, listener.shopPosition)}"
+            android:onClick="@{() -> listener.onClickToDeleteProduct(productInCart, productViaShopInCart)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/price_area" />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@{productViaShopInCart.status}"
-                android:onClick="@{() -> listener.onSelectAllProductViaShop(productViaShopInCart.shopId)}"/>
+                android:onClick="@{() -> listener.onSelectAllProductViaShop(productViaShopInCart)}"/>
 
             <TextView
                 android:id="@+id/shop_name"
