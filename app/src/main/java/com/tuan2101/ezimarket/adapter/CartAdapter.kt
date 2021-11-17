@@ -120,10 +120,10 @@ class CartAdapter(
     class ClickListener(
         val clickAllProductViaShop: (productViaShopInCart: ProductViaShopInCart) -> Unit,
         val clickVisitShop: (shopId: String) -> Unit,
-        val clickSelectVoucher: (shopId: String) -> Unit
+        val clickSelectVoucher: (productViaShopInCart: ProductViaShopInCart) -> Unit
     ) {
         fun onSelectAllProductViaShop(productViaShopInCart: ProductViaShopInCart) = clickAllProductViaShop(productViaShopInCart)
         fun onClickVisitShop(shopId: String) = clickVisitShop(shopId)
-        fun onClickSelectVoucher(shopId: String) = clickSelectVoucher(shopId)
+        fun onClickSelectVoucher(productViaShopInCart: ProductViaShopInCart) = clickSelectVoucher(productViaShopInCart)
     }
 }

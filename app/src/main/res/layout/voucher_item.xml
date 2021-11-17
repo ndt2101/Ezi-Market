@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="voucher"
+            type="com.tuan2101.ezimarket.dataclasses.Voucher" />
+
+        <variable
+            name="listener"
+            type="com.tuan2101.ezimarket.adapter.VoucherAdapter.OnClickListener" />
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/voucher_shop_img"
+                loadImage="@{voucher.voucherShop.avatar}"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                tools:src="@drawable/logo" />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="-50dp"
+                android:layout_marginRight="-50dp"
+                android:background="@drawable/rotate"
+                tools:ignore="RtlSymmetry" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/voucher_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="@{String.valueOf(voucher.discount)}"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Giam 30% " />
+
+                <TextView
+                    android:id="@+id/voucher_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@{voucher.voucherDescription}"
+                    android:textSize="16sp"
+                    tools:text="Giam 30% cho cac don hang tu 1 trieu vdus sdhfuias sdhfuhjoidjf jiiodfjg jifgjisfd ijdfiuj jdfiuj isjdfgui" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/button_background"
+                        android:text="@{String.valueOf(voucher.voucherStatus)}"
+                        android:textAllCaps="false"
+                        android:onClick="@{() -> listener.onClickSetVoucher(voucher)}"
+                        android:textColor="@color/black" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/added"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/white"
+                        android:text="Đã lưu"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/exp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        dateFormat="@{voucher.exp}"
+                        android:textSize="16sp"
+                        tools:text="Hạn sử dụng: 30/12/2021" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

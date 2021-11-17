@@ -35,7 +35,7 @@ class CartFragment : Fragment() {
         adapter = CartAdapter(CartAdapter.ClickListener(
             {productViaShopInCart -> viewModel.clickAllProductViaShop(productViaShopInCart) },
             {shopId -> viewModel.clickVisitShop(shopId) },
-            {shopId -> viewModel.clickSelectVoucher(shopId) }
+            {productViaShopInCart -> viewModel.clickSelectVoucher(productViaShopInCart) }
         ), viewModel, viewLifecycleOwner, CartViaShopAdapter.ClickListener(
             {productInCart, productViaShopInCart -> viewModel.clickToPay(productInCart, productViaShopInCart) },
             {productInCart -> viewModel.clickToVisitProductDetail(productInCart) },
@@ -55,6 +55,13 @@ class CartFragment : Fragment() {
         binding.address.text = Location("Doi 6 An Doai", "An binh", "Nam Sach", "Hai Duong").toString()
         binding.phoneNumber.text = "0789266255"
         binding.receiver.text = "Nguyen Dinh Tuan"
+
+        viewModel.currentShopToGetVoucher.observe(viewLifecycleOwner, {
+            if (it != null) {
+                val voucherFragment = VoucherFragment(it) { voucher -> viewModel.setVoucher(voucher) }
+                voucherFragment.show(childFragmentManager, VoucherFragment.TAG)
+            }
+        })
 
         return binding.root
     }

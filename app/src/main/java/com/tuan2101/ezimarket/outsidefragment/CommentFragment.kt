@@ -118,7 +118,8 @@ class CommentFragment() : BottomSheetDialogFragment() {
                 "",
                 Date(2021, 11, 18),
                 0,
-                0
+                0,
+                false
             ),
             ArrayList<String>(),
             mutableListOf(

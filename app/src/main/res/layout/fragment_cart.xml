@@ -105,7 +105,7 @@
                         android:padding="5dp"
                         android:layout_weight="5"
                         android:checked="@{viewModel.selectAllProduct}"
-                        android:text="@{@string/count_total(viewModel.totalProductCount)}"
+                        android:text="@{@string/count_total(viewModel.totalProduct)}"
                         app:layout_collapseMode="pin"
                         android:onClick="@{() -> viewModel.clickAllProduct()}"
                         tools:text="Tất cả (1 sản phẩm)" />

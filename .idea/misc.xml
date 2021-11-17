@@ -43,13 +43,14 @@
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/activity_splash.xml" value="0.2" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/advertisament_item.xml" value="0.25416666666666665" />
-        <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/advertisement_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/advertisement_item.xml" value="0.176" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/category_item.xml" value="0.4" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/comment_fragment.xml" value="0.128" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/comment_item.xml" value="0.176" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/custom_tab_bar.xml" value="0.2" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/explore_fragment.xml" value="0.2" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/footer.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/fragmenr_voucher.xml" value="0.16" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/fragment_cart.xml" value="0.2" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/fragment_category.xml" value="0.2" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/fragment_explore.xml" value="0.144" />
@@ -60,6 +61,7 @@
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/fragment_individual.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/fragment_new_feed.xml" value="0.144" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/fragment_news_feed_item.xml" value="0.176" />
+        <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/fragment_voucher.xml" value="0.121484375" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/intro_screen.xml" value="0.176" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/news_feed_item_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/parent_category_item.xml" value="0.4" />
@@ -68,6 +70,7 @@
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/product_item.xml" value="0.2" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/product_via_shop_in_cart.xml" value="0.16799999999999998" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/top_news_item.xml" value="0.264" />
+        <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/layout/voucher_item.xml" value="0.176" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/menu/bottom_nav_view_menu.xml" value="0.13796296296296295" />
         <entry key="..\:/AndroidProject/Ezi-Market/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2703125" />
       </map>

@@ -3,11 +3,10 @@ package com.tuan2101.ezimarket.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.tuan2101.ezimarket.dataclasses.Location
-import com.tuan2101.ezimarket.dataclasses.ProductInCart
-import com.tuan2101.ezimarket.dataclasses.ProductViaShopInCart
-import com.tuan2101.ezimarket.dataclasses.Shop
+import com.tuan2101.ezimarket.dataclasses.*
 import com.tuan2101.ezimarket.utils.notifyObserverInUI
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by ndt2101 on 11/5/2021.
@@ -16,17 +15,21 @@ class CartFragmentViewModel() : ViewModel() {
 
     var listProductInCart = MutableLiveData<ArrayList<ProductViaShopInCart>>()
     val currentVisitedShopId = MutableLiveData<String>()
-    var currentSelectedShopIdToGetVoucher = MutableLiveData<String>()
+    var currentShopToGetVoucher = MutableLiveData<ProductViaShopInCart>()
     var shopPosition = MutableLiveData<Int>()
     val productPosition = MutableLiveData<Int>()
     val totalProductCount = MutableLiveData<Int>(0)
     val totalPrice = MutableLiveData<Long>(0L)
     val selectAllProduct = MutableLiveData<Boolean>(false)
     val navigateToMarketVoucherFragment = MutableLiveData(false)
+    var totalProduct = MutableLiveData<Int>(0)
 
     init {
         listProductInCart.value = dummyDataForCart()
         totalPrice.value = 0L
+        for (shop in listProductInCart.value!!) {
+            totalProduct.value = totalProduct.value?.plus(shop.listProduct?.value?.size ?: 0)
+        }
     }
 
     // TODO: ti sua lai
@@ -39,14 +42,18 @@ class CartFragmentViewModel() : ViewModel() {
                     for (product in productViaShopInCart.listProduct?.value!!) {
                         if (!product.productStatus) { // product chua click
                             product.productStatus = true
-                            totalProductCount.value =
-                                totalProductCount.value?.plus(product.productQuantity.toInt())
-                            totalPrice.value =
-                                totalPrice.value?.plus(product.productQuantity * product.newPrice)
+                            productViaShopInCart.oldTotalPrice += product.productQuantity * product.newPrice
+                            productViaShopInCart.currentSelectedProductCount ++
                         }
                     }
+                    totalPrice.value =
+                        totalPrice.value?.minus(productViaShopInCart.newTotalPrice)
+                    applyVoucher(productViaShopInCart.voucher, productViaShopInCart)
+                    totalPrice.value =
+                        totalPrice.value?.plus(productViaShopInCart.newTotalPrice)
                 }
             }
+            totalProductCount.value = totalProduct.value
         } else { // truong hop da click chon tat ca
             selectAllProduct.value = false // set co sang chua click
             // dua tat ca ve chua click
@@ -55,6 +62,10 @@ class CartFragmentViewModel() : ViewModel() {
                 for (product in productViaShopInCart.listProduct?.value!!) {
                     product.productStatus = false
                 }
+                productViaShopInCart.currentSelectedProductCount = 0
+                productViaShopInCart.newTotalPrice = 0
+                productViaShopInCart.oldTotalPrice = 0
+                productViaShopInCart.voucher = null
             }
             // dua het ve 0
             totalProductCount.value = 0
@@ -67,27 +78,30 @@ class CartFragmentViewModel() : ViewModel() {
         if (position != null) {
             if (productViaShopInCart.status) { // th shop da duoc click roi
                 for (product in listProductInCart.value?.get(position)?.listProduct?.value!!) {
-                    if (product.productStatus) { // th product da duoc click roi
-                        product.productStatus = false
-                        totalProductCount.value =
-                            totalProductCount.value?.minus((product.productQuantity).toInt())
-                        totalPrice.value =
-                            totalPrice.value?.minus(product.productQuantity * product.newPrice)
-                    }
+                    product.productStatus = false
                 }
+                totalProductCount.value = totalProductCount.value?.minus(productViaShopInCart.currentSelectedProductCount)
+                totalPrice.value = totalPrice.value?.minus(productViaShopInCart.newTotalPrice)
+                productViaShopInCart.currentSelectedProductCount = 0
+                productViaShopInCart.oldTotalPrice = 0
+                productViaShopInCart.newTotalPrice = 0
                 productViaShopInCart.status = false
+                productViaShopInCart.voucher = null
             } else { // th shop chua duoc click
                 for (product in listProductInCart.value?.get(position)?.listProduct?.value!!) {
                     if (!product.productStatus) { // th product chua duoc click
                         product.productStatus = true
                         totalProductCount.value =
-                            totalProductCount.value?.plus((product.productQuantity).toInt())
-                        totalPrice.value =
-                            totalPrice.value?.plus(product.productQuantity * product.newPrice)
+                            totalProductCount.value?.plus(1)
+                        productViaShopInCart.oldTotalPrice += product.productQuantity * product.newPrice
                     }
                 }
+                applyVoucher(productViaShopInCart.voucher, productViaShopInCart)
+                totalPrice.value = totalPrice.value?.plus(productViaShopInCart.newTotalPrice)
+                productViaShopInCart.currentSelectedProductCount = productViaShopInCart.listProduct!!.value!!.size
                 productViaShopInCart.status = true
             }
+            selectAllProduct.value = totalProductCount.value == totalProduct.value
         }
     }
 
@@ -96,10 +110,46 @@ class CartFragmentViewModel() : ViewModel() {
         Log.i("v", "shopId $shopId")
     }
 
-    fun clickSelectVoucher(shopId: String) {
-        currentSelectedShopIdToGetVoucher.value = shopId
-        Log.i("aaa", "voucher: shopId $shopId")
+    fun clickSelectVoucher(productViaShopInCart: ProductViaShopInCart) {
+        currentShopToGetVoucher.value = productViaShopInCart
+        Log.i("aaa", "voucher: shopId ${currentShopToGetVoucher.value!!.shopId}")
     }
+
+    fun setVoucher(voucher: Voucher) {
+        val position = listProductInCart.value?.indexOf(currentShopToGetVoucher.value)
+        if (position != -1 && currentShopToGetVoucher.value!!.oldTotalPrice >= voucher.priceCondition) {
+            currentShopToGetVoucher.value!!.voucher = voucher
+            voucher.voucherStatus = true
+            Log.i("voucher1", "chay vao day1")
+            totalPrice.value = totalPrice.value?.minus(currentShopToGetVoucher.value!!.oldTotalPrice)
+            applyVoucher(voucher, currentShopToGetVoucher.value!!)
+            totalPrice.value = totalPrice.value?.plus(currentShopToGetVoucher.value!!.newTotalPrice)
+        }
+    }
+
+    fun applyVoucher(voucher: Voucher?, productViaShopInCart: ProductViaShopInCart) {
+        if (productViaShopInCart.voucher != null) {
+            if (productViaShopInCart.oldTotalPrice >= voucher!!.priceCondition) {
+                productViaShopInCart.apply {
+                    newTotalPrice = (oldTotalPrice - oldTotalPrice * voucher.discount).toLong()
+                    Log.i("voucher1", "chay vao day2")
+                }
+            } else {
+                productViaShopInCart.apply {
+                    newTotalPrice = oldTotalPrice
+                    this.voucher?.voucherStatus = false
+                    this.voucher = null
+                }
+            }
+        } else {
+            productViaShopInCart.apply {
+                newTotalPrice = oldTotalPrice
+                this.voucher?.voucherStatus = false
+                this.voucher = null
+            }
+        }
+    }
+
 
     fun clickToPay(productInCart: ProductInCart, productViaShopInCart: ProductViaShopInCart) {
         shopPosition.value = listProductInCart.value!!.indexOf(productViaShopInCart)
@@ -110,46 +160,57 @@ class CartFragmentViewModel() : ViewModel() {
                 // th product chua duoc click
                 if (!listProductInCart.value!![shopPosition.value!!].listProduct!!.value!![productPosition.value!!].productStatus) {
                     // tang bien count so luong
-                    totalProductCount.value = totalProductCount.value?.plus(
-                        (listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(
-                            productPosition.value!!
-                        )?.productQuantity)?.toInt()!!
-                    )
-                    // tang tong so tien
-                    totalPrice.value = totalPrice.value?.plus(
-                        (listProductInCart.value!![shopPosition.value!!].listProduct?.value?.get(
-                            productPosition.value!!
-                        )!!.productQuantity * listProductInCart.value!![shopPosition.value!!].listProduct?.value?.get(
-                            productPosition.value!!
-                        )?.newPrice!!)
-                    )
-                    // set co la da click
-                    listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(
+                    totalProductCount.value = totalProductCount.value?.plus(1)
+                    // tinh gia goc cho shop
+                    listProductInCart.value!![shopPosition.value!!].listProduct?.value?.get(
                         productPosition.value!!
-                    )?.productStatus = true
+                    )?.apply {
+                        listProductInCart.value!![shopPosition.value!!].oldTotalPrice += this.productQuantity * this.newPrice
+                    }
+                    // tang tong so tien
+                    listProductInCart.value!![shopPosition.value!!].apply {
+                        totalPrice.value = totalPrice.value?.minus(newTotalPrice)
+                        applyVoucher(this.voucher, this)
+                        totalPrice.value = totalPrice.value?.plus(this.newTotalPrice)
+                    }
+                    // set co la da click
+                    listProductInCart.value?.get(shopPosition.value!!)?.apply {
+                        this.listProduct?.value?.get(productPosition.value!!)?.productStatus = true
+                        this.currentSelectedProductCount =
+                            this.currentSelectedProductCount.plus(1)
+                    }
                 } else { // th bo click
                     // gan lai la chua duoc click
-                    listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(
-                        productPosition.value!!
-                    )?.productStatus = false
+                    listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(productPosition.value!!)?.productStatus = false
+
                     // tru bien dem tong so sp
-                    totalProductCount.value = totalProductCount.value?.minus(
-                        (listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(
-                            productPosition.value!!
-                        )?.productQuantity)?.toInt()!!
-                    )
+                    totalProductCount.value = totalProductCount.value?.minus(1)
 
-                    // tru tong so tien
-                    totalPrice.value = totalPrice.value?.minus(
-                        (listProductInCart.value!![shopPosition.value!!].listProduct?.value?.get(
-                            productPosition.value!!
-                        )!!.productQuantity * listProductInCart.value!![shopPosition.value!!].listProduct?.value?.get(
-                            productPosition.value!!
-                        )?.newPrice!!)
-                    )
+                    // tru tong so tien di gia cua shop de tinh lai theo voucher
+                    listProductInCart.value!![shopPosition.value!!].apply {
+                        totalPrice.value = totalPrice.value?.minus(this.newTotalPrice)
+                    }
 
+                    // tinh gia goc cho shop, apply voucher, cong lai tong so tien
+                    listProductInCart.value!![shopPosition.value!!].apply {
+                        this.listProduct?.value?.get(productPosition.value!!)?.apply {
+                            oldTotalPrice -= this.productQuantity * this.newPrice
+                        }
+                        applyVoucher(voucher, this)
+                        totalPrice.value = totalPrice.value?.plus(newTotalPrice)
+                    }
+
+                    // tru di tong so san pham dang duoc chon theo shop
+                    listProductInCart.value?.get(shopPosition.value!!)?.currentSelectedProductCount =
+                        listProductInCart.value?.get(shopPosition.value!!)?.currentSelectedProductCount?.minus(1)!!
                 }
 
+                // check chon tat ca theo shop
+                listProductInCart.value?.get(shopPosition.value!!)!!.status = listProductInCart.value?.get(shopPosition.value!!)?.currentSelectedProductCount ==
+                        listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.size
+
+                // check chon tat ca san pham
+                selectAllProduct.value = totalProductCount.value == totalProduct.value
             }
         }
     }
@@ -166,13 +227,11 @@ class CartFragmentViewModel() : ViewModel() {
                     productInCart
                 )
             if (productPosition.value != -1) {
-                // th peoduct da duoc click
+                // th product da duoc click
                 if (listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(
                         productPosition.value!!
                     )!!.productStatus
                 ) {
-                    // tang bien count len 1
-                    totalProductCount.value = totalProductCount.value!!.plus(1)
                     // cong vao tong so tien gia cua san pham
                     totalPrice.value = totalPrice.value!!.plus(
                         listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(
@@ -197,22 +256,13 @@ class CartFragmentViewModel() : ViewModel() {
                 )
             if (productPosition.value != -1) {
                 // tru so luong mua cua san pham di 1
-                listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(
-                    productPosition.value!!
-                )!!.productQuantity -= 1
+                listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(productPosition.value!!)!!.productQuantity -= 1
 
                 // th dang duoc click
-                if (listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(
-                        productPosition.value!!
-                    )!!.productStatus
-                ) {
-                    // tru tong so san phan di 1
-                    totalProductCount.value = totalProductCount.value?.minus(1)
+                if (listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(productPosition.value!!)!!.productStatus) {
                     // tru so tien phai tra di luong gia cua sp nay
                     totalPrice.value = totalPrice.value!!.minus(
-                        listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(
-                            productPosition.value!!
-                        )!!.newPrice
+                        listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(productPosition.value!!)!!.newPrice
                     )
                 }
                 // neu so luong mua cua san pham = 0 thi xoa san pham
@@ -220,14 +270,26 @@ class CartFragmentViewModel() : ViewModel() {
                         productPosition.value!!
                     )!!.productQuantity == 0L
                 ) {
+                    // th dang chon
+                    if (listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(productPosition.value!!)!!.productStatus) {
+                        totalProductCount.value = totalProductCount.value?.minus(1)
+                        listProductInCart.value?.get(shopPosition.value!!)?.currentSelectedProductCount = listProductInCart.value?.get(shopPosition.value!!)?.currentSelectedProductCount?.minus(1)!!
+                    }
+                    totalProduct.value = totalProduct.value?.minus(1)
                     listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.removeAt(
                         productPosition.value!!
                     )
+                    listProductInCart.value?.get(shopPosition.value!!)!!.status = listProductInCart.value?.get(shopPosition.value!!)?.currentSelectedProductCount ==
+                            listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.size
                     // neu so luong san pham = 0 thi xoa shop
                     if (listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.size == 0) {
                         listProductInCart.value?.removeAt(shopPosition.value!!)
                     }
                     listProductInCart.notifyObserverInUI()
+
+
+
+                    selectAllProduct.value = totalProductCount.value == totalProduct.value
                 }
             }
         }
@@ -246,9 +308,8 @@ class CartFragmentViewModel() : ViewModel() {
             if (productPosition.value != -1) {
                 // trong truong hop dang click se update lai tong so sp va tong so tien
                 if (listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(productPosition.value!!)!!.productStatus) {
-                    totalProductCount.value = totalProductCount.value?.minus(
-                        listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(productPosition.value!!)!!.productQuantity.toInt()
-                    )
+                    totalProductCount.value = totalProductCount.value?.minus(1)
+                    listProductInCart.value?.get(shopPosition.value!!)?.currentSelectedProductCount = listProductInCart.value?.get(shopPosition.value!!)?.currentSelectedProductCount?.minus(1)!!
                     totalPrice.value = totalPrice.value!!.minus(
                         listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(
                             productPosition.value!!
@@ -257,13 +318,16 @@ class CartFragmentViewModel() : ViewModel() {
                         )!!.productQuantity
                     )
                 }
-                listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.removeAt(
-                    productPosition.value!!
-                )
+                totalProduct.value = totalProduct.value?.minus(1)
+                listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.removeAt(productPosition.value!!)
+                listProductInCart.value?.get(shopPosition.value!!)!!.status = listProductInCart.value?.get(shopPosition.value!!)?.currentSelectedProductCount ==
+                        listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.size
                 if (listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.size == 0) {
                     listProductInCart.value?.removeAt(shopPosition.value!!)
                 }
                 listProductInCart.notifyObserverInUI()
+
+                selectAllProduct.value = totalProductCount.value == totalProduct.value
             }
         }
     }
@@ -273,6 +337,7 @@ class CartFragmentViewModel() : ViewModel() {
             listProductInCart.value?.removeAll(listProductInCart.value!!)
             totalProductCount.value = 0
             totalPrice.value = 0
+            totalProduct.value = 0
             selectAllProduct.value = false
             listProductInCart.notifyObserverInUI()
         }
@@ -570,6 +635,7 @@ class CartFragmentViewModel() : ViewModel() {
             "1",
             "Shop",
             false,
+            0L, 0L, 0, null,
             listProduct
         )
 
@@ -577,6 +643,7 @@ class CartFragmentViewModel() : ViewModel() {
             "2",
             "Dummy",
             false,
+            0L, 0L, 0, null,
             listProduct1
         )
 
@@ -584,6 +651,7 @@ class CartFragmentViewModel() : ViewModel() {
             "3",
             "Dummy Shop",
             false,
+            0L, 0L, 0, null,
             listProduct2
         )
 
@@ -591,6 +659,7 @@ class CartFragmentViewModel() : ViewModel() {
             "4",
             "a",
             false,
+            0L, 0L, 0, null,
             listProduct3
         )
 
@@ -598,6 +667,7 @@ class CartFragmentViewModel() : ViewModel() {
             "5",
             "b",
             false,
+            0L, 0L, 0, null,
             listProduct4
         )
         list.add(item)
@@ -608,3 +678,5 @@ class CartFragmentViewModel() : ViewModel() {
         return list
     }
 }
+
+// TODO: voucher o phan xoa va mua it di, mua nhieu len

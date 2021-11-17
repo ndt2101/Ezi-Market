@@ -17,6 +17,8 @@ import com.tuan2101.ezimarket.R
 import com.tuan2101.ezimarket.dataclasses.ParentCategory
 import com.tuan2101.ezimarket.dataclasses.Product
 import de.hdodenhof.circleimageview.CircleImageView
+import java.text.SimpleDateFormat
+import java.util.*
 
 @BindingAdapter("setOldPrice")
 fun TextView.setOldPrice(product: Product) {
@@ -88,4 +90,10 @@ fun TextView.setTotalPrice(totalPrice: Long) {
         text = "$totalPrice đ"
         textSize = resources.getDimension(R.dimen.large)
     }
+}
+
+@BindingAdapter("dateFormat")
+fun TextView.dateFormat(date: Date) {
+    val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+    text ="Hạn sử dụng: ${simpleDateFormat.format(date)}"
 }

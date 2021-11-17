@@ -13,6 +13,7 @@ import com.tuan2101.ezimarket.adapter.PostAdapter
 import com.tuan2101.ezimarket.databinding.FragmentNewsFeedItemBinding
 import com.tuan2101.ezimarket.dataclasses.*
 import com.tuan2101.ezimarket.viewmodel.NewsFeedItemFragmentViewModel
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -57,6 +58,14 @@ class NewsFeedItemFragment() : Fragment() {
 
     fun dummyDataForPost(): ArrayList<Post> {
         val list = ArrayList<Post>()
+        val cal = Calendar.getInstance()
+        cal[Calendar.YEAR] = 2021
+        cal[Calendar.MONTH] = Calendar.NOVEMBER
+        cal[Calendar.DAY_OF_MONTH] = 16
+        val date: Date = cal.time
+
+        Log.i("date", "$date")
+
         list.add(
             Post(
                 "0",
@@ -117,9 +126,10 @@ class NewsFeedItemFragment() : Fragment() {
                     ),
                     0.3,
                     "Giảm 30% khi mua đơn hàng từ 20 triệu VND",
-                    Date(2021, 11, 18),
+                    date,
                     20000000,
-                    10
+                    10,
+                    false
                 ),
                 ArrayList<String>(),
                 mutableListOf(
@@ -295,9 +305,10 @@ class NewsFeedItemFragment() : Fragment() {
                     ),
                     0.3,
                     "Giảm 30% khi mua đơn hàng từ 20 triệu VND",
-                    Date(2021, 11, 18),
+                    date,
                     20000000,
-                    10
+                    10,
+                    false
                 ),
                 ArrayList<String>(),
                 mutableListOf(
@@ -473,9 +484,9 @@ class NewsFeedItemFragment() : Fragment() {
                     ),
                     0.3,
                     "Giảm 30% khi mua đơn hàng từ 20 triệu VND",
-                    Date(2021, 11, 18),
+                    date,
                     20000000,
-                    10
+                    10, false
                 ),
                 ArrayList<String>(),
                 mutableListOf(
@@ -651,9 +662,9 @@ class NewsFeedItemFragment() : Fragment() {
                     ),
                     0.3,
                     "Giảm 30% khi mua đơn hàng từ 20 triệu VND",
-                    Date(2021, 11, 18),
+                    date,
                     20000000,
-                    10
+                    10, false
                 ),
                 ArrayList<String>(),
                 mutableListOf(
@@ -829,9 +840,10 @@ class NewsFeedItemFragment() : Fragment() {
                     ),
                     0.3,
                     "Giảm 30% khi mua đơn hàng từ 20 triệu VND",
-                    Date(2021, 11, 18),
+                    date,
                     20000000,
-                    10
+                    10,
+                    false
                 ),
                 ArrayList<String>(),
                 mutableListOf(
@@ -1007,9 +1019,10 @@ class NewsFeedItemFragment() : Fragment() {
                     ),
                     0.3,
                     "Giảm 30% khi mua đơn hàng từ 20 triệu VND",
-                    Date(2021, 11, 18),
+                    date,
                     20000000,
-                    10
+                    10,
+                    false
                 ),
                 ArrayList<String>(),
                 mutableListOf(

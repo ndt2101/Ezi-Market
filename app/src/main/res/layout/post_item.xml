@@ -227,7 +227,7 @@
                     android:id="@+id/voucher_shop_img"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
-                    loadImage="@{post.voucher.shop.avatar}"
+                    loadImage="@{post.voucher.voucherShop.avatar}"
                     tools:src="@drawable/logo" />
 
                 <View
@@ -260,7 +260,7 @@
                         android:layout_marginTop="5dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@{post.voucher.description}"
+                        android:text="@{post.voucher.voucherDescription}"
                         tools:text="Giam 30% cho cac don hang tu 1 trieu" />
 
                     <RelativeLayout
@@ -295,7 +295,7 @@
                             android:id="@+id/exp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/exp(post.voucher.exp.day, post.voucher.exp.month, post.voucher.exp.year)}"
+                            dateFormat="@{post.voucher.exp}"
                             tools:text="Hạn sử dụng: 30/12/2021" />
                     </RelativeLayout>
                 </LinearLayout>
