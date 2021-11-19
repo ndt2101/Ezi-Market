@@ -86,6 +86,17 @@ class Voucher() : BaseObservable() {
             notifyPropertyChanged(BR.voucherStatus)
         }
 
+    @get:Bindable
+    var voucherStatusText: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.voucherStatusText)
+        }
+        get() {
+            notifyPropertyChanged(BR.voucherStatusText)
+            return if (voucherStatus) "Đã chọn" else "Chọn"
+        }
+
     override fun equals(other: Any?): Boolean {
         return other is Voucher && this.voucherStatus == other.voucherStatus
     }

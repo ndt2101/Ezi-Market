@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
@@ -16,6 +17,7 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.tuan2101.ezimarket.R
 import com.tuan2101.ezimarket.dataclasses.ParentCategory
 import com.tuan2101.ezimarket.dataclasses.Product
+import com.tuan2101.ezimarket.dataclasses.Voucher
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -96,4 +98,24 @@ fun TextView.setTotalPrice(totalPrice: Long) {
 fun TextView.dateFormat(date: Date) {
     val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
     text ="Hạn sử dụng: ${simpleDateFormat.format(date)}"
+}
+
+@BindingAdapter("setVoucher")
+fun TextView.setVoucher(voucher: MutableLiveData<Voucher>) {
+    if (voucher.value == null) {
+        text = "Chọn voucher"
+    } else {
+        this.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context, R.drawable.coupon_icon), null, null, null)
+        text = "Đã được giảm ${(voucher.value!!.discount * 100).toInt()}%"
+    }
+}
+
+@BindingAdapter("setVoucher1")
+fun TextView.setVoucher1(voucher: Voucher?) {
+    text = if (voucher == null) {
+        "Chọn voucher"
+    } else {
+        this.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context, R.drawable.coupon_icon), null, null, null)
+        "Đã được giảm ${(voucher.discount * 100).toInt()}%"
+    }
 }

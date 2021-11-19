@@ -20,6 +20,7 @@ import com.tuan2101.ezimarket.viewmodel.*
 class VoucherFragment() : BottomSheetDialogFragment() {
 
     var shop: ProductViaShopInCart? = null
+    var eziVoucher: Voucher? = null
     lateinit var setVoucher: (voucher: Voucher) -> Unit
     companion object {
         val TAG: String = "VoucherFragment"
@@ -27,6 +28,11 @@ class VoucherFragment() : BottomSheetDialogFragment() {
     constructor(shop: ProductViaShopInCart, setVoucher: (voucher: Voucher) -> Unit): this() {
         this.shop = shop
         this.setVoucher = setVoucher
+    }
+
+    constructor(eziVoucher: Voucher?, setVoucher: (voucher: Voucher) -> Unit): this() {
+        this.setVoucher = setVoucher
+        this.eziVoucher = eziVoucher
     }
     lateinit var binding: FragmentVoucherBinding
     lateinit var viewModel: VoucherFragmentViewModel
@@ -40,12 +46,12 @@ class VoucherFragment() : BottomSheetDialogFragment() {
         binding = FragmentVoucherBinding.inflate(inflater, container, false)
 
         val reference: DatabaseReference? = null // từ detail shop mà ra
-        val adapter = VoucherAdapter(viewLifecycleOwner, VoucherAdapter.OnClickListener { voucher -> setVoucher(voucher) })
+        val adapter = VoucherAdapter(viewLifecycleOwner, VoucherAdapter.OnClickListener { voucher -> setVoucherClone(voucher) })
         if (shop != null) {
             val factory = VoucherFragmentViewModelFactory(shop!!)
             viewModel = ViewModelProvider(this, factory)[VoucherFragmentViewModel::class.java]
         } else if (shop == null) {
-            val factory = VoucherFragmentViewModelFactory(shop = ProductViaShopInCart("","",false,0L,0L,0,null,null))
+            val factory = VoucherFragmentViewModelFactory(shop = ProductViaShopInCart("","Ezi Market",false,0L,0L,0,eziVoucher,null))
             viewModel = ViewModelProvider(this, factory)[VoucherFragmentViewModel::class.java]
         }
 
@@ -55,5 +61,12 @@ class VoucherFragment() : BottomSheetDialogFragment() {
         binding.rcv.adapter = adapter
 
         return binding.root
+    }
+
+    fun setVoucherClone(voucher: Voucher) {
+        viewModel.listVoucher.forEach {
+            it.voucherStatus = false
+        }
+        this.setVoucher(voucher)
     }
 }

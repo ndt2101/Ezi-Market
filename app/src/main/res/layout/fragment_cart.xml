@@ -168,8 +168,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:onClick="@{() -> viewModel.onNavigateToMarketVoucherFragment()}"
-                android:text="Nhập hoặc chọn mã"
                 android:textSize="16sp"
+                setVoucher="@{viewModel.eziVoucher}"
                 app:drawableEndCompat="@drawable/arrow_right"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -191,7 +191,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                setTotalPrice="@{viewModel.totalPrice}"
+                setTotalPrice="@{viewModel.finalPrice}"
                 android:textColor="@color/custom"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/total_label"

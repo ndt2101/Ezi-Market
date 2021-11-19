@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -81,22 +82,10 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginEnd="10dp"
                         android:background="@drawable/button_background"
-                        android:text="@{String.valueOf(voucher.voucherStatus)}"
-                        android:textAllCaps="false"
                         android:onClick="@{() -> listener.onClickSetVoucher(voucher)}"
-                        android:textColor="@color/black" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/added"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:text="Đã lưu"
+                        android:text="@{String.valueOf(voucher.voucherStatusText)}"
                         android:textAllCaps="false"
-                        android:textColor="@color/black"
-                        android:visibility="gone" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/exp"

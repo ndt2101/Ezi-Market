@@ -63,8 +63,22 @@ class CartFragment : Fragment() {
             }
         })
 
+        viewModel.navigateToMarketVoucherFragment.observe(viewLifecycleOwner, {
+            if (it == true) {
+                val voucherFragment = VoucherFragment(viewModel.eziVoucher.value) { voucher -> viewModel.setMarketVoucher(voucher) }
+                voucherFragment.show(childFragmentManager, VoucherFragment.TAG)
+                viewModel.navigateToMarketVoucherFragment.value = false
+            }
+        })
+
+        viewModel.totalPrice.observe(viewLifecycleOwner, {
+            viewModel.applyMarkerVoucher()
+        })
+
+        viewModel.eziVoucher.observe(viewLifecycleOwner, {
+            viewModel.applyMarkerVoucher()
+        })
+
         return binding.root
     }
-
-
 }
