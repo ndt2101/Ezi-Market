@@ -81,20 +81,8 @@ class CartAdapter(
             binding.listener = clickListenerClone
             val cartViaShopAdapter =
                 CartViaShopAdapter(data, model, position, lifecycleOwner, productClickListener)
-            cartViaShopAdapter.submitList(data.listProduct?.value!!)
+            cartViaShopAdapter.submitList(data.listProduct!!)
             binding.productViaShopRcv.adapter = cartViaShopAdapter
-//            // TODO: lấy chính xác shop position của data trong list ở ViewModel (update khi xoa product)
-//            model.listProductInCart.value!![position].listProduct?.observe(
-//                lifecycleOwner,
-//                {
-//                    val newList = ArrayList(it)
-//                    cartViaShopAdapter.submitList(newList)
-//                    val clickListenerClone2 = ClickListener(
-//                        clickListener.clickAllProductViaShop,
-//                        clickListener.clickVisitShop, clickListener.clickSelectVoucher
-//                    )
-//                    binding.listener = clickListenerClone2
-//                })
         }
     }
 
@@ -111,8 +99,7 @@ class CartAdapter(
             oldItem: ProductViaShopInCart,
             newItem: ProductViaShopInCart
         ): Boolean {
-//            Log.i("so sanh noi dung", (oldItem.listProduct!!.value!!.size == newItem.listProduct!!.value!!.size).toString())
-            Log.i("so sanh noi dung", "${oldItem.listProduct!!.value!!.size} == ${newItem.listProduct!!.value!!.size}")
+            Log.i("so sanh noi dung", "${oldItem.listProduct!!.size} == ${newItem.listProduct!!.size}")
             return false
         }
     }

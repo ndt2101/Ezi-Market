@@ -2,10 +2,7 @@ package com.tuan2101.ezimarket.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.google.firebase.database.DatabaseReference
-import com.tuan2101.ezimarket.dataclasses.Location
-import com.tuan2101.ezimarket.dataclasses.ProductViaShopInCart
-import com.tuan2101.ezimarket.dataclasses.Shop
-import com.tuan2101.ezimarket.dataclasses.Voucher
+import com.tuan2101.ezimarket.dataclasses.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -49,10 +46,12 @@ class VoucherFragmentViewModel(val shop: ProductViaShopInCart): ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             0.1,
@@ -73,10 +72,12 @@ class VoucherFragmentViewModel(val shop: ProductViaShopInCart): ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             0.5,
@@ -97,10 +98,12 @@ class VoucherFragmentViewModel(val shop: ProductViaShopInCart): ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             0.1,
@@ -137,10 +140,12 @@ class VoucherFragmentViewModel(val shop: ProductViaShopInCart): ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             0.5,
@@ -160,10 +165,12 @@ class VoucherFragmentViewModel(val shop: ProductViaShopInCart): ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             0.1,

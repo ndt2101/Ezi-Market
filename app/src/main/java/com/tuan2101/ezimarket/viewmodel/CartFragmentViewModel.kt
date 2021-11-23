@@ -24,13 +24,25 @@ class CartFragmentViewModel() : ViewModel() {
     var needUpdatingList = ArrayList<ProductViaShopInCart>()
     var eziVoucher = MutableLiveData<Voucher>()
     val finalPrice = MutableLiveData<Long>(0)
+    val navToPaymentFragment = MutableLiveData<Boolean>(false)
+    val navToLocationFragment = MutableLiveData<Boolean>(false)
+    var location: Location? =
+        Location(
+            "Nguyen Dinh Tuan",
+            "0789266255",
+            "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
+            Ward("00626", "Phường Mỹ Đình 2"),
+            District("019", "Quận Nam Từ Liêm"),
+            Province("01", "Thành Phố Hà Nội", "Thành phố Trung ương")
+        )
 
     init {
         listProductInCart.value = dummyDataForCart()
         totalPrice.value = 0L
         for (shop in listProductInCart.value!!) {
-            totalProduct.value = totalProduct.value?.plus(shop.listProduct?.value?.size ?: 0)
+            totalProduct.value = totalProduct.value?.plus(shop.listProduct?.size ?: 0)
         }
+//        location = null
     }
 
     fun clickAllProduct() {
@@ -39,7 +51,7 @@ class CartFragmentViewModel() : ViewModel() {
             for (productViaShopInCart in listProductInCart.value!!) {
                 if (!productViaShopInCart.status) { // via shop chua click
                     productViaShopInCart.status = true
-                    for (product in productViaShopInCart.listProduct?.value!!) {
+                    for (product in productViaShopInCart.listProduct!!) {
                         if (!product.productStatus) { // product chua click
                             product.productStatus = true
                             productViaShopInCart.oldTotalPrice += product.productQuantity * product.newPrice
@@ -59,7 +71,7 @@ class CartFragmentViewModel() : ViewModel() {
             // dua tat ca ve chua click
             for (productViaShopInCart in listProductInCart.value!!) {
                 productViaShopInCart.status = false
-                for (product in productViaShopInCart.listProduct?.value!!) {
+                for (product in productViaShopInCart.listProduct!!) {
                     product.productStatus = false
                 }
                 productViaShopInCart.currentSelectedProductCount = 0
@@ -77,7 +89,7 @@ class CartFragmentViewModel() : ViewModel() {
         val position = listProductInCart.value?.indexOf(productViaShopInCart)
         if (position != null) {
             if (productViaShopInCart.status) { // th shop da duoc click roi
-                for (product in listProductInCart.value?.get(position)?.listProduct?.value!!) {
+                for (product in listProductInCart.value?.get(position)?.listProduct!!) {
                     product.productStatus = false
                 }
                 totalProductCount.value = totalProductCount.value?.minus(productViaShopInCart.currentSelectedProductCount)
@@ -88,7 +100,7 @@ class CartFragmentViewModel() : ViewModel() {
                 productViaShopInCart.status = false
                 productViaShopInCart.voucher = null
             } else { // th shop chua duoc click
-                for (product in listProductInCart.value?.get(position)?.listProduct?.value!!) {
+                for (product in listProductInCart.value?.get(position)?.listProduct!!) {
                     if (!product.productStatus) { // th product chua duoc click
                         product.productStatus = true
                         totalProductCount.value =
@@ -98,7 +110,7 @@ class CartFragmentViewModel() : ViewModel() {
                 }
                 applyVoucher(productViaShopInCart.voucher, productViaShopInCart)
                 totalPrice.value = totalPrice.value?.plus(productViaShopInCart.newTotalPrice)
-                productViaShopInCart.currentSelectedProductCount = productViaShopInCart.listProduct!!.value!!.size
+                productViaShopInCart.currentSelectedProductCount = productViaShopInCart.listProduct!!.size
                 productViaShopInCart.status = true
             }
             selectAllProduct.value = totalProductCount.value == totalProduct.value
@@ -158,14 +170,14 @@ class CartFragmentViewModel() : ViewModel() {
         shopPosition.value = listProductInCart.value!!.indexOf(productViaShopInCart)
         if (shopPosition.value != -1) {
             productPosition.value =
-                listProductInCart.value!![shopPosition.value!!].listProduct!!.value!!.indexOf(productInCart)
+                listProductInCart.value!![shopPosition.value!!].listProduct!!.indexOf(productInCart)
             if (productPosition.value != -1) {
                 // th product chua duoc click
-                if (!listProductInCart.value!![shopPosition.value!!].listProduct!!.value!![productPosition.value!!].productStatus) {
+                if (!listProductInCart.value!![shopPosition.value!!].listProduct!![productPosition.value!!].productStatus) {
                     // tang bien count so luong
                     totalProductCount.value = totalProductCount.value?.plus(1)
                     // tinh gia goc cho shop
-                    listProductInCart.value!![shopPosition.value!!].listProduct?.value?.get(
+                    listProductInCart.value!![shopPosition.value!!].listProduct?.get(
                         productPosition.value!!
                     )?.apply {
                         listProductInCart.value!![shopPosition.value!!].oldTotalPrice += this.productQuantity * this.newPrice
@@ -178,13 +190,13 @@ class CartFragmentViewModel() : ViewModel() {
                     }
                     // set co la da click
                     listProductInCart.value?.get(shopPosition.value!!)?.apply {
-                        this.listProduct?.value?.get(productPosition.value!!)?.productStatus = true
+                        this.listProduct?.get(productPosition.value!!)?.productStatus = true
                         this.currentSelectedProductCount =
                             this.currentSelectedProductCount.plus(1)
                     }
                 } else { // th bo click
                     // gan lai la chua duoc click
-                    listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(productPosition.value!!)?.productStatus = false
+                    listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.get(productPosition.value!!)?.productStatus = false
 
                     // tru bien dem tong so sp
                     totalProductCount.value = totalProductCount.value?.minus(1)
@@ -196,7 +208,7 @@ class CartFragmentViewModel() : ViewModel() {
 
                     // tinh gia goc cho shop, apply voucher, cong lai tong so tien
                     listProductInCart.value!![shopPosition.value!!].apply {
-                        this.listProduct?.value?.get(productPosition.value!!)?.apply {
+                        this.listProduct?.get(productPosition.value!!)?.apply {
                             oldTotalPrice -= this.productQuantity * this.newPrice
                         }
                         applyVoucher(voucher, this)
@@ -210,7 +222,7 @@ class CartFragmentViewModel() : ViewModel() {
 
                 // check chon tat ca theo shop
                 listProductInCart.value?.get(shopPosition.value!!)!!.status = listProductInCart.value?.get(shopPosition.value!!)?.currentSelectedProductCount ==
-                        listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.size
+                        listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.size
 
                 // check chon tat ca san pham
                 selectAllProduct.value = totalProductCount.value == totalProduct.value
@@ -226,12 +238,12 @@ class CartFragmentViewModel() : ViewModel() {
         shopPosition.value = listProductInCart.value!!.indexOf(productViaShopInCart)
         if (shopPosition.value != -1) {
             productPosition.value =
-                listProductInCart.value!![shopPosition.value!!].listProduct!!.value!!.indexOf(
+                listProductInCart.value!![shopPosition.value!!].listProduct!!.indexOf(
                     productInCart
                 )
             if (productPosition.value != -1) {
                 // th product da duoc click
-                if (listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(
+                if (listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.get(
                         productPosition.value!!
                     )!!.productStatus
                 ) {
@@ -244,7 +256,7 @@ class CartFragmentViewModel() : ViewModel() {
 
                 }
                 // tang so luong mua san pham len 1
-                listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.get(
+                listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.get(
                     productPosition.value!!
                 )!!.productQuantity += 1
             }
@@ -255,7 +267,7 @@ class CartFragmentViewModel() : ViewModel() {
         shopPosition.value = listProductInCart.value!!.indexOf(productViaShopInCart)
         if (shopPosition.value != -1) {
             productPosition.value =
-                listProductInCart.value!![shopPosition.value!!].listProduct!!.value!!.indexOf(
+                listProductInCart.value!![shopPosition.value!!].listProduct!!.indexOf(
                     productInCart
                 )
             if (productPosition.value != -1) {
@@ -278,16 +290,16 @@ class CartFragmentViewModel() : ViewModel() {
                         productViaShopInCart.currentSelectedProductCount -= 1
                     }
                     totalProduct.value = totalProduct.value?.minus(1)
-                    listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.removeAt(
+                    listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.removeAt(
                         productPosition.value!!
                     )
 
                     // check chon tat ca theo shop
                     productViaShopInCart.status = productViaShopInCart.currentSelectedProductCount ==
-                            productViaShopInCart.listProduct?.value?.size
+                            productViaShopInCart.listProduct?.size
 
                     // neu so luong san pham = 0 thi xoa shop
-                    if (productViaShopInCart.listProduct?.value?.size == 0) {
+                    if (productViaShopInCart.listProduct?.size == 0) {
                         listProductInCart.value?.removeAt(shopPosition.value!!)
                     }
                     listProductInCart.notifyObserverInUI()
@@ -305,7 +317,7 @@ class CartFragmentViewModel() : ViewModel() {
         shopPosition.value = listProductInCart.value!!.indexOf(productViaShopInCart)
         if (shopPosition.value != -1) {
             productPosition.value =
-                listProductInCart.value!![shopPosition.value!!].listProduct!!.value!!.indexOf(
+                listProductInCart.value!![shopPosition.value!!].listProduct!!.indexOf(
                     productInCart
                 )
             if (productPosition.value != -1) {
@@ -320,13 +332,13 @@ class CartFragmentViewModel() : ViewModel() {
                     totalPrice.value = totalPrice.value!!.plus(productViaShopInCart.newTotalPrice)
                 }
                 totalProduct.value = totalProduct.value?.minus(1)
-                listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.value?.removeAt(productPosition.value!!)
+                listProductInCart.value?.get(shopPosition.value!!)?.listProduct?.removeAt(productPosition.value!!)
 
                 // check chon tat ca theo shop
                 productViaShopInCart.status = productViaShopInCart.currentSelectedProductCount ==
-                        productViaShopInCart.listProduct?.value?.size
+                        productViaShopInCart.listProduct?.size
                 // xoa shop neu so san pham = 0
-                if (productViaShopInCart.listProduct?.value?.size == 0) {
+                if (productViaShopInCart.listProduct?.size == 0) {
                     listProductInCart.value?.removeAt(shopPosition.value!!)
                 }
                 listProductInCart.notifyObserverInUI()
@@ -376,6 +388,37 @@ class CartFragmentViewModel() : ViewModel() {
         }
     }
 
+    fun purchase() {
+        listProductInCart.value?.forEach { productViaShopInCart ->
+            val listProduct = ArrayList<ProductInCart>()
+            productViaShopInCart.listProduct?.forEach { product ->
+                if (product.productStatus) {
+                    listProduct.add(product)
+                }
+            }
+            if (listProduct.size != 0){
+                val productViaShopInCartClone = productViaShopInCart.apply {
+                    ProductViaShopInCart(
+                        shopId,
+                        shopName,
+                        status,
+                        oldTotalPrice,
+                        newTotalPrice,
+                        listProduct.size,
+                        voucher,
+                        listProduct
+                    )
+                }
+                needUpdatingList.add(productViaShopInCartClone)
+            }
+        }
+        navToPaymentFragment.value = true
+    }
+
+    fun onNavToLocationFragment() {
+        navToLocationFragment.value = true
+    }
+
     fun dummyDataForCart(): ArrayList<ProductViaShopInCart> {
         val list = ArrayList<ProductViaShopInCart>()
         val listProduct = MutableLiveData<ArrayList<ProductInCart>>()
@@ -396,10 +439,12 @@ class CartFragmentViewModel() : ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             false
@@ -421,10 +466,12 @@ class CartFragmentViewModel() : ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             false
@@ -446,10 +493,12 @@ class CartFragmentViewModel() : ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             false
@@ -471,10 +520,12 @@ class CartFragmentViewModel() : ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             false
@@ -496,10 +547,12 @@ class CartFragmentViewModel() : ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             false
@@ -521,10 +574,12 @@ class CartFragmentViewModel() : ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             false
@@ -546,10 +601,12 @@ class CartFragmentViewModel() : ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             false
@@ -571,10 +628,12 @@ class CartFragmentViewModel() : ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             false
@@ -596,10 +655,12 @@ class CartFragmentViewModel() : ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             false
@@ -621,10 +682,12 @@ class CartFragmentViewModel() : ViewModel() {
                 null,
                 null,
                 Location(
+                    "Nguyen Dinh Tuan",
+                    "0789266255",
                     "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    "Mỹ Đình 2",
-                    "Nam Từ Liêm",
-                    "Hà Nội"
+                    Ward("-1", "Mỹ Đình 2"),
+                    District("-1", "Nam Từ Liêm"),
+                    Province("-1", "Hà Nội", "Thành phố")
                 )
             ),
             false
@@ -665,7 +728,7 @@ class CartFragmentViewModel() : ViewModel() {
             "Shop",
             false,
             0L, 0L, 0, null,
-            listProduct
+            listProductInCart
         )
 
         val item2 = ProductViaShopInCart(
@@ -673,7 +736,7 @@ class CartFragmentViewModel() : ViewModel() {
             "Dummy",
             false,
             0L, 0L, 0, null,
-            listProduct1
+            listProductInCart2
         )
 
         val item3 = ProductViaShopInCart(
@@ -681,7 +744,7 @@ class CartFragmentViewModel() : ViewModel() {
             "Dummy Shop",
             false,
             0L, 0L, 0, null,
-            listProduct2
+            listProductInCart3
         )
 
         val item4 = ProductViaShopInCart(
@@ -689,7 +752,7 @@ class CartFragmentViewModel() : ViewModel() {
             "a",
             false,
             0L, 0L, 0, null,
-            listProduct3
+            listProductInCart4
         )
 
         val item5 = ProductViaShopInCart(
@@ -697,7 +760,7 @@ class CartFragmentViewModel() : ViewModel() {
             "b",
             false,
             0L, 0L, 0, null,
-            listProduct4
+            listProductInCart5
         )
         list.add(item)
         list.add(item2)

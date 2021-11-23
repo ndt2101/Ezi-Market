@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout tools:context=".outsidefragment.LocationFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.tuan2101.ezimarket.viewmodel.LocationFragmentViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên người nhận"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"/>
+        <EditText
+            android:id="@+id/receiver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="50"
+            android:text="@{viewModel.receiverName}"
+            android:hint="Nhập họ và tên người nhận"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"/>
+        <EditText
+            android:id="@+id/phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:text="@{viewModel.phoneNumber}"
+            android:hint="Nhập số điện thoại người nhận"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Địa chỉ nhận hàng"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"/>
+        <EditText
+            android:id="@+id/detail_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:text="@{viewModel.detailAddress}"
+            android:hint="Nhập số nhà, tên đường..."/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tỉnh/ Thành phó"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"/>
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/province"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/gray"
+            android:spinnerMode="dialog"
+            android:textColor="@color/black"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quận/ Huyện"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"/>
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/district"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/gray"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/black"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Xã/ Phường"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"/>
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/ward"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/gray"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/black"
+            tools:ignore="HardcodedText" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@color/themeColor"
+                android:onClick="@{() -> viewModel.onConfirm()}"
+                android:text="Xác nhận"
+                android:textAllCaps="false"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

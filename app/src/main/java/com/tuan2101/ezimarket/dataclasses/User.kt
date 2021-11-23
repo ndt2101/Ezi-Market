@@ -12,12 +12,3 @@ open class User(open val id: String,
                 open val location: Location
 )
 
-class Location(val specificAddress: String,
-               val ward: String,
-               val district: String,
-               val province: String,
-) {
-    override fun toString(): String {
-        return "$specificAddress $ward $district $province"
-    }
-}

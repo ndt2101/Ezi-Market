@@ -19,7 +19,8 @@
     <fragment
         android:id="@+id/imageDetailFragment"
         android:name="com.tuan2101.ezimarket.outsidefragment.ImageDetailFragment"
-        android:label="ImageDetailFragment" >
+        android:label="ImageDetailFragment"
+        tools:layout="@layout/fragment_image_detail" >
         <argument
             android:name="image_url"
             app:argType="string" />
@@ -28,5 +29,22 @@
         android:id="@+id/cartFragment"
         android:name="com.tuan2101.ezimarket.outsidefragment.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.LocationFragment"
+        android:label="fragment_location"
+        tools:layout="@layout/fragment_location" >
+        <action
+            android:id="@+id/action_locationFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+        <argument
+            android:name="location"
+            app:argType="com.tuan2101.ezimarket.dataclasses.Location"
+            app:nullable="true" />
+    </fragment>
 </navigation>

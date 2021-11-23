@@ -263,10 +263,12 @@ class HomeFragment : Fragment() {
                     null,
                     null,
                     Location(
+                        "Nguyen Dinh Tuan",
+                        "0789266255",
                         "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                        "Mỹ Đình 2",
-                        "Nam Từ Liêm",
-                        "Hà Nội"
+                        Ward("-1", "Mỹ Đình 2"),
+                        District("-1", "Nam Từ Liêm"),
+                        Province("-1", "Hà Nội", "Thành phố")
                     )
                 )
             )
@@ -289,10 +291,12 @@ class HomeFragment : Fragment() {
                     null,
                     null,
                     Location(
+                        "Nguyen Dinh Tuan",
+                        "0789266255",
                         "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                        "Mỹ Đình 2",
-                        "Nam Từ Liêm",
-                        "Hà Nội"
+                        Ward("-1", "Mỹ Đình 2"),
+                        District("-1", "Nam Từ Liêm"),
+                        Province("-1", "Hà Nội", "Thành phố")
                     )
                 )
             )
@@ -315,10 +319,12 @@ class HomeFragment : Fragment() {
                     null,
                     null,
                     Location(
+                        "Nguyen Dinh Tuan",
+                        "0789266255",
                         "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                        "Mỹ Đình 2",
-                        "Nam Từ Liêm",
-                        "Hà Nội"
+                        Ward("-1", "Mỹ Đình 2"),
+                        District("-1", "Nam Từ Liêm"),
+                        Province("-1", "Hà Nội", "Thành phố")
                     )
                 )
             )
@@ -341,10 +347,12 @@ class HomeFragment : Fragment() {
                     null,
                     null,
                     Location(
+                        "Nguyen Dinh Tuan",
+                        "0789266255",
                         "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                        "Mỹ Đình 2",
-                        "Nam Từ Liêm",
-                        "Hà Nội"
+                        Ward("-1", "Mỹ Đình 2"),
+                        District("-1", "Nam Từ Liêm"),
+                        Province("-1", "Hà Nội", "Thành phố")
                     )
                 )
             )
@@ -367,10 +375,12 @@ class HomeFragment : Fragment() {
                     null,
                     null,
                     Location(
+                        "Nguyen Dinh Tuan",
+                        "0789266255",
                         "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                        "Mỹ Đình 2",
-                        "Nam Từ Liêm",
-                        "Hà Nội"
+                        Ward("-1", "Mỹ Đình 2"),
+                        District("-1", "Nam Từ Liêm"),
+                        Province("-1", "Hà Nội", "Thành phố")
                     )
                 )
             )
@@ -393,10 +403,12 @@ class HomeFragment : Fragment() {
                     null,
                     null,
                     Location(
+                        "Nguyen Dinh Tuan",
+                        "0789266255",
                         "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                        "Mỹ Đình 2",
-                        "Nam Từ Liêm",
-                        "Hà Nội"
+                        Ward("-1", "Mỹ Đình 2"),
+                        District("-1", "Nam Từ Liêm"),
+                        Province("-1", "Hà Nội", "Thành phố")
                     )
                 )
             )

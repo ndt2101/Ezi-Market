@@ -99,6 +99,4 @@ class CartViaShopAdapter(
         fun onClickToDeleteProduct(productInCart: ProductInCart, productViaShopInCart: ProductViaShopInCart) =
             clickToDeleteProduct(productInCart, productViaShopInCart)
     }
-
-    // TODO: Thay tất cả đối số của các hàm trong clickListener thành các đối tượng
 }

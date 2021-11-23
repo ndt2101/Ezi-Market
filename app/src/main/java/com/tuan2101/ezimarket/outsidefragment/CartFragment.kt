@@ -7,15 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tuan2101.ezimarket.R
 import com.tuan2101.ezimarket.adapter.CartAdapter
 import com.tuan2101.ezimarket.adapter.CartViaShopAdapter
 import com.tuan2101.ezimarket.databinding.FragmentCartBinding
-import com.tuan2101.ezimarket.dataclasses.Location
-import com.tuan2101.ezimarket.dataclasses.Product
-import com.tuan2101.ezimarket.dataclasses.ProductInCart
-import com.tuan2101.ezimarket.dataclasses.ProductViaShopInCart
+import com.tuan2101.ezimarket.dataclasses.*
 import com.tuan2101.ezimarket.viewmodel.CartFragmentViewModel
 
 class CartFragment : Fragment() {
@@ -52,7 +49,14 @@ class CartFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        binding.address.text = Location("Doi 6 An Doai", "An binh", "Nam Sach", "Hai Duong").toString()
+        binding.address.text = Location(
+            "Nguyen Dinh Tuan",
+            "0789266255",
+            "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
+            Ward("-1", "Mỹ Đình 2"),
+            District("-1", "Nam Từ Liêm"),
+            Province("-1", "Hà Nội", "Thành phố")
+        ).toString()
         binding.phoneNumber.text = "0789266255"
         binding.receiver.text = "Nguyen Dinh Tuan"
 
@@ -77,6 +81,20 @@ class CartFragment : Fragment() {
 
         viewModel.eziVoucher.observe(viewLifecycleOwner, {
             viewModel.applyMarkerVoucher()
+        })
+
+        viewModel.navToPaymentFragment.observe(viewLifecycleOwner, {
+            if (it) {
+                Log.i("aaa", "${viewModel.needUpdatingList.size}")
+                viewModel.navToPaymentFragment.value = false
+            }
+        })
+
+        viewModel.navToLocationFragment.observe(viewLifecycleOwner, {
+            if (it) {
+                findNavController().navigate(CartFragmentDirections.actionCartFragmentToLocationFragment(viewModel.location))
+                viewModel.navToLocationFragment.value = false
+            }
         })
 
         return binding.root

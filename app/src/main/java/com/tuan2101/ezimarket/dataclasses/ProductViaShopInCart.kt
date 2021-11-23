@@ -23,7 +23,7 @@ class ProductViaShopInCart() : BaseObservable(), Parcelable {
         newTotalPrice: Long,
         currentSelectedProductCount: Int,
         voucher: Voucher?,
-        listProduct: MutableLiveData<ArrayList<ProductInCart>>?
+        listProduct: ArrayList<ProductInCart>?
     ) : this() {
         this.shopId = shopId
         this.shopName = shopName
@@ -86,13 +86,14 @@ class ProductViaShopInCart() : BaseObservable(), Parcelable {
 
 
     @get:Bindable
-    var listProduct: MutableLiveData<ArrayList<ProductInCart>>? = null
+    var listProduct: ArrayList<ProductInCart>? = ArrayList()
         set(value) {
             field = value
             notifyPropertyChanged(BR.listProduct)
         }
 
     constructor(parcel: Parcel) : this() {
+
     }
 
     override fun equals(other: Any?): Boolean {
