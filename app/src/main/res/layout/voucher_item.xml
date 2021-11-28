@@ -89,10 +89,10 @@
 
                     <TextView
                         android:id="@+id/exp"
+                        dateFormat="@{voucher.exp}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
-                        dateFormat="@{voucher.exp}"
                         android:textSize="16sp"
                         tools:text="Hạn sử dụng: 30/12/2021" />
                 </RelativeLayout>

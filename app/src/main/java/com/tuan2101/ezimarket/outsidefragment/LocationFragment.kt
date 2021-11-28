@@ -139,15 +139,18 @@ class LocationFragment() : Fragment() {
             if (viewModel.provinceList.value?.size ?: 1 > 1){
                 CoroutineScope(Dispatchers.Main).launch {
                     viewModel.getDistrictListClone()
-                    viewModel.districtList.observe(viewLifecycleOwner, {
-                        if (it.size > 1) {
-                            districtSpinnerAdapter = LocationAdapter(requireContext(), R.layout.selected_location_item, it)
-                            binding.district.adapter = districtSpinnerAdapter
-                            binding.district.setSelection(viewModel.currentDistrictPosition)
-                            Log.i("districtSpinnerAdapter", "${viewModel.selectedDistrict.value?.name}")
-                            Log.i("districtSpinnerAdapter", "${viewModel.selectedWard.value?.name}")
-                        }
-                    })
+                    if (view != null){
+                        viewModel.districtList.observe(viewLifecycleOwner, {
+                            if (it.size > 1) {
+                                districtSpinnerAdapter =
+                                    LocationAdapter(requireContext(), R.layout.selected_location_item, it)
+                                binding.district.adapter = districtSpinnerAdapter
+                                binding.district.setSelection(viewModel.currentDistrictPosition)
+                                Log.i("districtSpinnerAdapter", "${viewModel.selectedDistrict.value?.name}")
+                                Log.i("districtSpinnerAdapter", "${viewModel.selectedWard.value?.name}")
+                            }
+                        })
+                    }
                 }
             }
         })
@@ -196,16 +199,18 @@ class LocationFragment() : Fragment() {
         viewModel.selectedDistrict.observe(viewLifecycleOwner, {
             Log.i("wardSpinnerAdapter", "${viewModel.selectedWard.value?.name}")
             if (viewModel.districtList.value?.size ?: 1 > 1){
-                CoroutineScope(Dispatchers.Main).launch {
-                    viewModel.getWardListClone()
-                    viewModel.wardList.observe(viewLifecycleOwner, {
-                        if (it.size > 1) {
-                            Log.i("wardSpinnerAdapter", it.size.toString())
-                            wardSpinnerAdapter = LocationAdapter(requireContext(), R.layout.selected_location_item, it)
-                            binding.ward.adapter = wardSpinnerAdapter
-                            binding.ward.setSelection(viewModel.currentWardPosition)
-                        }
-                    })
+                if (view != null){
+                    CoroutineScope(Dispatchers.Main).launch {
+                        viewModel.getWardListClone()
+                        viewModel.wardList.observe(viewLifecycleOwner, {
+                            if (it.size > 1) {
+                                Log.i("wardSpinnerAdapter", it.size.toString())
+                                wardSpinnerAdapter = LocationAdapter(requireContext(), R.layout.selected_location_item, it)
+                                binding.ward.adapter = wardSpinnerAdapter
+                                binding.ward.setSelection(viewModel.currentWardPosition)
+                            }
+                        })
+                    }
                 }
             }
         })
@@ -287,5 +292,11 @@ class LocationFragment() : Fragment() {
                 Toast.makeText(context, "Thông tin chưa chính xác", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        parentFragment?.let { viewModel.districtList.removeObservers(it.viewLifecycleOwner) }
+        parentFragment?.let { viewModel.wardList.removeObservers(it.viewLifecycleOwner) }
     }
 }

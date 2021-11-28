@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,17 +50,6 @@ class CartFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        binding.address.text = Location(
-            "Nguyen Dinh Tuan",
-            "0789266255",
-            "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-            Ward("-1", "Mỹ Đình 2"),
-            District("-1", "Nam Từ Liêm"),
-            Province("-1", "Hà Nội", "Thành phố")
-        ).toString()
-        binding.phoneNumber.text = "0789266255"
-        binding.receiver.text = "Nguyen Dinh Tuan"
-
         viewModel.currentShopToGetVoucher.observe(viewLifecycleOwner, {
             if (it != null) {
                 val voucherFragment = VoucherFragment(it) { voucher -> viewModel.setVoucher(voucher) }
@@ -85,7 +75,13 @@ class CartFragment : Fragment() {
 
         viewModel.navToPaymentFragment.observe(viewLifecycleOwner, {
             if (it) {
-                Log.i("aaa", "${viewModel.needUpdatingList.size}")
+                if (viewModel.needUpdatingList.size != 0) {
+                    findNavController().navigate(CartFragmentDirections.actionCartFragmentToBillConfirmationFragment(viewModel.location!!,
+                        viewModel.needUpdatingList.toTypedArray(), viewModel.finalPrice.value!!
+                    ))
+                } else {
+                    Toast.makeText(context, "Bạn chưa chọn sản phẩm nào", Toast.LENGTH_SHORT).show()
+                }
                 viewModel.navToPaymentFragment.value = false
             }
         })
@@ -96,7 +92,9 @@ class CartFragment : Fragment() {
                 viewModel.navToLocationFragment.value = false
             }
         })
-
         return binding.root
     }
+
+
+
 }

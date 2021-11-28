@@ -356,6 +356,7 @@ class CartFragmentViewModel() : ViewModel() {
             totalPrice.value = 0
             totalProduct.value = 0
             selectAllProduct.value = false
+            needUpdatingList.removeAll(needUpdatingList.toSet())
             listProductInCart.notifyObserverInUI()
         }
     }
