@@ -21,7 +21,7 @@ class CartFragmentViewModel() : ViewModel() {
     val selectAllProduct = MutableLiveData<Boolean>(false)
     val navigateToMarketVoucherFragment = MutableLiveData(false)
     var totalProduct = MutableLiveData<Int>(0)
-    var needUpdatingList = ArrayList<ProductViaShopInCart>()
+
     var eziVoucher = MutableLiveData<Voucher>()
     val finalPrice = MutableLiveData<Long>(0)
     val navToPaymentFragment = MutableLiveData<Boolean>(false)
@@ -35,6 +35,10 @@ class CartFragmentViewModel() : ViewModel() {
             District("019", "Quận Nam Từ Liêm"),
             Province("01", "Thành Phố Hà Nội", "Thành phố Trung ương")
         )
+
+    companion object {
+        var needUpdatingList = ArrayList<ProductViaShopInCart>()
+    }
 
     init {
         listProductInCart.value = dummyDataForCart()
@@ -391,25 +395,24 @@ class CartFragmentViewModel() : ViewModel() {
 
     fun purchase() {
         listProductInCart.value?.forEach { productViaShopInCart ->
-            val listProduct = ArrayList<ProductInCart>()
+            val listProductClone = ArrayList<ProductInCart>()
             productViaShopInCart.listProduct?.forEach { product ->
                 if (product.productStatus) {
-                    listProduct.add(product)
+                    listProductClone.add(product)
                 }
             }
-            if (listProduct.size != 0){
-                val productViaShopInCartClone = productViaShopInCart.apply {
+            if (listProductClone.size != 0){
+                val productViaShopInCartClone =
                     ProductViaShopInCart(
-                        shopId,
-                        shopName,
-                        status,
-                        oldTotalPrice,
-                        newTotalPrice,
-                        listProduct.size,
-                        voucher,
-                        listProduct
+                        productViaShopInCart.shopId,
+                        productViaShopInCart.shopName,
+                        productViaShopInCart.status,
+                        productViaShopInCart.oldTotalPrice,
+                        productViaShopInCart.newTotalPrice,
+                        listProductClone.size,
+                        productViaShopInCart.voucher,
+                        listProductClone
                     )
-                }
                 needUpdatingList.add(productViaShopInCartClone)
             }
         }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".outsidefragment.ShippingMethodFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.tuan2101.ezimarket.viewmodel.ShippingMethodFragmentViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/method_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:background="@color/themeColor"
+            android:onClick="@{() -> viewModel.confirm()}"
+            android:text="Xác nhận"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</layout>

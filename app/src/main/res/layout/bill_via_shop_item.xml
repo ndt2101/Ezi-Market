@@ -2,6 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="bill"
+            type="com.tuan2101.ezimarket.dataclasses.Bill" />
+
+        <variable
+            name="listener"
+            type="com.tuan2101.ezimarket.adapter.ConfirmationAdapter.BillClickListener" />
+    </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,6 +30,7 @@
             android:textStyle="bold"
             app:drawableStartCompat="@drawable/ic_store"
             android:drawablePadding="3dp"
+            android:text="@{bill.shopName}"
             android:layout_margin="5dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -27,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:itemCount="2"
+            android:fillViewport="false"
             tools:listitem="@layout/product_via_shop_in_bill"/>
 
         <LinearLayout
@@ -42,12 +54,15 @@
                 android:layout_height="wrap_content"
                 android:text="Phương thức vận chuyển (Nhấn để chọn)"
                 android:textSize="18sp"
-                android:textColor="#078166" />
+                android:textColor="#078166"
+                android:onClick="@{() -> listener.onClickShippingMethod(bill)}"
+                app:drawableEndCompat="@drawable/arrow_right" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/shipping_method"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
             <View
                 android:id="@+id/line"
@@ -77,8 +92,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Giá: 17000đ"
                 android:textSize="18sp"
-                android:layout_marginTop="5dp"
-                app:drawableEndCompat="@drawable/arrow_right" />
+                android:layout_marginTop="5dp" />
 
             <TextView
                 android:id="@+id/received_day"
@@ -118,9 +132,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                tools:text="24000đ"
+                android:text="@{@string/new_price(bill.totalPrice)}"
+                android:textColor="@color/themeColor"
                 android:textSize="20sp"
-                android:textColor="@color/themeColor"/>
+                tools:text="24000đ" />
         </RelativeLayout>
     </LinearLayout>
 </layout>

@@ -75,10 +75,8 @@ class CartFragment : Fragment() {
 
         viewModel.navToPaymentFragment.observe(viewLifecycleOwner, {
             if (it) {
-                if (viewModel.needUpdatingList.size != 0) {
-                    findNavController().navigate(CartFragmentDirections.actionCartFragmentToBillConfirmationFragment(viewModel.location!!,
-                        viewModel.needUpdatingList.toTypedArray(), viewModel.finalPrice.value!!
-                    ))
+                if (CartFragmentViewModel.needUpdatingList.size != 0) {
+                    findNavController().navigate(CartFragmentDirections.actionCartFragmentToBillConfirmationFragment(viewModel.location!!, viewModel.finalPrice.value!!))
                 } else {
                     Toast.makeText(context, "Bạn chưa chọn sản phẩm nào", Toast.LENGTH_SHORT).show()
                 }

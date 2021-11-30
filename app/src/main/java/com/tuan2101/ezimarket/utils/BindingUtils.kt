@@ -100,6 +100,12 @@ fun TextView.dateFormat(date: Date) {
     text ="Hạn sử dụng: ${simpleDateFormat.format(date)}"
 }
 
+@BindingAdapter("receivedDate")
+fun TextView.receivedDate(date: Date) {
+    val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+    text ="Ngày nhận hàng: ${simpleDateFormat.format(date)}"
+}
+
 @BindingAdapter("setVoucher")
 fun TextView.setVoucher(voucher: MutableLiveData<Voucher>) {
     if (voucher.value == null) {

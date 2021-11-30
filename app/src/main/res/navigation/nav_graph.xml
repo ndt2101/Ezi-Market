@@ -61,10 +61,24 @@
             android:name="loaction"
             app:argType="com.tuan2101.ezimarket.dataclasses.Location" />
         <argument
-            android:name="listProductViaShop"
-            app:argType="com.tuan2101.ezimarket.dataclasses.ProductViaShopInCart[]" />
-        <argument
             android:name="totalPrice"
             app:argType="long" />
+        <action
+            android:id="@+id/action_billConfirmationFragment_to_shippingMethodFragment"
+            app:destination="@id/shippingMethodFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shippingMethodFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.ShippingMethodFragment"
+        android:label="fragment_shipping_method"
+        tools:layout="@layout/fragment_shipping_method" >
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="shopId"
+            app:argType="string"
+            android:defaultValue='""' />
     </fragment>
 </navigation>
