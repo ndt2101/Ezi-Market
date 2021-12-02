@@ -1,6 +1,7 @@
 package com.tuan2101.ezimarket.outsidefragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationBarView
 import com.tuan2101.ezimarket.R
+import com.tuan2101.ezimarket.activities.PaymentActivity
 import com.tuan2101.ezimarket.adapter.ViewPagerAdapter
 import com.tuan2101.ezimarket.databinding.FragmentHostBinding
 import com.tuan2101.ezimarket.utils.DepthPageTransformer
@@ -58,7 +60,8 @@ class HostFragment : Fragment() {
         }
 
         binding.cart.setOnClickListener {
-            findNavController().navigate(HostFragmentDirections.actionHostFragmentToCartFragment())
+            val intent = Intent(requireActivity(), PaymentActivity::class.java)
+            startActivity(intent)
         }
 
         binding.viewpager.setPageTransformer(DepthPageTransformer())

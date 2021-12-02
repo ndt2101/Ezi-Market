@@ -16,6 +16,10 @@ class Location(
     override fun toString(): String {
         return "$detailAddress ${ward.name} ${district.name} ${province.name}"
     }
+
+    fun clone(): Location {
+        return Location(name, phoneNumber, detailAddress, ward, district, province)
+    }
 }
 open class LocationParent(open val name: String)
 

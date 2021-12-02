@@ -1,5 +1,7 @@
 package com.tuan2101.ezimarket.adapter
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
@@ -55,6 +57,20 @@ class ConfirmationAdapter(
             binding.listProduct.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)
             binding.listProduct.adapter = productViaShopInBillAdapter
             binding.listener = listener
+            binding.noteToSeller.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    bill.noteToSeller = p0.toString()
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+
+            })
         }
     }
 

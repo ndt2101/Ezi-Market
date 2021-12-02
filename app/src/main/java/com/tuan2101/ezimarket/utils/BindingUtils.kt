@@ -3,7 +3,9 @@ package com.tuan2101.ezimarket.utils
 import android.graphics.Paint
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
@@ -15,6 +17,7 @@ import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
 import com.tuan2101.ezimarket.R
+import com.tuan2101.ezimarket.dataclasses.Bill
 import com.tuan2101.ezimarket.dataclasses.ParentCategory
 import com.tuan2101.ezimarket.dataclasses.Product
 import com.tuan2101.ezimarket.dataclasses.Voucher
@@ -101,9 +104,11 @@ fun TextView.dateFormat(date: Date) {
 }
 
 @BindingAdapter("receivedDate")
-fun TextView.receivedDate(date: Date) {
-    val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
-    text ="Ngày nhận hàng: ${simpleDateFormat.format(date)}"
+fun TextView.receivedDate(date: Date?) {
+    if (date != null){
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+        text = "Ngày nhận hàng: ${simpleDateFormat.format(date)}"
+    }
 }
 
 @BindingAdapter("setVoucher")
@@ -123,5 +128,36 @@ fun TextView.setVoucher1(voucher: Voucher?) {
     } else {
         this.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context, R.drawable.coupon_icon), null, null, null)
         "Đã được giảm ${(voucher.discount * 100).toInt()}%"
+    }
+}
+
+@BindingAdapter("setShippingMethodVisibility")
+fun ViewGroup.setShippingMethodVisibility(bill: Bill) {
+    if (bill.shippingMethod == null) {
+        visibility = View.GONE
+    }
+}
+
+@BindingAdapter("payWhenReceive")
+fun RadioButton.payWhenReceive(method: MutableLiveData<String>) {
+    this.isChecked = method.value == "Thanh toán khi nhận hàng"
+}
+
+@BindingAdapter("payThroughPaypal")
+fun RadioButton.payThroughPaypal(method: MutableLiveData<String>) {
+    this.isChecked = method.value == "Thanh toán qua Paypal"
+}
+
+@BindingAdapter("customizeVisibility1")
+fun View.customizeVisibility1(status: String) {
+    if (status == "") {
+        visibility = View.GONE
+    }
+}
+
+@BindingAdapter("customizeVisibility2")
+fun View.customizeVisibility2(status: String) {
+    if (status != "") {
+        visibility = View.GONE
     }
 }

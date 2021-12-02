@@ -12,9 +12,6 @@
         <action
             android:id="@+id/action_hostFragment_to_imageDetailFragment"
             app:destination="@id/imageDetailFragment" />
-        <action
-            android:id="@+id/action_hostFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/imageDetailFragment"
@@ -24,61 +21,5 @@
         <argument
             android:name="image_url"
             app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/cartFragment"
-        android:name="com.tuan2101.ezimarket.outsidefragment.CartFragment"
-        android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" >
-        <action
-            android:id="@+id/action_cartFragment_to_locationFragment"
-            app:destination="@id/locationFragment" />
-        <action
-            android:id="@+id/action_cartFragment_to_billConfirmationFragment"
-            app:destination="@id/billConfirmationFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/locationFragment"
-        android:name="com.tuan2101.ezimarket.outsidefragment.LocationFragment"
-        android:label="fragment_location"
-        tools:layout="@layout/fragment_location" >
-        <action
-            android:id="@+id/action_locationFragment_to_cartFragment"
-            app:destination="@id/cartFragment"
-            app:popUpTo="@id/cartFragment"
-            app:popUpToInclusive="true" />
-        <argument
-            android:name="location"
-            app:argType="com.tuan2101.ezimarket.dataclasses.Location"
-            app:nullable="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/billConfirmationFragment"
-        android:name="com.tuan2101.ezimarket.outsidefragment.BillConfirmationFragment"
-        android:label="fragment_bill_confirmation"
-        tools:layout="@layout/fragment_bill_confirmation" >
-        <argument
-            android:name="loaction"
-            app:argType="com.tuan2101.ezimarket.dataclasses.Location" />
-        <argument
-            android:name="totalPrice"
-            app:argType="long" />
-        <action
-            android:id="@+id/action_billConfirmationFragment_to_shippingMethodFragment"
-            app:destination="@id/shippingMethodFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/shippingMethodFragment"
-        android:name="com.tuan2101.ezimarket.outsidefragment.ShippingMethodFragment"
-        android:label="fragment_shipping_method"
-        tools:layout="@layout/fragment_shipping_method" >
-        <argument
-            android:name="position"
-            app:argType="integer"
-            android:defaultValue="0" />
-        <argument
-            android:name="shopId"
-            app:argType="string"
-            android:defaultValue='""' />
     </fragment>
 </navigation>

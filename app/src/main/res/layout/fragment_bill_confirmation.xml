@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.tuan2101.ezimarket.viewmodel.BillConfirmationViewModel" />
+            type="com.tuan2101.ezimarket.viewmodel.CartFragmentViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -111,13 +111,14 @@
                             android:layout_height="wrap_content"
                             tools:listitem="@layout/bill_via_shop_item"
                             android:fillViewport="false"
-                            tools:itemCount="3"/>
+                            tools:itemCount="1"/>
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="10dp"
+                            android:onClick="@{() -> viewModel.onNavToPaymentMethodFragment()}">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -136,11 +137,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
-                                tools:text="Chon phuong thuc thanh toan"
+                                android:maxWidth="150dp"
+                                android:text="@{viewModel.paymentMethod}"
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
-                                android:maxWidth="150dp"
-                                app:drawableEndCompat="@drawable/arrow_right" />
+                                app:drawableEndCompat="@drawable/arrow_right"
+                                tools:text="Chon phuong thuc thanh toan" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -171,22 +173,22 @@
                             android:layout_height="wrap_content"
                             android:padding="5dp"
                             android:background="@color/white">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Tổng tiền phí vận chuyển"
-                                android:textSize="16sp"
                                 android:layout_alignParentStart="true"
-                                />
+                                android:text="Tổng tiền phí vận chuyển"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/shipping_total_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{@string/new_price(50000)}"
-                                tools:text="d 50000"
+                                android:layout_alignParentEnd="true"
+                                android:text="@{@string/new_price(viewModel.shippingTotalPrice)}"
                                 android:textSize="16sp"
-                                android:layout_alignParentEnd="true"/>
+                                tools:text="d 50000" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -206,11 +208,11 @@
                                 android:id="@+id/total_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{@string/new_price(100000)}"
-                                tools:text="d 1500000"
-                                android:textSize="18sp"
+                                android:layout_alignParentEnd="true"
+                                android:text="@{@string/new_price(viewModel.billsTotalPrice)}"
                                 android:textColor="@color/custom"
-                                android:layout_alignParentEnd="true"/>
+                                android:textSize="18sp"
+                                tools:text="d 1500000" />
                         </RelativeLayout>
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
@@ -219,40 +221,45 @@
                     android:id="@+id/order_area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:layout_alignParentBottom="true">
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/white">
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/order"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#D5FF0000"
                         android:text="Đặt hàng"
                         android:textAllCaps="false"
-                        android:layout_alignParentEnd="true"
-                        android:background="#D5FF0000"
+                        android:onClick="@{() -> viewModel.onNavToPaymentDetailFragment()}"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:layout_margin="5dp"/>
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/total_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tổng thanh toán"
-                        android:textSize="16sp"
                         android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_toStartOf="@id/order"
-                        android:layout_marginEnd="5dp"/>
+                        android:text="Tổng thanh toán"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/custom"
-                        tools:text="d 150000"
-                        android:textSize="22sp"
-                        android:layout_toStartOf="@id/order"
                         android:layout_below="@id/total_label"
-                        android:layout_marginEnd="5dp"/>
+                        android:layout_marginEnd="5dp"
+                        android:layout_toStartOf="@id/order"
+                        android:textColor="@color/custom"
+                        android:textSize="22sp"
+                        android:text="@{@string/new_price(viewModel.billsTotalPrice)}"
+                        tools:text="d 150000" />
                 </RelativeLayout>
             </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

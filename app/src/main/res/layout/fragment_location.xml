@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.tuan2101.ezimarket.viewmodel.LocationFragmentViewModel" />
+            type="com.tuan2101.ezimarket.viewmodel.CartFragmentViewModel" />
     </data>
 
     <LinearLayout
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:background="@color/themeColor"
-                android:onClick="@{() -> viewModel.onConfirm()}"
+                android:onClick="@{() -> viewModel.onConfirmLocation()}"
                 android:text="Xác nhận"
                 android:textAllCaps="false"
                 android:textSize="16sp" />

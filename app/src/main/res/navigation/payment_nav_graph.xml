@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/payment_nav_graph"
+    app:startDestination="@id/cartFragment">
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.CartFragment"
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_billConfirmationFragment"
+            app:destination="@id/billConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.LocationFragment"
+        android:label="fragment_location"
+        tools:layout="@layout/fragment_location" >
+        <action
+            android:id="@+id/action_locationFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:popUpTo="@id/cartFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/billConfirmationFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.BillConfirmationFragment"
+        android:label="fragment_bill_confirmation"
+        tools:layout="@layout/fragment_bill_confirmation" >
+        <action
+            android:id="@+id/action_billConfirmationFragment_to_shippingMethodFragment"
+            app:destination="@id/shippingMethodFragment" />
+        <action
+            android:id="@+id/action_billConfirmationFragment_to_paymentMethodFrament"
+            app:destination="@id/paymentMethodFrament" />
+        <action
+            android:id="@+id/action_billConfirmationFragment_to_paymentDetailFragment"
+            app:destination="@id/paymentDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shippingMethodFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.ShippingMethodFragment"
+        android:label="fragment_shipping_method"
+        tools:layout="@layout/fragment_shipping_method" />
+    <fragment
+        android:id="@+id/paymentMethodFrament"
+        android:name="com.tuan2101.ezimarket.outsidefragment.PaymentMethodFrament"
+        android:label="fragment_payment_method"
+        tools:layout="@layout/fragment_payment_method" />
+    <fragment
+        android:id="@+id/paymentDetailFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.PaymentDetailFragment"
+        android:label="fragment_payment_detail"
+        tools:layout="@layout/fragment_payment_detail" />
+</navigation>

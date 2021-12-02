@@ -7,9 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tuan2101.ezimarket.R
 import com.tuan2101.ezimarket.adapter.CartAdapter
 import com.tuan2101.ezimarket.adapter.CartViaShopAdapter
 import com.tuan2101.ezimarket.databinding.FragmentCartBinding
@@ -20,7 +21,7 @@ class CartFragment : Fragment() {
 
     lateinit var binding: FragmentCartBinding
     lateinit var adapter: CartAdapter
-    lateinit var viewModel: CartFragmentViewModel
+    val shareViewModel: CartFragmentViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,66 +29,66 @@ class CartFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentCartBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this)[CartFragmentViewModel::class.java]
+//        shareViewModel = ViewModelProvider(this)[CartFragmentViewModel::class.java]
         binding.productViaShopRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         adapter = CartAdapter(CartAdapter.ClickListener(
-            {productViaShopInCart -> viewModel.clickAllProductViaShop(productViaShopInCart) },
-            {shopId -> viewModel.clickVisitShop(shopId) },
-            {productViaShopInCart -> viewModel.clickSelectVoucher(productViaShopInCart) }
-        ), viewModel, viewLifecycleOwner, CartViaShopAdapter.ClickListener(
-            {productInCart, productViaShopInCart -> viewModel.clickToPay(productInCart, productViaShopInCart) },
-            {productInCart -> viewModel.clickToVisitProductDetail(productInCart) },
-            {productInCart, productViaShopInCart -> viewModel.clickToBuyMore(productInCart, productViaShopInCart) },
-            {productInCart, productViaShopInCart -> viewModel.clickToBuyLess(productInCart, productViaShopInCart) },
-            {productInCart, productViaShopInCart -> viewModel.clickToDeleteProduct(productInCart, productViaShopInCart) }
+            {productViaShopInCart -> shareViewModel.clickAllProductViaShop(productViaShopInCart) },
+            {shopId -> shareViewModel.clickVisitShop(shopId) },
+            {productViaShopInCart -> shareViewModel.clickSelectVoucher(productViaShopInCart) }
+        ), shareViewModel, viewLifecycleOwner, CartViaShopAdapter.ClickListener(
+            {productInCart, productViaShopInCart -> shareViewModel.clickToPay(productInCart, productViaShopInCart) },
+            {productInCart -> shareViewModel.clickToVisitProductDetail(productInCart) },
+            {productInCart, productViaShopInCart -> shareViewModel.clickToBuyMore(productInCart, productViaShopInCart) },
+            {productInCart, productViaShopInCart -> shareViewModel.clickToBuyLess(productInCart, productViaShopInCart) },
+            {productInCart, productViaShopInCart -> shareViewModel.clickToDeleteProduct(productInCart, productViaShopInCart) }
         ))
         binding.productViaShopRecyclerView.adapter = adapter
-        viewModel.listProductInCart.observe(viewLifecycleOwner, {
+        shareViewModel.listProductInCart.observe(viewLifecycleOwner, {
             adapter.submitList(it.clone() as ArrayList<ProductViaShopInCart>)
             Log.i("aaa", "vua xoa shop")
         })
 
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
+        binding.viewModel = shareViewModel
 
-        viewModel.currentShopToGetVoucher.observe(viewLifecycleOwner, {
+        shareViewModel.currentShopToGetVoucher.observe(viewLifecycleOwner, {
             if (it != null) {
-                val voucherFragment = VoucherFragment(it) { voucher -> viewModel.setVoucher(voucher) }
+                val voucherFragment = VoucherFragment(it) { voucher -> shareViewModel.setVoucher(voucher) }
                 voucherFragment.show(childFragmentManager, VoucherFragment.TAG)
             }
         })
 
-        viewModel.navigateToMarketVoucherFragment.observe(viewLifecycleOwner, {
+        shareViewModel.navigateToMarketVoucherFragment.observe(viewLifecycleOwner, {
             if (it == true) {
-                val voucherFragment = VoucherFragment(viewModel.eziVoucher.value) { voucher -> viewModel.setMarketVoucher(voucher) }
+                val voucherFragment = VoucherFragment(shareViewModel.eziVoucher.value) { voucher -> shareViewModel.setMarketVoucher(voucher) }
                 voucherFragment.show(childFragmentManager, VoucherFragment.TAG)
-                viewModel.navigateToMarketVoucherFragment.value = false
+                shareViewModel.navigateToMarketVoucherFragment.value = false
             }
         })
 
-        viewModel.totalPrice.observe(viewLifecycleOwner, {
-            viewModel.applyMarkerVoucher()
+        shareViewModel.totalPrice.observe(viewLifecycleOwner, {
+            shareViewModel.applyMarkerVoucher()
         })
 
-        viewModel.eziVoucher.observe(viewLifecycleOwner, {
-            viewModel.applyMarkerVoucher()
+        shareViewModel.eziVoucher.observe(viewLifecycleOwner, {
+            shareViewModel.applyMarkerVoucher()
         })
 
-        viewModel.navToPaymentFragment.observe(viewLifecycleOwner, {
+        shareViewModel.navToConfirmFragment.observe(viewLifecycleOwner, {
             if (it) {
-                if (CartFragmentViewModel.needUpdatingList.size != 0) {
-                    findNavController().navigate(CartFragmentDirections.actionCartFragmentToBillConfirmationFragment(viewModel.location!!, viewModel.finalPrice.value!!))
+                if (shareViewModel.needUpdatingList.size != 0) {
+                    findNavController().navigate(R.id.action_cartFragment_to_billConfirmationFragment)
                 } else {
                     Toast.makeText(context, "Bạn chưa chọn sản phẩm nào", Toast.LENGTH_SHORT).show()
                 }
-                viewModel.navToPaymentFragment.value = false
+                shareViewModel.navToConfirmFragment.value = false
             }
         })
 
-        viewModel.navToLocationFragment.observe(viewLifecycleOwner, {
+        shareViewModel.navToLocationFragment.observe(viewLifecycleOwner, {
             if (it) {
-                findNavController().navigate(CartFragmentDirections.actionCartFragmentToLocationFragment(viewModel.location))
-                viewModel.navToLocationFragment.value = false
+                findNavController().navigate(CartFragmentDirections.actionCartFragmentToLocationFragment())
+                shareViewModel.navToLocationFragment.value = false
             }
         })
         return binding.root

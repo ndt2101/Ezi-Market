@@ -9,5 +9,6 @@ class Shop(id: String,
            override var vital: String = "shop",
            followerList: List<User>?,
            followingList: List<User>?,
-           location: Location
+           location: Location,
+           val paypalClientId: String
 ) : User(id, shopName, avatar, vital, followerList, followingList, location)

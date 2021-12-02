@@ -35,6 +35,8 @@ class ProductViaShopInCart() : BaseObservable(), Parcelable {
         this.listProduct = listProduct
     }
 
+//    val shopClientId: String = ""
+
     @get:Bindable
     var shopId: String = ""
         set(value) {

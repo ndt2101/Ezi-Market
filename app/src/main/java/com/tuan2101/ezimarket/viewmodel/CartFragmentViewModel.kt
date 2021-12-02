@@ -1,10 +1,22 @@
 package com.tuan2101.ezimarket.viewmodel
 
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tuan2101.ezimarket.activities.MainActivity
+import com.tuan2101.ezimarket.activities.PaymentActivity
 import com.tuan2101.ezimarket.dataclasses.*
+import com.tuan2101.ezimarket.outsidefragment.BillConfirmationFragment
+import com.tuan2101.ezimarket.service.CallLocationApi
 import com.tuan2101.ezimarket.utils.notifyObserverInUI
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by ndt2101 on 11/5/2021.
@@ -21,10 +33,10 @@ class CartFragmentViewModel() : ViewModel() {
     val selectAllProduct = MutableLiveData<Boolean>(false)
     val navigateToMarketVoucherFragment = MutableLiveData(false)
     var totalProduct = MutableLiveData<Int>(0)
-
+    var needUpdatingList = ArrayList<ProductViaShopInCart>()
     var eziVoucher = MutableLiveData<Voucher>()
     val finalPrice = MutableLiveData<Long>(0)
-    val navToPaymentFragment = MutableLiveData<Boolean>(false)
+    val navToConfirmFragment = MutableLiveData<Boolean>(false)
     val navToLocationFragment = MutableLiveData<Boolean>(false)
     var location: Location? =
         Location(
@@ -36,9 +48,47 @@ class CartFragmentViewModel() : ViewModel() {
             Province("01", "Thành Phố Hà Nội", "Thành phố Trung ương")
         )
 
-    companion object {
-        var needUpdatingList = ArrayList<ProductViaShopInCart>()
-    }
+
+    /**
+     * location variable
+     */
+
+    private val job = Job()
+    val provinceList = MutableLiveData<ArrayList<Province>>(ArrayList())
+    val districtList = MutableLiveData<ArrayList<District>>(ArrayList())
+    val wardList = MutableLiveData<ArrayList<Ward>>(ArrayList())
+    private val backGroundScope = CoroutineScope(Dispatchers.IO + job)
+    var selectedProvince = MutableLiveData<Province>(location?.province)
+    var selectedDistrict = MutableLiveData<District>(location?.district)
+    var selectedWard = MutableLiveData<Ward>(location?.ward)
+    var currentProvincePosition = 0
+    var currentDistrictPosition = 0
+    var currentWardPosition = 0
+    var receiverName: String = location?.name ?: ""
+    var phoneNumber: String = location?.phoneNumber ?: ""
+    var detailAddress: String = location?.detailAddress ?: ""
+    val navToCartFragment = MutableLiveData(0)
+    lateinit var updatedLocation: Location
+
+    /**
+     * bill variable
+     */
+    var listBills: List<Bill> = ArrayList()
+    var currentBill: Bill? = null
+    var shippingTotalPrice = 0L
+    val billsTotalPrice: Long
+        get() = finalPrice.value!! + shippingTotalPrice
+    var paymentMethod = MutableLiveData<String>("")
+    var navToPaymentMethodFragment = MutableLiveData(false)
+    var navToPaymentDetailFragment = MutableLiveData(false)
+    /**
+     * shippingMethod variable
+     */
+    val shippingMethodList = MutableLiveData<List<ShippingMethod>>()
+    val navToBillFragment = MutableLiveData(0)
+
+
+
 
     init {
         listProductInCart.value = dummyDataForCart()
@@ -394,6 +444,7 @@ class CartFragmentViewModel() : ViewModel() {
     }
 
     fun purchase() {
+        var bill: Bill
         listProductInCart.value?.forEach { productViaShopInCart ->
             val listProductClone = ArrayList<ProductInCart>()
             productViaShopInCart.listProduct?.forEach { product ->
@@ -414,14 +465,308 @@ class CartFragmentViewModel() : ViewModel() {
                         listProductClone
                     )
                 needUpdatingList.add(productViaShopInCartClone)
+
+                bill = Bill(
+                    System.currentTimeMillis().toString(),
+                    productViaShopInCartClone.shopId,
+                    productViaShopInCartClone.shopName,
+                    MainActivity.userId,
+                    productViaShopInCartClone.listProduct!!,
+                    productViaShopInCartClone.newTotalPrice,
+                    "",
+                    location!!
+                )
+
+                (listBills as ArrayList).add(bill)
             }
         }
-        navToPaymentFragment.value = true
+        navToConfirmFragment.value = true
     }
 
     fun onNavToLocationFragment() {
         navToLocationFragment.value = true
     }
+
+    /**
+     * location start
+     */
+
+    fun initialLocation() {
+        provinceList.value!!.add(Province("-1", "Chọn Tỉnh/ Thành phố", "Thành phố trung ướng"))
+        districtList.value!!.add(District("-1", "Chọn Quận/ Huyện"))
+        wardList.value!!.add(Ward("-1", "Chọn Xã/ Phường"))
+        if (location == null) {
+            getProvinceList()
+        } else {
+//            selectedProvince.value = location.province
+//            selectedDistrict.value = location.district
+//            selectedWard.value = location.ward
+            getProvinceListClone()
+//            getDistrictListClone()
+//            getWardListClone()
+        }
+    }
+
+    fun getProvinceList() {
+        backGroundScope.launch {
+            try {
+                val getProvinces = CallLocationApi.retrofitService.getProvinces()
+                val result = getProvinces.await().result
+                if (result.isNotEmpty()) {
+                    CoroutineScope(Dispatchers.Main + job).launch {
+                        provinceList.value!!.addAll(result)
+                        provinceList.notifyObserverInUI()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("getProvinceList", e.message.toString())
+            }
+        }
+    }
+
+    fun getProvinceListClone() {
+        backGroundScope.launch {
+            try {
+                val getProvinces = CallLocationApi.retrofitService.getProvinces()
+                val result = getProvinces.await().result
+                if (result.isNotEmpty()) {
+                    CoroutineScope(Dispatchers.Main + job).launch {
+                        provinceList.value!!.addAll(result)
+                        for (index in 0 until provinceList.value!!.size) {
+                            if (provinceList.value!![index].Id == selectedProvince.value!!.Id) {
+                                currentProvincePosition = index
+                                break
+                            }
+                        }
+                        provinceList.notifyObserverInUI()
+                        districtList.value!!.removeAll(districtList.value!!.toSet())
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("getProvinceList", e.message.toString())
+            }
+        }
+    }
+
+    fun setProvince(province: Province) {
+        selectedProvince.value = province
+        districtList.value!!.removeAll(districtList.value!!.toSet())
+        wardList.value!!.removeAll(wardList.value!!.toSet())
+        districtList.value!!.add(District("-1", "Chọn Quận/ Huyện"))
+        wardList.value!!.add(Ward("-1", "Chọn Xã/ Phường"))
+    }
+
+    fun getDistrictList() {
+        backGroundScope.launch {
+            try {
+                if (selectedProvince.value?.Id ?: -1 != -1) {
+                    val getDistricts = CallLocationApi.retrofitService.getDistrict(selectedProvince.value!!.Id)
+                    val result = getDistricts.await().result
+                    if (result.isNotEmpty()) {
+                        CoroutineScope(Dispatchers.Main + job).launch {
+                            districtList.value!!.addAll(result)
+                            districtList.notifyObserverInUI()
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("getDistrictList", e.message.toString())
+            }
+        }
+    }
+
+    suspend fun getDistrictListClone() {
+        backGroundScope.launch {
+            try {
+                if (selectedProvince.value?.Id ?: -1 != -1) {
+                    val getDistricts = CallLocationApi.retrofitService.getDistrict(selectedProvince.value!!.Id)
+                    val result = getDistricts.await().result
+                    if (result.isNotEmpty()) {
+                        CoroutineScope(Dispatchers.Main + job).launch {
+                            districtList.value!!.addAll(result)
+                            for (index in 0 until districtList.value!!.size) {
+                                if (districtList.value!![index].Id == selectedDistrict.value!!.Id) {
+                                    currentDistrictPosition = index
+                                    break
+                                } else {
+                                    currentDistrictPosition = 0
+                                }
+                            }
+                            districtList.notifyObserverInUI()
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("getDistrictListClone", e.message.toString())
+            }
+        }
+    }
+
+    fun setDistrict(district: District) {
+        selectedDistrict.value = district
+        wardList.value!!.removeAll(wardList.value!!.toSet())
+        wardList.value!!.add(Ward("-1", "Chọn Xã/ Phường"))
+    }
+
+    fun getWardList() {
+        backGroundScope.launch {
+            try {
+                if (selectedDistrict.value?.Id ?: -1 != -1) {
+                    val getWards = CallLocationApi.retrofitService.getWards(selectedDistrict.value!!.Id)
+                    val result = getWards.await().result
+                    if (result.isNotEmpty()) {
+                        CoroutineScope(Dispatchers.Main + job).launch {
+                            wardList.value!!.addAll(result)
+                            wardList.notifyObserverInUI()
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("getDistrictList", e.message.toString())
+            }
+        }
+    }
+
+    suspend fun getWardListClone() {
+        backGroundScope.launch {
+            try {
+                if (selectedDistrict.value?.Id ?: -1 != -1) {
+                    val getWards = CallLocationApi.retrofitService.getWards(selectedDistrict.value!!.Id)
+                    val result = getWards.await().result
+                    if (result.isNotEmpty()) {
+                        CoroutineScope(Dispatchers.Main + job).launch {
+                            wardList.value!!.addAll(result)
+                            for (index in 0 until wardList.value!!.size) {
+                                if (wardList.value!![index].Id == selectedWard.value!!.Id) {
+                                    currentWardPosition = index
+                                    break
+                                } else {
+                                    currentWardPosition = 0
+                                }
+                            }
+                            wardList.notifyObserverInUI()
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("getDistrictList", e.message.toString())
+            }
+        }
+    }
+
+
+    fun setWard(ward: Ward) {
+        selectedWard.value = ward
+    }
+
+    fun onConfirmLocation() {
+        if (receiverName == "" || phoneNumber== "" || detailAddress == ""
+            || selectedProvince.value!!.Id == "-1" || selectedDistrict.value!!.Id == "-1" || selectedWard.value!!.Id == "-1") {
+            navToCartFragment.value = -1
+        } else {
+            updatedLocation = Location(receiverName,
+                phoneNumber,
+                detailAddress,
+                selectedWard.value!!,
+                selectedDistrict.value!!,
+                selectedProvince.value!!)
+            navToCartFragment.value = 1
+
+            // TODO: update location on Firebase
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        job.cancel()
+    }
+
+    /**
+     * location end
+     */
+
+
+    /**
+     * bill start
+     */
+    fun onNavToPaymentMethodFragment() {
+        navToPaymentMethodFragment.value = true
+    }
+
+    fun setBillsPaymentMethod(method: Int) {
+        if (method == 1) {
+            paymentMethod.value = "Thanh toán khi nhận hàng"
+        } else {
+            paymentMethod.value = "Thanh toán qua Paypal"
+        }
+
+    }
+
+    fun onNavToPaymentDetailFragment() {
+        listBills.forEach {
+            it.status = paymentMethod.value!!
+        }
+        navToPaymentDetailFragment.value = true
+    }
+    /**
+     * bill end
+     */
+
+    /**
+     * shippingMethod start
+     */
+    fun initialShippingMethod() {
+        shippingMethodList.value = dummyDataForShippingMethod()
+        Log.i("shippingMethod", currentBill?.shippingMethod?.name.toString())
+        (shippingMethodList.value as ArrayList<ShippingMethod>).forEach{
+//            it.shippingMethodStatus = currentBill!!.shippingMethod?.id == it.id // co data chinh thi bo cmt
+            it.shippingMethodStatus = currentBill!!.shippingMethod?.name == it.name // thu vi id khac nhau
+        }
+    }
+
+    private fun dummyDataForShippingMethod(): ArrayList<ShippingMethod> {
+        val list = ArrayList<ShippingMethod>()
+        val method1 = ShippingMethod(System.currentTimeMillis().toString(), "Chuyen phat nhanh", 30000, Date())
+        Thread.sleep(1)
+        val method2 = ShippingMethod(System.currentTimeMillis().toString(), "Giao hang tiet kiem", 20000, Date())
+
+        list.add(method1)
+        list.add(method2)
+        return list
+    }
+
+    fun clickShippingMethod(shippingMethod: ShippingMethod) {
+        if (shippingMethod.shippingMethodStatus) {
+            shippingMethod.shippingMethodStatus = false
+//            currentBill!!.shippingMethod = null
+        } else {
+            shippingMethodList.value!!.forEach {
+                if (it.id != shippingMethod.id) {
+                    it.shippingMethodStatus = false
+                }
+            }
+            shippingMethod.shippingMethodStatus = true
+        }
+    }
+
+    fun confirmShippingMethod() {
+        for (it in shippingMethodList.value!!) {
+            if (it.shippingMethodStatus) {
+                currentBill!!.totalPrice -= currentBill!!.shippingMethod?.price ?: 0
+                shippingTotalPrice -= currentBill!!.shippingMethod?.price ?: 0
+                currentBill!!.shippingMethod = it
+                currentBill!!.totalPrice += it.price
+                shippingTotalPrice += it.price
+                navToBillFragment.value = 1
+                return
+            }
+        }
+        navToBillFragment.value = -1
+    }
+
+    /**
+     * shippingMethod end
+     */
 
     fun dummyDataForCart(): ArrayList<ProductViaShopInCart> {
         val list = ArrayList<ProductViaShopInCart>()
@@ -449,7 +794,7 @@ class CartFragmentViewModel() : ViewModel() {
                     Ward("-1", "Mỹ Đình 2"),
                     District("-1", "Nam Từ Liêm"),
                     Province("-1", "Hà Nội", "Thành phố")
-                )
+                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
             ),
             false
         )
@@ -476,7 +821,7 @@ class CartFragmentViewModel() : ViewModel() {
                     Ward("-1", "Mỹ Đình 2"),
                     District("-1", "Nam Từ Liêm"),
                     Province("-1", "Hà Nội", "Thành phố")
-                )
+                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
             ),
             false
         )
@@ -503,7 +848,7 @@ class CartFragmentViewModel() : ViewModel() {
                     Ward("-1", "Mỹ Đình 2"),
                     District("-1", "Nam Từ Liêm"),
                     Province("-1", "Hà Nội", "Thành phố")
-                )
+                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
             ),
             false
         )
@@ -530,7 +875,7 @@ class CartFragmentViewModel() : ViewModel() {
                     Ward("-1", "Mỹ Đình 2"),
                     District("-1", "Nam Từ Liêm"),
                     Province("-1", "Hà Nội", "Thành phố")
-                )
+                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
             ),
             false
         )
@@ -557,7 +902,7 @@ class CartFragmentViewModel() : ViewModel() {
                     Ward("-1", "Mỹ Đình 2"),
                     District("-1", "Nam Từ Liêm"),
                     Province("-1", "Hà Nội", "Thành phố")
-                )
+                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
             ),
             false
         )
@@ -584,7 +929,7 @@ class CartFragmentViewModel() : ViewModel() {
                     Ward("-1", "Mỹ Đình 2"),
                     District("-1", "Nam Từ Liêm"),
                     Province("-1", "Hà Nội", "Thành phố")
-                )
+                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
             ),
             false
         )
@@ -611,7 +956,7 @@ class CartFragmentViewModel() : ViewModel() {
                     Ward("-1", "Mỹ Đình 2"),
                     District("-1", "Nam Từ Liêm"),
                     Province("-1", "Hà Nội", "Thành phố")
-                )
+                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
             ),
             false
         )
@@ -638,7 +983,7 @@ class CartFragmentViewModel() : ViewModel() {
                     Ward("-1", "Mỹ Đình 2"),
                     District("-1", "Nam Từ Liêm"),
                     Province("-1", "Hà Nội", "Thành phố")
-                )
+                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
             ),
             false
         )
@@ -665,7 +1010,7 @@ class CartFragmentViewModel() : ViewModel() {
                     Ward("-1", "Mỹ Đình 2"),
                     District("-1", "Nam Từ Liêm"),
                     Province("-1", "Hà Nội", "Thành phố")
-                )
+                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
             ),
             false
         )
@@ -692,7 +1037,7 @@ class CartFragmentViewModel() : ViewModel() {
                     Ward("-1", "Mỹ Đình 2"),
                     District("-1", "Nam Từ Liêm"),
                     Province("-1", "Hà Nội", "Thành phố")
-                )
+                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
             ),
             false
         )
