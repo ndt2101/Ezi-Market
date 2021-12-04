@@ -51,7 +51,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="@{productInCart.nameProduct}"
-            android:onClick="@{() -> listener.onClickToVisitProductDetail(productInCart)}"
+            android:onClick="@{() -> listener.onClickToVisitProductDetail(productInCart, productViaShopInCart)}"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"

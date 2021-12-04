@@ -19,14 +19,15 @@
                 android:layout_height="match_parent"
                 android:background="#E7E8EC">
                 <androidx.core.widget.NestedScrollView
+                    android:id="@+id/scroll_view"
                     android:layout_alignParentTop="true"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_above="@id/order_area"
                     android:layout_marginBottom="5dp">
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -108,7 +109,7 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/list_product_via_shop"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             tools:listitem="@layout/bill_via_shop_item"
                             android:fillViewport="false"
                             tools:itemCount="1"/>
@@ -217,6 +218,13 @@
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
 
+<!--                <com.paypal.checkout.paymentbutton.PayPalButton-->
+<!--                    android:id="@+id/payPalButton"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_above="@id/order_area"-->
+<!--                    android:backgroundTint="@color/themeColor"/>-->
+
                 <RelativeLayout
                     android:id="@+id/order_area"
                     android:layout_width="match_parent"
@@ -234,9 +242,9 @@
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
                         android:background="#D5FF0000"
+                        android:onClick="@{() -> viewModel.onNavToPaymentDetailFragment()}"
                         android:text="Đặt hàng"
                         android:textAllCaps="false"
-                        android:onClick="@{() -> viewModel.onNavToPaymentDetailFragment()}"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -256,9 +264,9 @@
                         android:layout_below="@id/total_label"
                         android:layout_marginEnd="5dp"
                         android:layout_toStartOf="@id/order"
+                        android:text="@{@string/new_price(viewModel.billsTotalPrice)}"
                         android:textColor="@color/custom"
                         android:textSize="22sp"
-                        android:text="@{@string/new_price(viewModel.billsTotalPrice)}"
                         tools:text="d 150000" />
                 </RelativeLayout>
             </RelativeLayout>

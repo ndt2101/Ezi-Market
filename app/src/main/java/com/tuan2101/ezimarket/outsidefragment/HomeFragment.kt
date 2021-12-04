@@ -244,10 +244,10 @@ class HomeFragment : Fragment() {
         return listImg
     }
 
-    private fun dummyDataForFlashSale(): ArrayList<Product> {
-        val listProduct = ArrayList<Product>()
+    private fun dummyDataForFlashSale(): ArrayList<SearchedProduct> {
+        val listProduct = ArrayList<SearchedProduct>()
         listProduct.add(
-            Product(
+            SearchedProduct(
                 System.currentTimeMillis().toString(),
                 "https://cf.shopee.vn/file/af8c5c4597c61c9d5c6c1e4049ebf243",
                 "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
@@ -255,27 +255,13 @@ class HomeFragment : Fragment() {
                 299000,
                 4.5f,
                 900,
-                Shop(
-                    "u1",
-                    "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                    "Thùy Dương",
-                    "shop",
-                    null,
-                    null,
-                    Location(
-                        "Nguyen Dinh Tuan",
-                        "0789266255",
-                        "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                        Ward("-1", "Mỹ Đình 2"),
-                        District("-1", "Nam Từ Liêm"),
-                        Province("-1", "Hà Nội", "Thành phố")
-                    ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-                )
+                "shipId1",
+                "Ha noi"
             )
         )
         Thread.sleep(1)
         listProduct.add(
-            Product(
+            SearchedProduct(
                 System.currentTimeMillis().toString(),
                 "https://thatlungnam.com.vn/wp-content/uploads/2019/04/3.jpg",
                 "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
@@ -283,27 +269,13 @@ class HomeFragment : Fragment() {
                 299000,
                 4.5f,
                 2900,
-                Shop(
-                    "u1",
-                    "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                    "Thùy Dương",
-                    "shop",
-                    null,
-                    null,
-                    Location(
-                        "Nguyen Dinh Tuan",
-                        "0789266255",
-                        "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                        Ward("-1", "Mỹ Đình 2"),
-                        District("-1", "Nam Từ Liêm"),
-                        Province("-1", "Hà Nội", "Thành phố")
-                    ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-                )
+                "shipId2",
+                "Ha noi"
             )
         )
         Thread.sleep(1)
         listProduct.add(
-            Product(
+            SearchedProduct(
                 System.currentTimeMillis().toString(),
                 "https://media3.scdn.vn/img4/2021/06_04/epQjaa1kpxpng0MKD3rh.jpg",
                 "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
@@ -311,27 +283,13 @@ class HomeFragment : Fragment() {
                 299000,
                 4.5f,
                 29499,
-                Shop(
-                    "u1",
-                    "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                    "Thùy Dương",
-                    "shop",
-                    null,
-                    null,
-                    Location(
-                        "Nguyen Dinh Tuan",
-                        "0789266255",
-                        "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                        Ward("-1", "Mỹ Đình 2"),
-                        District("-1", "Nam Từ Liêm"),
-                        Province("-1", "Hà Nội", "Thành phố")
-                    ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-                )
+                "shipId3",
+                "Ha noi"
             )
         )
         Thread.sleep(1)
         listProduct.add(
-            Product(
+            SearchedProduct(
                 System.currentTimeMillis().toString(),
                 "https://sakurafashion.vn/upload/a/1285-doc-menswear-7749.jpg",
                 "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
@@ -339,27 +297,13 @@ class HomeFragment : Fragment() {
                 299000,
                 4.0f,
                 900,
-                Shop(
-                    "u1",
-                    "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                    "Thùy Dương",
-                    "shop",
-                    null,
-                    null,
-                    Location(
-                        "Nguyen Dinh Tuan",
-                        "0789266255",
-                        "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                        Ward("-1", "Mỹ Đình 2"),
-                        District("-1", "Nam Từ Liêm"),
-                        Province("-1", "Hà Nội", "Thành phố")
-                    ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-                )
+                "shipId4",
+                "Ha noi"
             )
         )
         Thread.sleep(1)
         listProduct.add(
-            Product(
+            SearchedProduct(
                 System.currentTimeMillis().toString(),
                 "https://cf.shopee.vn/file/46b13304e62d5ad704ef9ee99a1b9d22",
                 "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
@@ -367,27 +311,13 @@ class HomeFragment : Fragment() {
                 299000,
                 3.5f,
                 900,
-                Shop(
-                    "u1",
-                    "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                    "Thùy Dương",
-                    "shop",
-                    null,
-                    null,
-                    Location(
-                        "Nguyen Dinh Tuan",
-                        "0789266255",
-                        "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                        Ward("-1", "Mỹ Đình 2"),
-                        District("-1", "Nam Từ Liêm"),
-                        Province("-1", "Hà Nội", "Thành phố")
-                    ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-                )
+                "shipId5",
+                "Ha noi"
             )
         )
         Thread.sleep(1)
         listProduct.add(
-            Product(
+            SearchedProduct(
                 System.currentTimeMillis().toString(),
                 "https://aristino.com/Data/upload/images/Product/ao-blazer/ABZ00908/ao-blazer-nam-aristino-ABZ00908-02.jpg",
                 "Áo blazer nam oversize , 2 lớp, màu nâu tây phong cách retro phong cách Hàn Quốc - BZ01",
@@ -395,22 +325,8 @@ class HomeFragment : Fragment() {
                 299000,
                 2.5f,
                 900,
-                Shop(
-                    "u1",
-                    "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                    "Thùy Dương",
-                    "shop",
-                    null,
-                    null,
-                    Location(
-                        "Nguyen Dinh Tuan",
-                        "0789266255",
-                        "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                        Ward("-1", "Mỹ Đình 2"),
-                        District("-1", "Nam Từ Liêm"),
-                        Province("-1", "Hà Nội", "Thành phố")
-                    ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-                )
+                "shipId1",
+                "Ha noi"
             )
         )
         return listProduct

@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tuan2101.ezimarket.databinding.VoucherItemBinding
+import com.tuan2101.ezimarket.dataclasses.PostVoucher
 import com.tuan2101.ezimarket.dataclasses.Voucher
 
 /**
  * Created by ndt2101 on 11/14/2021.
  */
-class VoucherAdapter(val lifecycleOwner: LifecycleOwner, val onClickListener: OnClickListener): ListAdapter<Voucher, VoucherAdapter.VoucherViewHolder>(VoucherCallBack()) {
+class VoucherAdapter(val lifecycleOwner: LifecycleOwner, val onClickListener: OnClickListener): ListAdapter<PostVoucher, VoucherAdapter.VoucherViewHolder>(VoucherCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VoucherViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -30,25 +31,25 @@ class VoucherAdapter(val lifecycleOwner: LifecycleOwner, val onClickListener: On
             }
         }
 
-        fun bind(voucher: Voucher, lifecycleOwner: LifecycleOwner, onClickListener: OnClickListener) {
+        fun bind(voucher: PostVoucher, lifecycleOwner: LifecycleOwner, onClickListener: OnClickListener) {
             binding.voucher = voucher
             binding.lifecycleOwner = lifecycleOwner
             binding.listener = onClickListener
         }
     }
 
-    class VoucherCallBack(): DiffUtil.ItemCallback<Voucher>() {
-        override fun areItemsTheSame(oldItem: Voucher, newItem: Voucher): Boolean {
+    class VoucherCallBack(): DiffUtil.ItemCallback<PostVoucher>() {
+        override fun areItemsTheSame(oldItem: PostVoucher, newItem: PostVoucher): Boolean {
             return oldItem.voucherId == newItem.voucherId
         }
 
-        override fun areContentsTheSame(oldItem: Voucher, newItem: Voucher): Boolean {
+        override fun areContentsTheSame(oldItem: PostVoucher, newItem: PostVoucher): Boolean {
             return oldItem == newItem
         }
 
     }
 
-    class OnClickListener(val clickSetVoucher: (voucher: Voucher) -> Unit) {
-        fun onClickSetVoucher(voucher: Voucher) = clickSetVoucher(voucher)
+    class OnClickListener(val clickSetVoucher: (voucher: PostVoucher) -> Unit) {
+        fun onClickSetVoucher(voucher: PostVoucher) = clickSetVoucher(voucher)
     }
 }

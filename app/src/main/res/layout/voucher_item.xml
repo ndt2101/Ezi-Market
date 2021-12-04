@@ -7,7 +7,7 @@
 
         <variable
             name="voucher"
-            type="com.tuan2101.ezimarket.dataclasses.Voucher" />
+            type="com.tuan2101.ezimarket.dataclasses.PostVoucher" />
 
         <variable
             name="listener"
@@ -27,7 +27,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/voucher_shop_img"
-                loadImage="@{voucher.voucherShop.avatar}"
+                loadImage="@{voucher.imgVoucher}"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 tools:src="@drawable/logo" />

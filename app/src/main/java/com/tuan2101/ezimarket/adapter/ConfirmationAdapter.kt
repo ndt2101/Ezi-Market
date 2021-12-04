@@ -51,7 +51,7 @@ class ConfirmationAdapter(
         }
 
         fun bind(bill: Bill, listener: BillClickListener) {
-            val productViaShopInBillAdapter = ProductViaShopInBillAdapter(bill.listProduct!! as ArrayList<ProductInCart>)
+            val productViaShopInBillAdapter = ProductViaShopInBillAdapter(bill.listProduct as ArrayList<ProductInCart>)
             binding.bill = bill
             binding.lifecycleOwner = lifecycleOwner
             binding.listProduct.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)

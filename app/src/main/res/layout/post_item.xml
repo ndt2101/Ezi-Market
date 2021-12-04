@@ -34,7 +34,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="2dp"
-                loadImage="@{post.user.avatar}"
+                loadImage="@{post.postUser.avatar}"
                 tools:src="@drawable/logo" />
 
             <LinearLayout
@@ -56,7 +56,7 @@
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:text="@{post.user.name}"
+                    android:text="@{post.postUser.name}"
                     tools:text="Sieu thị xe đạp 368" />
 
                 <LinearLayout
@@ -70,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/gray"
-                        android:text="@{post.user.vital}"
+                        android:text="@{post.postUser.vital}"
                         tools:text="Nhà bán" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -227,7 +227,7 @@
                     android:id="@+id/voucher_shop_img"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
-                    loadImage="@{post.voucher.voucherShop.avatar}"
+                    loadImage="@{post.postVoucher.imgVoucher}"
                     tools:src="@drawable/logo" />
 
                 <View
@@ -250,7 +250,7 @@
                         android:maxLines="1"
                         android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:text="@{String.valueOf(post.voucher.discount)}"
+                        android:text="@{String.valueOf(post.postVoucher.discount)}"
                         tools:text="Giam 30% " />
 
                     <TextView
@@ -260,7 +260,7 @@
                         android:layout_marginTop="5dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@{post.voucher.voucherDescription}"
+                        android:text="@{post.postVoucher.voucherDescription}"
                         tools:text="Giam 30% cho cac don hang tu 1 trieu" />
 
                     <RelativeLayout
@@ -295,7 +295,7 @@
                             android:id="@+id/exp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            dateFormat="@{post.voucher.exp}"
+                            dateFormat="@{post.postVoucher.exp}"
                             tools:text="Hạn sử dụng: 30/12/2021" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -352,7 +352,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/cmt_bt"
-                    android:text="@{String.valueOf(post.commentList.size)}"
+                    android:text="@{String.valueOf(post.commentQuantity)}"
                     android:textColor="@color/black"
                     tools:text="300" />
             </RelativeLayout>

@@ -79,7 +79,7 @@ class CartViaShopAdapter(
 
     class ClickListener(
         val clickToPay: (productInCart: ProductInCart, productViaShopInCart: ProductViaShopInCart) -> Unit,
-        val clickToVisitProductDetail: (productInCart: ProductInCart) -> Unit,
+        val clickToVisitProductDetail: (productInCart: ProductInCart, productViaShipInCart: ProductViaShopInCart) -> Unit,
         val clickToBuyMore: (productInCart: ProductInCart, productViaShopInCart: ProductViaShopInCart) -> Unit,
         val clickToBuyLess: (productInCart: ProductInCart, productViaShopInCart: ProductViaShopInCart) -> Unit,
         val clickToDeleteProduct: (productInCart: ProductInCart, productViaShopInCart: ProductViaShopInCart) -> Unit
@@ -87,8 +87,8 @@ class CartViaShopAdapter(
 
         fun onClickToPay(productInCart: ProductInCart, productViaShopInCart: ProductViaShopInCart) =
             clickToPay(productInCart, productViaShopInCart)
-        fun onClickToVisitProductDetail(productInCart: ProductInCart) =
-            clickToVisitProductDetail(productInCart)
+        fun onClickToVisitProductDetail(productInCart: ProductInCart, productViaShopInCart: ProductViaShopInCart) =
+            clickToVisitProductDetail(productInCart, productViaShopInCart)
 
         fun onClickToBuyMore(productInCart: ProductInCart, productViaShopInCart: ProductViaShopInCart) =
             clickToBuyMore(productInCart, productViaShopInCart)

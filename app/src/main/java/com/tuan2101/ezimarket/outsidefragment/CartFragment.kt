@@ -1,12 +1,18 @@
 package com.tuan2101.ezimarket.outsidefragment
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,8 +20,9 @@ import com.tuan2101.ezimarket.R
 import com.tuan2101.ezimarket.adapter.CartAdapter
 import com.tuan2101.ezimarket.adapter.CartViaShopAdapter
 import com.tuan2101.ezimarket.databinding.FragmentCartBinding
-import com.tuan2101.ezimarket.dataclasses.*
+import com.tuan2101.ezimarket.dataclasses.ProductViaShopInCart
 import com.tuan2101.ezimarket.viewmodel.CartFragmentViewModel
+import java.math.BigDecimal
 
 class CartFragment : Fragment() {
 
@@ -32,15 +39,35 @@ class CartFragment : Fragment() {
 //        shareViewModel = ViewModelProvider(this)[CartFragmentViewModel::class.java]
         binding.productViaShopRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         adapter = CartAdapter(CartAdapter.ClickListener(
-            {productViaShopInCart -> shareViewModel.clickAllProductViaShop(productViaShopInCart) },
-            {shopId -> shareViewModel.clickVisitShop(shopId) },
-            {productViaShopInCart -> shareViewModel.clickSelectVoucher(productViaShopInCart) }
+            { productViaShopInCart -> shareViewModel.clickAllProductViaShop(productViaShopInCart) },
+            { shopId -> shareViewModel.clickVisitShop(shopId) },
+            { productViaShopInCart -> shareViewModel.clickSelectVoucher(productViaShopInCart) }
         ), shareViewModel, viewLifecycleOwner, CartViaShopAdapter.ClickListener(
-            {productInCart, productViaShopInCart -> shareViewModel.clickToPay(productInCart, productViaShopInCart) },
-            {productInCart -> shareViewModel.clickToVisitProductDetail(productInCart) },
-            {productInCart, productViaShopInCart -> shareViewModel.clickToBuyMore(productInCart, productViaShopInCart) },
-            {productInCart, productViaShopInCart -> shareViewModel.clickToBuyLess(productInCart, productViaShopInCart) },
-            {productInCart, productViaShopInCart -> shareViewModel.clickToDeleteProduct(productInCart, productViaShopInCart) }
+            { productInCart, productViaShopInCart -> shareViewModel.clickToPay(productInCart, productViaShopInCart) },
+            { productInCart, productViaShopInCart ->
+                shareViewModel.clickToVisitProductDetail(
+                    productInCart,
+                    productViaShopInCart
+                )
+            },
+            { productInCart, productViaShopInCart ->
+                shareViewModel.clickToBuyMore(
+                    productInCart,
+                    productViaShopInCart
+                )
+            },
+            { productInCart, productViaShopInCart ->
+                shareViewModel.clickToBuyLess(
+                    productInCart,
+                    productViaShopInCart
+                )
+            },
+            { productInCart, productViaShopInCart ->
+                shareViewModel.clickToDeleteProduct(
+                    productInCart,
+                    productViaShopInCart
+                )
+            }
         ))
         binding.productViaShopRecyclerView.adapter = adapter
         shareViewModel.listProductInCart.observe(viewLifecycleOwner, {
@@ -60,7 +87,8 @@ class CartFragment : Fragment() {
 
         shareViewModel.navigateToMarketVoucherFragment.observe(viewLifecycleOwner, {
             if (it == true) {
-                val voucherFragment = VoucherFragment(shareViewModel.eziVoucher.value) { voucher -> shareViewModel.setMarketVoucher(voucher) }
+                val voucherFragment =
+                    VoucherFragment(shareViewModel.eziVoucher.value) { voucher -> shareViewModel.setMarketVoucher(voucher) }
                 voucherFragment.show(childFragmentManager, VoucherFragment.TAG)
                 shareViewModel.navigateToMarketVoucherFragment.value = false
             }

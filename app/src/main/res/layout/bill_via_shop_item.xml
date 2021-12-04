@@ -121,12 +121,15 @@
             android:hint="Lưu ý cho người bán..." />
 
         <TextView
-            android:id="@+id/note_to_seller2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="@{bill.noteToSeller}"
-            customizeVisibility1="@{bill.status}" />
+            android:text="@{@string/note_to_seller(bill.noteToSeller)}"
+            customizeVisibility1="@{bill.status}"
+            android:textSize="18sp"
+            tools:text="Lưu ý cho người bán: mua mau xanh, ship vao chu nhat"
+            android:textColor="@color/black"
+            android:hint="Lưu ý cho người bán..." />
 
         <TextView
             android:layout_width="match_parent"

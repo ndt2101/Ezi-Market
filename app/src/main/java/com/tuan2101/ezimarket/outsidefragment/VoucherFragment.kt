@@ -10,9 +10,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.database.DatabaseReference
 import com.tuan2101.ezimarket.adapter.VoucherAdapter
 import com.tuan2101.ezimarket.databinding.FragmentVoucherBinding
+import com.tuan2101.ezimarket.dataclasses.PostVoucher
 import com.tuan2101.ezimarket.dataclasses.ProductViaShopInCart
 import com.tuan2101.ezimarket.dataclasses.Voucher
-import com.tuan2101.ezimarket.viewmodel.*
+import com.tuan2101.ezimarket.viewmodel.VoucherFragmentViewModel
+import com.tuan2101.ezimarket.viewmodel.VoucherFragmentViewModelFactory
 
 /**
  * Created by ndt2101 on 11/14/2021.
@@ -20,20 +22,23 @@ import com.tuan2101.ezimarket.viewmodel.*
 class VoucherFragment() : BottomSheetDialogFragment() {
 
     var shop: ProductViaShopInCart? = null
-    var eziVoucher: Voucher? = null
-    lateinit var setVoucher: (voucher: Voucher) -> Unit
+    var eziVoucher: PostVoucher? = null
+    lateinit var setVoucher: (voucher: PostVoucher) -> Unit
+
     companion object {
         val TAG: String = "VoucherFragment"
     }
-    constructor(shop: ProductViaShopInCart, setVoucher: (voucher: Voucher) -> Unit): this() {
+
+    constructor(shop: ProductViaShopInCart, setVoucher: (voucher: PostVoucher) -> Unit) : this() {
         this.shop = shop
         this.setVoucher = setVoucher
     }
 
-    constructor(eziVoucher: Voucher?, setVoucher: (voucher: Voucher) -> Unit): this() {
+    constructor(eziVoucher: PostVoucher?, setVoucher: (voucher: PostVoucher) -> Unit) : this() {
         this.setVoucher = setVoucher
         this.eziVoucher = eziVoucher
     }
+
     lateinit var binding: FragmentVoucherBinding
     lateinit var viewModel: VoucherFragmentViewModel
 
@@ -46,12 +51,24 @@ class VoucherFragment() : BottomSheetDialogFragment() {
         binding = FragmentVoucherBinding.inflate(inflater, container, false)
 
         val reference: DatabaseReference? = null // từ detail shop mà ra
-        val adapter = VoucherAdapter(viewLifecycleOwner, VoucherAdapter.OnClickListener { voucher -> setVoucherClone(voucher) })
+        val adapter =
+            VoucherAdapter(viewLifecycleOwner, VoucherAdapter.OnClickListener { voucher -> setVoucherClone(voucher) })
         if (shop != null) {
             val factory = VoucherFragmentViewModelFactory(shop!!)
             viewModel = ViewModelProvider(this, factory)[VoucherFragmentViewModel::class.java]
         } else if (shop == null) {
-            val factory = VoucherFragmentViewModelFactory(shop = ProductViaShopInCart("","Ezi Market",false,0L,0L,0,eziVoucher,null))
+            val factory = VoucherFragmentViewModelFactory(
+                shop = ProductViaShopInCart(
+                    "",
+                    "Ezi Market",
+                    false,
+                    0L,
+                    0L,
+                    0,
+                    eziVoucher,
+                    null
+                )
+            )
             viewModel = ViewModelProvider(this, factory)[VoucherFragmentViewModel::class.java]
         }
 
@@ -63,7 +80,7 @@ class VoucherFragment() : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    fun setVoucherClone(voucher: Voucher) {
+    fun setVoucherClone(voucher: PostVoucher) {
         viewModel.listVoucher.forEach {
             it.voucherStatus = false
         }

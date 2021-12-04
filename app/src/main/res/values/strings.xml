@@ -10,7 +10,7 @@
     <string name="paid_product_total">Mua hàng (%d)</string>
 
     <string name="count_total">Tất cả (%d sản phẩm)</string>
-
+    <string name="note_to_seller">Lưu ý cho người bán: %s</string>
     <string name="new_price">%d đ</string>
     <string name="quantity">x%d</string>
     <string name="price">Giá: %dđ</string>

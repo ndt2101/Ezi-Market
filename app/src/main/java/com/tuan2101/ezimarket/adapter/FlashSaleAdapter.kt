@@ -14,11 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tuan2101.ezimarket.databinding.FooterBinding
 import com.tuan2101.ezimarket.databinding.ProductItemBinding
 import com.tuan2101.ezimarket.dataclasses.Product
+import com.tuan2101.ezimarket.dataclasses.SearchedProduct
 
 class FlashSaleAdapter(val listener: ProductItemClickListener) : ListAdapter<FlashSaleAdapter.DataItem, RecyclerView.ViewHolder>(ProductItemCallBack()) {
 
 
-    fun customSubmitList(list: List<Product>) {
+    fun customSubmitList(list: List<SearchedProduct>) {
         if (list.isNotEmpty()) {
            val newList = list.map { DataItem.Item(it) } + listOf(DataItem.Footer())
             submitList(newList)
@@ -48,7 +49,7 @@ class FlashSaleAdapter(val listener: ProductItemClickListener) : ListAdapter<Fla
     }
 
     sealed class DataItem(val id: String) {
-        class Item(val product: Product): DataItem(product.id)
+        class Item(val product: SearchedProduct): DataItem(product.id)
         class Footer() : DataItem("footer")
     }
 
@@ -79,7 +80,7 @@ class SaleProductViewHolder(val binding: ProductItemBinding) : RecyclerView.View
         }
     }
 
-    fun bind(product: Product, holder: SaleProductViewHolder, listener: ProductItemClickListener) {
+    fun bind(product: SearchedProduct, holder: SaleProductViewHolder, listener: ProductItemClickListener) {
         binding.product = product
         binding.lifecycleOwner = holder
         binding.action = listener

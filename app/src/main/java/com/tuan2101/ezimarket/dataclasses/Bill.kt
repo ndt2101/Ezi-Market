@@ -11,10 +11,10 @@ class Bill(val billId: String,
            val shopId: String,
            val shopName: String,
            val userId: String,
-           val listProduct: List<Product>,
+           val listProduct: List<ProductInCart>,
            var totalPrice: Long,
            var paymentMethod: String,
-           val shipToLocation: Location
+           val shipToLocation: Location,
 ): BaseObservable() {
 
     @get:Bindable
@@ -32,4 +32,5 @@ class Bill(val billId: String,
         }
 
     var status: String = ""
+
 }

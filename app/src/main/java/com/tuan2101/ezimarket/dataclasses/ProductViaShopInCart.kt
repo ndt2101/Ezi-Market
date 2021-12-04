@@ -22,8 +22,8 @@ class ProductViaShopInCart() : BaseObservable(), Parcelable {
         oldTotalPrice: Long,
         newTotalPrice: Long,
         currentSelectedProductCount: Int,
-        voucher: Voucher?,
-        listProduct: ArrayList<ProductInCart>?
+        voucher: PostVoucher?,
+        listProduct: ArrayList<ProductInCart>?,
     ) : this() {
         this.shopId = shopId
         this.shopName = shopName
@@ -33,9 +33,10 @@ class ProductViaShopInCart() : BaseObservable(), Parcelable {
         this.currentSelectedProductCount = currentSelectedProductCount
         this.voucher = voucher
         this.listProduct = listProduct
+        this.shopPaypalClientId = shopPaypalClientId
     }
 
-//    val shopClientId: String = ""
+    var shopPaypalClientId: String = ""
 
     @get:Bindable
     var shopId: String = ""
@@ -80,7 +81,7 @@ class ProductViaShopInCart() : BaseObservable(), Parcelable {
         }
 
     @get:Bindable
-    var voucher: Voucher? = null
+    var voucher: PostVoucher? = null
         set(value) {
             field = value
             notifyPropertyChanged(BR.voucher)

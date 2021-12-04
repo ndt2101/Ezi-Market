@@ -20,7 +20,7 @@ class PostAdapter(val postList: List<Post>, val listener: OnPostClickListener) :
             if (post.postContentImage.isNullOrEmpty()) {
                 binding.postImg.visibility = View.GONE
             }
-            if (post.voucher == null) {
+            if (post.postVoucher == null) {
                 binding.product.visibility = View.GONE
             }
             if (post.product == null) {

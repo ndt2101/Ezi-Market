@@ -34,7 +34,7 @@ class CartFragmentViewModel() : ViewModel() {
     val navigateToMarketVoucherFragment = MutableLiveData(false)
     var totalProduct = MutableLiveData<Int>(0)
     var needUpdatingList = ArrayList<ProductViaShopInCart>()
-    var eziVoucher = MutableLiveData<Voucher>()
+    var eziVoucher = MutableLiveData<PostVoucher>()
     val finalPrice = MutableLiveData<Long>(0)
     val navToConfirmFragment = MutableLiveData<Boolean>(false)
     val navToLocationFragment = MutableLiveData<Boolean>(false)
@@ -181,7 +181,7 @@ class CartFragmentViewModel() : ViewModel() {
         Log.i("aaa", "voucher: shopId ${currentShopToGetVoucher.value!!.shopId}")
     }
 
-    fun setVoucher(voucher: Voucher) {
+    fun setVoucher(voucher: PostVoucher) {
         val position = listProductInCart.value?.indexOf(currentShopToGetVoucher.value)
         if (currentShopToGetVoucher.value?.voucher != null) {
             currentShopToGetVoucher.value?.voucher = null
@@ -196,7 +196,7 @@ class CartFragmentViewModel() : ViewModel() {
             }
     }
 
-    fun applyVoucher(voucher: Voucher?, productViaShopInCart: ProductViaShopInCart) {
+    fun applyVoucher(voucher: PostVoucher?, productViaShopInCart: ProductViaShopInCart) {
         if (productViaShopInCart.voucher != null) {
             if (productViaShopInCart.oldTotalPrice >= voucher!!.priceCondition) {
                 productViaShopInCart.apply {
@@ -284,8 +284,8 @@ class CartFragmentViewModel() : ViewModel() {
         }
     }
 
-    fun clickToVisitProductDetail(productInCart: ProductInCart) {
-        Log.i("aaa", "product detail ${productInCart.shop!!.id} .. ${productInCart.id}")
+    fun clickToVisitProductDetail(productInCart: ProductInCart, productViaShopInCart: ProductViaShopInCart) {
+        Log.i("aaa", "product detail ${productViaShopInCart.shopId} .. ${productInCart.id}")
     }
 
     fun clickToBuyMore(productInCart: ProductInCart, productViaShopInCart: ProductViaShopInCart) {
@@ -419,7 +419,7 @@ class CartFragmentViewModel() : ViewModel() {
         navigateToMarketVoucherFragment.value = true
     }
 
-    fun setMarketVoucher(voucher: Voucher) {
+    fun setMarketVoucher(voucher: PostVoucher) {
 //        if (eziVoucher.value != null) {
 //            eziVoucher.value = null
 //        }
@@ -696,10 +696,7 @@ class CartFragmentViewModel() : ViewModel() {
     fun setBillsPaymentMethod(method: Int) {
         if (method == 1) {
             paymentMethod.value = "Thanh toán khi nhận hàng"
-        } else {
-            paymentMethod.value = "Thanh toán qua Paypal"
         }
-
     }
 
     fun onNavToPaymentDetailFragment() {
@@ -726,9 +723,9 @@ class CartFragmentViewModel() : ViewModel() {
 
     private fun dummyDataForShippingMethod(): ArrayList<ShippingMethod> {
         val list = ArrayList<ShippingMethod>()
-        val method1 = ShippingMethod(System.currentTimeMillis().toString(), "Chuyen phat nhanh", 30000, Date())
+        val method1 = ShippingMethod(System.currentTimeMillis().toString(), "Chuyen phat nhanh", 3, Date())
         Thread.sleep(1)
-        val method2 = ShippingMethod(System.currentTimeMillis().toString(), "Giao hang tiet kiem", 20000, Date())
+        val method2 = ShippingMethod(System.currentTimeMillis().toString(), "Giao hang tiet kiem", 2, Date())
 
         list.add(method1)
         list.add(method2)
@@ -778,24 +775,7 @@ class CartFragmentViewModel() : ViewModel() {
             "Thùy Dương product",
             25000,
             1,
-            5.0f,
             2,
-            Shop(
-                "u1",
-                "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                "Thùy Dương",
-                "shop",
-                null,
-                null,
-                Location(
-                    "Nguyen Dinh Tuan",
-                    "0789266255",
-                    "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    Ward("-1", "Mỹ Đình 2"),
-                    District("-1", "Nam Từ Liêm"),
-                    Province("-1", "Hà Nội", "Thành phố")
-                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-            ),
             false
         )
 
@@ -805,24 +785,7 @@ class CartFragmentViewModel() : ViewModel() {
             "Thùy Dương product",
             25000,
             2,
-            5.0f,
             2,
-            Shop(
-                "u1",
-                "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                "Thùy Dương",
-                "shop",
-                null,
-                null,
-                Location(
-                    "Nguyen Dinh Tuan",
-                    "0789266255",
-                    "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    Ward("-1", "Mỹ Đình 2"),
-                    District("-1", "Nam Từ Liêm"),
-                    Province("-1", "Hà Nội", "Thành phố")
-                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-            ),
             false
         )
 
@@ -832,24 +795,7 @@ class CartFragmentViewModel() : ViewModel() {
             "Thùy Dương product",
             25000,
             3,
-            5.0f,
             2,
-            Shop(
-                "u1",
-                "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                "Thùy Dương",
-                "shop",
-                null,
-                null,
-                Location(
-                    "Nguyen Dinh Tuan",
-                    "0789266255",
-                    "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    Ward("-1", "Mỹ Đình 2"),
-                    District("-1", "Nam Từ Liêm"),
-                    Province("-1", "Hà Nội", "Thành phố")
-                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-            ),
             false
         )
 
@@ -859,24 +805,7 @@ class CartFragmentViewModel() : ViewModel() {
             "Thùy Dương product",
             25000,
             4,
-            5.0f,
             2,
-            Shop(
-                "u1",
-                "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                "Thùy Dương",
-                "shop",
-                null,
-                null,
-                Location(
-                    "Nguyen Dinh Tuan",
-                    "0789266255",
-                    "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    Ward("-1", "Mỹ Đình 2"),
-                    District("-1", "Nam Từ Liêm"),
-                    Province("-1", "Hà Nội", "Thành phố")
-                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-            ),
             false
         )
 
@@ -886,24 +815,7 @@ class CartFragmentViewModel() : ViewModel() {
             "Thùy Dương product",
             25000,
             5,
-            5.0f,
             2,
-            Shop(
-                "u1",
-                "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                "Thùy Dương",
-                "shop",
-                null,
-                null,
-                Location(
-                    "Nguyen Dinh Tuan",
-                    "0789266255",
-                    "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    Ward("-1", "Mỹ Đình 2"),
-                    District("-1", "Nam Từ Liêm"),
-                    Province("-1", "Hà Nội", "Thành phố")
-                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-            ),
             false
         )
 
@@ -913,24 +825,7 @@ class CartFragmentViewModel() : ViewModel() {
             "Thùy Dương product",
             25000,
             6,
-            5.0f,
             2,
-            Shop(
-                "u1",
-                "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                "Thùy Dương",
-                "shop",
-                null,
-                null,
-                Location(
-                    "Nguyen Dinh Tuan",
-                    "0789266255",
-                    "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    Ward("-1", "Mỹ Đình 2"),
-                    District("-1", "Nam Từ Liêm"),
-                    Province("-1", "Hà Nội", "Thành phố")
-                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-            ),
             false
         )
 
@@ -940,24 +835,7 @@ class CartFragmentViewModel() : ViewModel() {
             "Thùy Dương product",
             25000,
             7,
-            5.0f,
             2,
-            Shop(
-                "u1",
-                "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                "Thùy Dương",
-                "shop",
-                null,
-                null,
-                Location(
-                    "Nguyen Dinh Tuan",
-                    "0789266255",
-                    "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    Ward("-1", "Mỹ Đình 2"),
-                    District("-1", "Nam Từ Liêm"),
-                    Province("-1", "Hà Nội", "Thành phố")
-                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-            ),
             false
         )
 
@@ -967,24 +845,7 @@ class CartFragmentViewModel() : ViewModel() {
             "Thùy Dương product",
             25000,
             8,
-            5.0f,
             2,
-            Shop(
-                "u1",
-                "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                "Thùy Dương",
-                "shop",
-                null,
-                null,
-                Location(
-                    "Nguyen Dinh Tuan",
-                    "0789266255",
-                    "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    Ward("-1", "Mỹ Đình 2"),
-                    District("-1", "Nam Từ Liêm"),
-                    Province("-1", "Hà Nội", "Thành phố")
-                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-            ),
             false
         )
 
@@ -994,24 +855,7 @@ class CartFragmentViewModel() : ViewModel() {
             "Thùy Dương product",
             25000,
             9,
-            5.0f,
             2,
-            Shop(
-                "u1",
-                "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                "Thùy Dương",
-                "shop",
-                null,
-                null,
-                Location(
-                    "Nguyen Dinh Tuan",
-                    "0789266255",
-                    "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    Ward("-1", "Mỹ Đình 2"),
-                    District("-1", "Nam Từ Liêm"),
-                    Province("-1", "Hà Nội", "Thành phố")
-                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-            ),
             false
         )
 
@@ -1021,24 +865,7 @@ class CartFragmentViewModel() : ViewModel() {
             "Thùy Dương product",
             25000,
             10,
-            5.0f,
             2,
-            Shop(
-                "u1",
-                "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
-                "Thùy Dương",
-                "shop",
-                null,
-                null,
-                Location(
-                    "Nguyen Dinh Tuan",
-                    "0789266255",
-                    "Nhà xứng số 4, Nghách 63/194, Đường Lê Đức Thọ",
-                    Ward("-1", "Mỹ Đình 2"),
-                    District("-1", "Nam Từ Liêm"),
-                    Province("-1", "Hà Nội", "Thành phố")
-                ),"Ad5DmFc53BAxVxr1f3_sQSz9_SiEqmlCRSkQ2BHuk0WDyhweFoxQ9hCi3TNxcrIsTdJgiBvJck1_lGTu",
-            ),
             false
         )
         val listProduct1 = MutableLiveData<ArrayList<ProductInCart>>()

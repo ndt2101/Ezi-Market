@@ -7,8 +7,6 @@ open class User(open val id: String,
                 open val name: String,
                 open val avatar: String,
                 open var vital: String = "customer",
-                open val followerList: List<User>?,
-                open val followingList: List<User>?,
+                open val followingList: List<String>?,
                 open val location: Location
 )
-

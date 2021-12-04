@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tuan2101.ezimarket.R
@@ -30,6 +31,10 @@ class PaymentDetailFragment : Fragment() {
             viewLifecycleOwner, ConfirmationAdapter.BillClickListener { bill ->
                 fakeFun(bill)
             })
+        customizedNavBack()
+        binding.confirm.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
         return binding.root
     }
 
@@ -37,5 +42,15 @@ class PaymentDetailFragment : Fragment() {
 
     }
 
+    private fun customizedNavBack() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (isEnabled) {
+                    isEnabled = false
+                    requireActivity().finish()
+                }
+            }
+        })
+    }
 
 }

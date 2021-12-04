@@ -17,10 +17,7 @@ import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
 import com.tuan2101.ezimarket.R
-import com.tuan2101.ezimarket.dataclasses.Bill
-import com.tuan2101.ezimarket.dataclasses.ParentCategory
-import com.tuan2101.ezimarket.dataclasses.Product
-import com.tuan2101.ezimarket.dataclasses.Voucher
+import com.tuan2101.ezimarket.dataclasses.*
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -112,7 +109,7 @@ fun TextView.receivedDate(date: Date?) {
 }
 
 @BindingAdapter("setVoucher")
-fun TextView.setVoucher(voucher: MutableLiveData<Voucher>) {
+fun TextView.setVoucher(voucher: MutableLiveData<PostVoucher>) {
     if (voucher.value == null) {
         text = "Chọn voucher"
     } else {
@@ -143,10 +140,6 @@ fun RadioButton.payWhenReceive(method: MutableLiveData<String>) {
     this.isChecked = method.value == "Thanh toán khi nhận hàng"
 }
 
-@BindingAdapter("payThroughPaypal")
-fun RadioButton.payThroughPaypal(method: MutableLiveData<String>) {
-    this.isChecked = method.value == "Thanh toán qua Paypal"
-}
 
 @BindingAdapter("customizeVisibility1")
 fun View.customizeVisibility1(status: String) {

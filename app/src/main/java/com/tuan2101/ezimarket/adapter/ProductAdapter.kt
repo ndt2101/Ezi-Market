@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tuan2101.ezimarket.databinding.ProductItemBinding
 import com.tuan2101.ezimarket.dataclasses.Product
+import com.tuan2101.ezimarket.dataclasses.SearchedProduct
 
-class ProductAdapter(val listener: ProductItemClickListener) : ListAdapter<Product, ProductViewHolder>(ProductCallBack()) {
+class ProductAdapter(val listener: ProductItemClickListener) : ListAdapter<SearchedProduct, ProductViewHolder>(ProductCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder.from(parent)
@@ -31,7 +32,7 @@ class ProductViewHolder(val binding: ProductItemBinding) : RecyclerView.ViewHold
         }
     }
 
-    fun bind(product: Product, holder: ProductViewHolder, listener: ProductItemClickListener) {
+    fun bind(product: SearchedProduct, holder: ProductViewHolder, listener: ProductItemClickListener) {
         binding.product = product
         binding.lifecycleOwner = holder
         binding.action = listener
@@ -44,12 +45,12 @@ class ProductViewHolder(val binding: ProductItemBinding) : RecyclerView.ViewHold
     }
 }
 
-class ProductCallBack() : DiffUtil.ItemCallback<Product>() {
-    override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
+class ProductCallBack() : DiffUtil.ItemCallback<SearchedProduct>() {
+    override fun areItemsTheSame(oldItem: SearchedProduct, newItem: SearchedProduct): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+    override fun areContentsTheSame(oldItem: SearchedProduct, newItem: SearchedProduct): Boolean {
         return oldItem == newItem
     }
 }
