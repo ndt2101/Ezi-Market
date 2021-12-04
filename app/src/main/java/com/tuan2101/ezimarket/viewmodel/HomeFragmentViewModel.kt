@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 class HomeFragmentViewModel() : ViewModel() {
 
     val suggestedClickedItem = MutableLiveData<String>()
+    val navToNotificationFragment = MutableLiveData(false)
 
     init {
         suggestedClickedItem.value = "0"
@@ -16,5 +17,9 @@ class HomeFragmentViewModel() : ViewModel() {
     fun onClickSuggestedClickedItem(id: String) {
         suggestedClickedItem.value = id
         Log.i("ttt", id)
+    }
+
+    fun onClickNotification() {
+        navToNotificationFragment.value = true
     }
 }

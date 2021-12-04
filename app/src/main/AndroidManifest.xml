@@ -11,7 +11,6 @@
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EziMarket">
-
         <activity
             android:name=".activities.SplashActivity"
             android:exported="true"
@@ -26,8 +25,8 @@
             </intent-filter>
         </activity>
         <activity
-        android:name=".activities.PaymentActivity"
-        android:exported="true" />
+            android:name=".activities.PaymentActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

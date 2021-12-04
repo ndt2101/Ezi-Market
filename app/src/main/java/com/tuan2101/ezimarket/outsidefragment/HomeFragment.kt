@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -172,9 +173,15 @@ class HomeFragment : Fragment() {
                 Toast.makeText(context, "chuyen", Toast.LENGTH_SHORT).show()
             }
         })
+
+        homeFragmentViewModel.navToNotificationFragment.observe(viewLifecycleOwner, {
+            if (it){
+                findNavController().navigate(R.id.action_hostFragment_to_notificationFragment)
+                homeFragmentViewModel.navToNotificationFragment.value = false
+            }
+        })
         return binding.root
     }
-
     private fun dataForTopCategoryItem(): ArrayList<CategoryItem> {
         val listItem = ArrayList<CategoryItem>()
         listItem.add(CategoryItem("0", R.drawable.go_market, "Đi chợ"))

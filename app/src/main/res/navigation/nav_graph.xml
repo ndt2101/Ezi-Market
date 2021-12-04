@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_hostFragment_to_imageDetailFragment"
             app:destination="@id/imageDetailFragment" />
+        <action
+            android:id="@+id/action_hostFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/imageDetailFragment"
@@ -22,4 +25,17 @@
             android:name="image_url"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" >
+        <action
+            android:id="@+id/action_notificationFragment_to_cartFragment2"
+            app:destination="@id/cartFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment2"
+        android:name="com.tuan2101.ezimarket.outsidefragment.CartFragment"
+        android:label="CartFragment" />
 </navigation>

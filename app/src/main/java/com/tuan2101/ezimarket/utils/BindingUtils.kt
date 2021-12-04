@@ -9,6 +9,7 @@ import android.widget.RadioButton
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
@@ -152,5 +153,14 @@ fun View.customizeVisibility1(status: String) {
 fun View.customizeVisibility2(status: String) {
     if (status != "") {
         visibility = View.GONE
+    }
+}
+
+@BindingAdapter("notificationBackground")
+fun ConstraintLayout.notificationBackground(notification: Notification) {
+    background = if (notification.notificationStatus) {
+        ResourcesCompat.getDrawable(resources, R.color.white, null)
+    } else {
+        ResourcesCompat.getDrawable(resources, R.color.notification_background, null)
     }
 }
