@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_hostFragment_to_notificationFragment"
             app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_hostFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/imageDetailFragment"
@@ -38,4 +41,22 @@
         android:id="@+id/cartFragment2"
         android:name="com.tuan2101.ezimarket.outsidefragment.CartFragment"
         android:label="CartFragment" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chatFragment_to_chatLogFragment"
+            app:destination="@id/chatLogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatLogFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.ChatLogFragment"
+        android:label="fragment_chat_log"
+        tools:layout="@layout/fragment_chat_log" >
+        <argument
+            android:name="latestMessage"
+            app:argType="com.tuan2101.ezimarket.dataclasses.LatestMessage" />
+    </fragment>
 </navigation>

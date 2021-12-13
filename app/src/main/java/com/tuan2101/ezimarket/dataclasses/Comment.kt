@@ -5,7 +5,7 @@ package com.tuan2101.ezimarket.dataclasses
  */
 data class Comment(
     val id: String,
-    val user: PostUser,
+    val user: DisplayUser,
     val createdTime: Long,
     val content: String
 )

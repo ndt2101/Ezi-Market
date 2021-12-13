@@ -8,7 +8,7 @@ class HomeFragmentViewModel() : ViewModel() {
 
     val suggestedClickedItem = MutableLiveData<String>()
     val navToNotificationFragment = MutableLiveData(false)
-
+    val navToChatFragment = MutableLiveData(false)
     init {
         suggestedClickedItem.value = "0"
         Log.i("ttt", "init")
@@ -21,5 +21,9 @@ class HomeFragmentViewModel() : ViewModel() {
 
     fun onClickNotification() {
         navToNotificationFragment.value = true
+    }
+
+    fun onNavToChatFragment() {
+        navToChatFragment.value = true
     }
 }

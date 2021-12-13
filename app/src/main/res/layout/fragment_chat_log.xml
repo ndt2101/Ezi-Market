@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".outsidefragment.ChatLogFragment">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.tuan2101.ezimarket.viewmodel.ChatLogFragmentViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/top_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/avt"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        loadImage="@{viewModel.partner.avatar}"
+                        app:layout_constraintEnd_toStartOf="@+id/name"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/customer_care" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/active_now"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_below="@id/avt"
+                        android:layout_marginStart="-20dp"
+                        android:layout_marginTop="-20dp"
+                        android:layout_toEndOf="@id/avt"
+                        android:visibility="@{viewModel.partner.status ? View.VISIBLE : View.GONE}"
+                        android:src="#22E126" />
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/avt"
+                        android:ellipsize="end"
+                        android:text="@{viewModel.partner.name}"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="Nguyễn Dình Tuấn" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/messages"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/enter_area"
+                android:layout_below="@id/top_area"
+                android:layout_marginTop="2dp"
+                android:background="@color/white"
+                android:clipToPadding="true"
+                tools:listitem="@layout/user_text_message_item" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/enter_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+                
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    
+                    <ImageView
+                        android:id="@+id/product_link"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="2dp"
+                        android:src="@drawable/ic_baseline_attach_file_24"
+                        app:tint="@color/themeColor" />
+
+                    <ImageView
+                        android:id="@+id/new_photo"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_toEndOf="@id/product_link"
+                        android:layout_marginStart="2dp"
+                        android:src="@drawable/ic_baseline_linked_camera_24"
+                        app:tint="@color/themeColor" />
+
+                    <ImageView
+                        android:id="@+id/select_photo"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_toEndOf="@id/new_photo"
+                        android:layout_marginStart="2dp"
+                        android:src="@drawable/ic_baseline_insert_photo_24"
+                        app:tint="@color/themeColor"/>
+
+                    <EditText
+                        android:id="@+id/enter_message"
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_toEndOf="@id/select_photo"
+                        android:hint="Abc"
+                        android:layout_marginStart="2dp"
+                        android:layout_toStartOf="@id/like_button"/>
+
+                    <ImageView
+                        android:id="@+id/like_button"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="2dp"
+                        android:src="@drawable/like"
+                        app:tint="@color/themeColor"
+                        android:layout_marginEnd="2dp"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+                
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

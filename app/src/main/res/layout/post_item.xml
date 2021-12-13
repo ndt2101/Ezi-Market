@@ -34,7 +34,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="2dp"
-                loadImage="@{post.postUser.avatar}"
+                loadImage="@{post.displayUser.avatar}"
                 tools:src="@drawable/logo" />
 
             <LinearLayout
@@ -56,7 +56,7 @@
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:text="@{post.postUser.name}"
+                    android:text="@{post.displayUser.name}"
                     tools:text="Sieu thị xe đạp 368" />
 
                 <LinearLayout
@@ -70,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/gray"
-                        android:text="@{post.postUser.vital}"
+                        android:text="@{post.displayUser.vital}"
                         tools:text="Nhà bán" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -318,7 +318,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/like"
+                    android:src="@drawable/favourite"
                     android:padding="3dp"/>
 
                 <TextView

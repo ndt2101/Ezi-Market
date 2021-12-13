@@ -1,7 +1,6 @@
 package com.tuan2101.ezimarket.outsidefragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import com.tuan2101.ezimarket.databinding.CommentFragmentBinding
 import com.tuan2101.ezimarket.dataclasses.*
 import com.tuan2101.ezimarket.viewmodel.CommentFragmentViewModel
 import com.tuan2101.ezimarket.viewmodel.CommentFragmentViewModelFactory
-import com.tuan2101.ezimarket.viewmodel.NewsFeedItemFragmentViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -60,10 +58,11 @@ class CommentFragment() : BottomSheetDialogFragment() {
         val list = ArrayList<Comment>()
         list.addAll(mutableListOf(
             Comment("c1",
-                PostUser("u1",
+                DisplayUser("u1",
                     "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
                     "Tuan",
-                    "User"
+                    "User",
+                    true
                     ),
                 System.currentTimeMillis(),
                 ""
@@ -76,10 +75,12 @@ class CommentFragment() : BottomSheetDialogFragment() {
     fun fakePost(): Post {
         return Post(
             "0",
-            PostUser(
+            DisplayUser(
                 "u1",
                 "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",
                 "Thùy Dương",
+                "shop",
+                true
             ), System.currentTimeMillis(),
             resources.getString(R.string.test_text),
             "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/125226349_844433706388594_2385910073448397181_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=174925&_nc_ohc=U2SplMZze9IAX8Ajsi6&tn=X5YmyF0NGX8K6WZV&_nc_ht=scontent.fhph1-1.fna&oh=79b402763192f8abea8dc870ff8f2e92&oe=61A5878E",

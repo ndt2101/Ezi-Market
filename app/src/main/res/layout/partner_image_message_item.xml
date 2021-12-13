@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="message"
+            type="com.tuan2101.ezimarket.dataclasses.Message" />
+        <variable
+            name="user"
+            type="com.tuan2101.ezimarket.dataclasses.DisplayUser" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avt"
+            loadImage="@{user.avatar}"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            tools:src="@drawable/customer_care" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/message_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/avt"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:maxWidth="250dp"
+            android:maxHeight="250dp"
+            loadImage="@{message.content}"
+            android:padding="5dp"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/roundImageView"
+            tools:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/message_content"
+            android:layout_alignStart="@id/message_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:maxWidth="250dp"
+            android:maxLines="2"
+            android:text="@{String.valueOf(message.createdTime)}"
+            tools:text="12:15 AM" />
+
+    </RelativeLayout>
+</layout>
+

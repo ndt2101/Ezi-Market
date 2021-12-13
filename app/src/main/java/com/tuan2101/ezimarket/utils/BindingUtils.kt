@@ -33,8 +33,10 @@ fun TextView.setOldPrice(product: Product) {
     }
 }
 @BindingAdapter("loadImage")
-fun ImageView.loadImage(imageUrl: String) {
-    Glide.with(context).load(imageUrl).into(this)
+fun ImageView.loadImage(imageUrl: String?) {
+    if (imageUrl != null) {
+        Glide.with(context).load(imageUrl).into(this)
+    }
 }
 
 @BindingAdapter("customSetBackground1")

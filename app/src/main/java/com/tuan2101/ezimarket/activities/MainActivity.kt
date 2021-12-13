@@ -14,7 +14,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
     companion object {
-        val userId: String = FirebaseAuth.getInstance().currentUser?.uid ?: "userId"
+//        val userId: String = FirebaseAuth.getInstance().currentUser?.uid ?: "userId"
+    val userId: String = "0"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

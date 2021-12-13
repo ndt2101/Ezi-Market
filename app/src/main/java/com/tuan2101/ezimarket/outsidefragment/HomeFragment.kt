@@ -180,6 +180,15 @@ class HomeFragment : Fragment() {
                 homeFragmentViewModel.navToNotificationFragment.value = false
             }
         })
+
+        homeFragmentViewModel.navToChatFragment.observe(viewLifecycleOwner, {
+            if (it){
+                findNavController().navigate(R.id.action_hostFragment_to_chatFragment)
+                homeFragmentViewModel.navToNotificationFragment.value = false
+            }
+        })
+
+
         return binding.root
     }
     private fun dataForTopCategoryItem(): ArrayList<CategoryItem> {

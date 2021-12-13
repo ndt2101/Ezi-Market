@@ -6,11 +6,11 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/com.github.bumptech.glide/compiler/4.12.0/75cf5e43fd6e6c6e769e060014feb985284cfae7/compiler-4.12.0.jar" />
-          <entry name="$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/androidx.databinding/databinding-compiler/7.0.3/4ee26e5891e7b9b381db785241ab45670adb4949/databinding-compiler-7.0.3.jar" />
+          <entry name="$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/androidx.databinding/databinding-compiler/7.0.4/10eddf595b31473b564f40f380c266186ca26747/databinding-compiler-7.0.4.jar" />
           <entry name="$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/com.github.bumptech.glide/annotations/4.12.0/298d793db124809d74ad9a90de5eddc408898c84/annotations-4.12.0.jar" />
-          <entry name="$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/androidx.databinding/databinding-compiler-common/7.0.3/1c410e9bbd993d48717dd3063369cd638a14931f/databinding-compiler-common-7.0.3.jar" />
-          <entry name="$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/androidx.databinding/databinding-common/7.0.3/730ebf29182d79cb1085a58c4bf89cd0b17e8acf/databinding-common-7.0.3.jar" />
-          <entry name="$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/com.android.tools/annotations/30.0.3/da9d6b35222be69145f636d87824c6923e0f3986/annotations-30.0.3.jar" />
+          <entry name="$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/androidx.databinding/databinding-compiler-common/7.0.4/dfc271a04c341c5199c09d088dfad5b7e0cead2f/databinding-compiler-common-7.0.4.jar" />
+          <entry name="$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/androidx.databinding/databinding-common/7.0.4/64f538bb8479deadd08795fc9baf57a67c2f4432/databinding-common-7.0.4.jar" />
+          <entry name="$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/com.android.tools/annotations/30.0.4/824f88bfaf5ebdac7eb478bd434de74429634723/annotations-30.0.4.jar" />
           <entry name="$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.4.32/3302f9ec8a5c1ed220781dbd37770072549bd333/kotlin-stdlib-jdk8-1.4.32.jar" />
           <entry name="$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/com.google.auto/auto-common/0.10/c8f153ebe04a17183480ab4016098055fb474364/auto-common-0.10.jar" />
           <entry name="$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/com.squareup/javapoet/1.10.0/712c178d35185d8261295913c9f2a7d6867a6007/javapoet-1.10.0.jar" />
