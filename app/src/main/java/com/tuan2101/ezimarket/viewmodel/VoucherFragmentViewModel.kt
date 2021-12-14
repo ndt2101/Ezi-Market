@@ -43,7 +43,7 @@ class VoucherFragmentViewModel(val shop: ProductViaShopInCart): ViewModel() {
             date,
             5,
             false,
-            "https://i.pinimg.com/564x/86/33/ca/8633caf77d28fbd35cafb5ed37d7ad4b.jpg",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
         )
 
         val voucher2 = PostVoucher(
@@ -53,7 +53,7 @@ class VoucherFragmentViewModel(val shop: ProductViaShopInCart): ViewModel() {
             date,
             5,
             false,
-            "https://i.pinimg.com/564x/86/33/ca/8633caf77d28fbd35cafb5ed37d7ad4b.jpg",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
         )
 
         val voucher3 = PostVoucher(
@@ -63,7 +63,7 @@ class VoucherFragmentViewModel(val shop: ProductViaShopInCart): ViewModel() {
             date,
             5,
             false,
-            "https://i.pinimg.com/564x/86/33/ca/8633caf77d28fbd35cafb5ed37d7ad4b.jpg",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
         )
 
         list.add(voucher1)
@@ -89,7 +89,7 @@ class VoucherFragmentViewModel(val shop: ProductViaShopInCart): ViewModel() {
             date,
             100,
             false,
-            "https://i.pinimg.com/564x/86/33/ca/8633caf77d28fbd35cafb5ed37d7ad4b.jpg",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
         )
         val voucher2 = PostVoucher(
             "v2",
@@ -98,7 +98,7 @@ class VoucherFragmentViewModel(val shop: ProductViaShopInCart): ViewModel() {
             date,
             5,
             false,
-            "https://i.pinimg.com/564x/86/33/ca/8633caf77d28fbd35cafb5ed37d7ad4b.jpg",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
         )
 
 

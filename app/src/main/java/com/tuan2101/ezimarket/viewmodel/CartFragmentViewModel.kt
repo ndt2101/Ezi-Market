@@ -771,8 +771,8 @@ class CartFragmentViewModel() : ViewModel() {
         val listProductInCart = ArrayList<ProductInCart>()
         val productInCart = ProductInCart(
             "p0",
-            "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/248384203_1067157620782867_6617827598330014721_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=VavUaKnuwFYAX9aToDm&_nc_ht=scontent.fhph1-1.fna&oh=92e07c5c07854ba1c60973f97c5e0ae3&oe=61A530BC",
-            "Thùy Dương product",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
+            "Dummy product",
             25000,
             1,
             2,
@@ -781,8 +781,8 @@ class CartFragmentViewModel() : ViewModel() {
 
         val productInCart2 = ProductInCart(
             "p1",
-            "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/248384203_1067157620782867_6617827598330014721_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=VavUaKnuwFYAX9aToDm&_nc_ht=scontent.fhph1-1.fna&oh=92e07c5c07854ba1c60973f97c5e0ae3&oe=61A530BC",
-            "Thùy Dương product",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
+            "Dummy product",
             25000,
             2,
             2,
@@ -791,8 +791,8 @@ class CartFragmentViewModel() : ViewModel() {
 
         val productInCart3 = ProductInCart(
             "p0",
-            "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/248384203_1067157620782867_6617827598330014721_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=VavUaKnuwFYAX9aToDm&_nc_ht=scontent.fhph1-1.fna&oh=92e07c5c07854ba1c60973f97c5e0ae3&oe=61A530BC",
-            "Thùy Dương product",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
+            "Dummy product",
             25000,
             3,
             2,
@@ -801,8 +801,8 @@ class CartFragmentViewModel() : ViewModel() {
 
         val productInCart4 = ProductInCart(
             "p1",
-            "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/248384203_1067157620782867_6617827598330014721_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=VavUaKnuwFYAX9aToDm&_nc_ht=scontent.fhph1-1.fna&oh=92e07c5c07854ba1c60973f97c5e0ae3&oe=61A530BC",
-            "Thùy Dương product",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
+            "Dummy product",
             25000,
             4,
             2,
@@ -811,8 +811,8 @@ class CartFragmentViewModel() : ViewModel() {
 
         val productInCart5 = ProductInCart(
             "p0",
-            "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/248384203_1067157620782867_6617827598330014721_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=VavUaKnuwFYAX9aToDm&_nc_ht=scontent.fhph1-1.fna&oh=92e07c5c07854ba1c60973f97c5e0ae3&oe=61A530BC",
-            "Thùy Dương product",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
+            "Dummy product",
             25000,
             5,
             2,
@@ -821,8 +821,8 @@ class CartFragmentViewModel() : ViewModel() {
 
         val productInCart6 = ProductInCart(
             "p1",
-            "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/248384203_1067157620782867_6617827598330014721_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=VavUaKnuwFYAX9aToDm&_nc_ht=scontent.fhph1-1.fna&oh=92e07c5c07854ba1c60973f97c5e0ae3&oe=61A530BC",
-            "Thùy Dương product",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
+            "Dummy product",
             25000,
             6,
             2,
@@ -831,8 +831,8 @@ class CartFragmentViewModel() : ViewModel() {
 
         val productInCart7 = ProductInCart(
             "p0",
-            "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/248384203_1067157620782867_6617827598330014721_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=VavUaKnuwFYAX9aToDm&_nc_ht=scontent.fhph1-1.fna&oh=92e07c5c07854ba1c60973f97c5e0ae3&oe=61A530BC",
-            "Thùy Dương product",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
+            "Dummy product",
             25000,
             7,
             2,
@@ -841,8 +841,8 @@ class CartFragmentViewModel() : ViewModel() {
 
         val productInCart8 = ProductInCart(
             "p1",
-            "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/248384203_1067157620782867_6617827598330014721_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=VavUaKnuwFYAX9aToDm&_nc_ht=scontent.fhph1-1.fna&oh=92e07c5c07854ba1c60973f97c5e0ae3&oe=61A530BC",
-            "Thùy Dương product",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
+            "Dummy product",
             25000,
             8,
             2,
@@ -851,8 +851,8 @@ class CartFragmentViewModel() : ViewModel() {
 
         val productInCart9 = ProductInCart(
             "p0",
-            "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/248384203_1067157620782867_6617827598330014721_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=VavUaKnuwFYAX9aToDm&_nc_ht=scontent.fhph1-1.fna&oh=92e07c5c07854ba1c60973f97c5e0ae3&oe=61A530BC",
-            "Thùy Dương product",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
+            "Dummy product",
             25000,
             9,
             2,
@@ -861,8 +861,8 @@ class CartFragmentViewModel() : ViewModel() {
 
         val productInCart10 = ProductInCart(
             "p1",
-            "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/248384203_1067157620782867_6617827598330014721_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=VavUaKnuwFYAX9aToDm&_nc_ht=scontent.fhph1-1.fna&oh=92e07c5c07854ba1c60973f97c5e0ae3&oe=61A530BC",
-            "Thùy Dương product",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
+            "Dummy product",
             25000,
             10,
             2,
@@ -901,7 +901,7 @@ class CartFragmentViewModel() : ViewModel() {
 
         val item = ProductViaShopInCart(
             "1",
-            "Shop",
+            "Shop 1",
             false,
             0L, 0L, 0, null,
             listProductInCart
@@ -909,7 +909,7 @@ class CartFragmentViewModel() : ViewModel() {
 
         val item2 = ProductViaShopInCart(
             "2",
-            "Dummy",
+            "Dummy Shop",
             false,
             0L, 0L, 0, null,
             listProductInCart2
@@ -917,7 +917,7 @@ class CartFragmentViewModel() : ViewModel() {
 
         val item3 = ProductViaShopInCart(
             "3",
-            "Dummy Shop",
+            "Dummy Shop 2",
             false,
             0L, 0L, 0, null,
             listProductInCart3
@@ -925,7 +925,7 @@ class CartFragmentViewModel() : ViewModel() {
 
         val item4 = ProductViaShopInCart(
             "4",
-            "a",
+            "ABC Shop",
             false,
             0L, 0L, 0, null,
             listProductInCart4
@@ -933,7 +933,7 @@ class CartFragmentViewModel() : ViewModel() {
 
         val item5 = ProductViaShopInCart(
             "5",
-            "b",
+            "XYZ Shop",
             false,
             0L, 0L, 0, null,
             listProductInCart5

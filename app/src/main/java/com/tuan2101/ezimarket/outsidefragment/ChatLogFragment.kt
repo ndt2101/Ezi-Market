@@ -1,17 +1,15 @@
 package com.tuan2101.ezimarket.outsidefragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tuan2101.ezimarket.R
 import com.tuan2101.ezimarket.adapter.MessageAdapter
-import com.tuan2101.ezimarket.databinding.FragmentChatBinding
 import com.tuan2101.ezimarket.databinding.FragmentChatLogBinding
-import com.tuan2101.ezimarket.dataclasses.DisplayUser
 import com.tuan2101.ezimarket.dataclasses.LatestMessage
 import com.tuan2101.ezimarket.viewmodel.ChatLogFragmentViewModel
 import com.tuan2101.ezimarket.viewmodel.ChatLogFragmentViewModelFactory
@@ -27,7 +25,7 @@ class ChatLogFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentChatLogBinding.inflate(inflater,  container, false)
+        binding = FragmentChatLogBinding.inflate(inflater, container, false)
         latestMessage = ChatLogFragmentArgs.fromBundle(requireArguments()).latestMessage
         val factory = ChatLogFragmentViewModelFactory(latestMessage)
         viewModel = ViewModelProvider(this, factory)[ChatLogFragmentViewModel::class.java]
@@ -37,8 +35,18 @@ class ChatLogFragment() : Fragment() {
         layoutManager.reverseLayout = true
         binding.messages.layoutManager = layoutManager
         viewModel.partner.observe(viewLifecycleOwner, {
-            if (it != null){
-                adapter = MessageAdapter(viewModel.partner.value!!, viewModel.observableLatestMessage, viewLifecycleOwner)
+            if (it != null) {
+                adapter = MessageAdapter(
+                    viewModel.partner.value!!,
+                    viewModel.observableLatestMessage,
+                    viewLifecycleOwner,
+                    MessageAdapter.MessageListener { imageUrl ->
+                        findNavController().navigate(
+                            ChatLogFragmentDirections.actionChatLogFragmentToImageDetailFragment(
+                                imageUrl
+                            )
+                        )
+                    })
                 binding.messages.adapter = adapter
             }
         })

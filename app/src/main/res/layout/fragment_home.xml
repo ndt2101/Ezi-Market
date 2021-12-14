@@ -215,7 +215,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            android:src="@drawable/logo"/>
+                            android:src="@drawable/all"/>
 
                         <TextView
                             android:text="Tất cả"
@@ -241,7 +241,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            android:src="@drawable/logo"/>
+                            android:src="@drawable/hot_deal"/>
 
                         <TextView
                             android:text="Săn sale"
@@ -266,7 +266,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            android:src="@drawable/logo"/>
+                            android:src="@drawable/outfit"/>
 
                         <TextView
                             android:text="Thời trang"
@@ -293,7 +293,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            android:src="@drawable/logo"/>
+                            android:src="@drawable/cosmetics"/>
 
                         <TextView
                             android:text="Làm đẹp"
@@ -318,7 +318,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            android:src="@drawable/logo"/>
+                            android:src="@drawable/book"/>
 
                         <TextView
                             android:text="Sách"
@@ -343,7 +343,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            android:src="@drawable/logo"/>
+                            android:src="@drawable/love" />
 
                         <TextView
                             android:text="Yêu thích"

@@ -8,12 +8,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tuan2101.ezimarket.activities.MainActivity
 import com.tuan2101.ezimarket.databinding.*
-import com.tuan2101.ezimarket.dataclasses.*
+import com.tuan2101.ezimarket.dataclasses.DisplayUser
+import com.tuan2101.ezimarket.dataclasses.Message
+import com.tuan2101.ezimarket.dataclasses.ObservableLatestMessage
+import com.tuan2101.ezimarket.dataclasses.ProductMessage
 
 /**
  * Created by ndt2101 on 12/12/2021.
  */
-class MessageAdapter(val partner: DisplayUser, val observableLatestMessage: ObservableLatestMessage, val lifecycleOwner: LifecycleOwner) :
+class MessageAdapter(
+    val partner: DisplayUser,
+    val observableLatestMessage: ObservableLatestMessage,
+    val lifecycleOwner: LifecycleOwner,
+    val listener: MessageListener
+) :
     ListAdapter<Message, RecyclerView.ViewHolder>(MessageCallBack()) {
 
     override fun getItemViewType(position: Int): Int {
@@ -28,7 +36,7 @@ class MessageAdapter(val partner: DisplayUser, val observableLatestMessage: Obse
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType) {
+        return when (viewType) {
             0 -> UserTextMessageViewHolder.from(parent)
             1 -> UserImageMessageViewHolder.from(parent)
             2 -> PartnerTextMessageViewHolder.from(parent)
@@ -40,14 +48,14 @@ class MessageAdapter(val partner: DisplayUser, val observableLatestMessage: Obse
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is UserTextMessageViewHolder -> holder.bind(getItem(position), observableLatestMessage, lifecycleOwner)
-            is UserImageMessageViewHolder -> holder.bind(getItem(position), observableLatestMessage, lifecycleOwner)
+            is UserImageMessageViewHolder -> holder.bind(getItem(position), observableLatestMessage, lifecycleOwner, listener)
             is PartnerTextMessageViewHolder -> holder.bind(getItem(position), partner)
-            is PartnerImageMessageViewHolder -> holder.bind(getItem(position), partner)
+            is PartnerImageMessageViewHolder -> holder.bind(getItem(position), partner, listener)
             is ProductMessageViewHolder -> holder.bind(getItem(position) as ProductMessage)
         }
     }
 
-    class MessageCallBack: DiffUtil.ItemCallback<Message>() {
+    class MessageCallBack : DiffUtil.ItemCallback<Message>() {
         override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
             return oldItem.id == newItem.id
         }
@@ -56,6 +64,10 @@ class MessageAdapter(val partner: DisplayUser, val observableLatestMessage: Obse
             return oldItem == newItem
         }
 
+    }
+
+    class MessageListener(val clickImageMessage: (imageUrl: String) -> Unit) {
+        fun onClickImageMessage(imageUrl: String) = clickImageMessage(imageUrl)
     }
 
 }
@@ -92,9 +104,10 @@ class PartnerImageMessageViewHolder(val binding: PartnerImageMessageItemBinding)
         }
     }
 
-    fun bind(message: Message, partner: DisplayUser) {
+    fun bind(message: Message, partner: DisplayUser, listener: MessageAdapter.MessageListener) {
         binding.message = message
         binding.user = partner
+        binding.listener = listener
     }
 }
 
@@ -131,9 +144,10 @@ class UserImageMessageViewHolder(val binding: UserImageMessageItemBinding) : Rec
         }
     }
 
-    fun bind(message: Message, observableLatestMessage: ObservableLatestMessage, lifecycleOwner: LifecycleOwner) {
+    fun bind(message: Message, observableLatestMessage: ObservableLatestMessage, lifecycleOwner: LifecycleOwner, listener: MessageAdapter.MessageListener) {
         binding.message = message
         binding.observableLatestMessage = observableLatestMessage
+        binding.listener = listener
         binding.lifecycleOwner = lifecycleOwner
     }
 }

@@ -41,12 +41,12 @@ class ChatFragmentViewModel: ViewModel() {
 
     fun latestMessageDummyData() : ArrayList<LatestMessage> {
         val list = ArrayList<LatestMessage>()
-        val message1 = LatestMessage("0", 1, "\uD83D\uDC4D", "text", "0", "1", "sent")
-        val message2 = LatestMessage("1", 1, "\uD83D\uDC4D", "text", "2", "2", "sent")
-        val message3 = LatestMessage("2", 1, "\uD83D\uDC4D", "text", "0", "3", "sent")
-        val message4 = LatestMessage("3", 1, "\uD83D\uDC4D", "text", "4", "4", "seen")
-        val message5 = LatestMessage("4", 1, "\uD83D\uDC4D", "text", "5", "5", "seen")
-        val message6 = LatestMessage("5", 1, "\uD83D\uDC4D", "text", "0", "6", "seen")
+        val message1 = LatestMessage("0", System.currentTimeMillis(), "\uD83D\uDC4D", "text", "0", "1", "sent")
+        val message2 = LatestMessage("1", System.currentTimeMillis(), "\uD83D\uDC4D", "text", "2", "2", "sent")
+        val message3 = LatestMessage("2", System.currentTimeMillis(), "\uD83D\uDC4D", "text", "0", "3", "sent")
+        val message4 = LatestMessage("3", System.currentTimeMillis(), "\uD83D\uDC4D", "text", "4", "4", "seen")
+        val message5 = LatestMessage("4", System.currentTimeMillis(), "\uD83D\uDC4D", "text", "5", "5", "seen")
+        val message6 = LatestMessage("5", System.currentTimeMillis(), "\uD83D\uDC4D", "text", "0", "6", "seen")
         list.addAll(listOf(message1, message2, message3, message4, message5, message6))
         return list
     }
@@ -54,7 +54,7 @@ class ChatFragmentViewModel: ViewModel() {
     fun loadingMessageDummyData(): ArrayList<DetailLatestMessage> {
         val list = ArrayList<DetailLatestMessage>()
         val user = DisplayUser("1",
-            "https://yt3.ggpht.com/QSJLtv8Yazh_cs_u9XJY7J2x0j7dEwDP-tUvJQ7325CTCpGcK0EJFCP1P7uckWbqchxC84ltDlOsTQ=s1024-nd-v1",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
             "User 1",
             "customer",
             false

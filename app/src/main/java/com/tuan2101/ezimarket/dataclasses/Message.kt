@@ -16,7 +16,7 @@ open class Message(
     val createdTime: Long,
     val content: String,
     val contentType: String,
-    val senderId: String,
+    val senderId: String, // voi product thi day la id cua shop co product
     var status: String
 ): Parcelable {
     override fun equals(other: Any?): Boolean {
@@ -56,7 +56,7 @@ class DetailLatestMessage(
     status: String
 ) : Message(id, createdTime, content, contentType, senderId, status)
 
-class ProductMessage(
+class ProductMessage( // muc dich hien thi
     id: String,
     createdTime: Long,
     content: String,

@@ -30,8 +30,8 @@ class ChatLogFragmentViewModel(var latestMessage: LatestMessage) : ViewModel() {
             uIScope.launch {
                 partner.value = DisplayUser(
                     "1",
-                    "https://nude.vn/wp-content/uploads/2021/01/ngoc-trinh-nude-art-02-360x540.jpg",
-                    "Ngoc Trinh",
+                    "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
+                    "User 1",
                     "customer",
                     true
                 )
@@ -44,7 +44,7 @@ class ChatLogFragmentViewModel(var latestMessage: LatestMessage) : ViewModel() {
         val message0 = Message(
             "0",
             System.currentTimeMillis(),
-            "Build a bitch1",
+            "test",
             "text",
             "0",
             "sent"
@@ -53,7 +53,7 @@ class ChatLogFragmentViewModel(var latestMessage: LatestMessage) : ViewModel() {
         val message1 = Message(
             "1",
             System.currentTimeMillis(),
-            "https://nude.vn/wp-content/uploads/2021/01/ngoc-trinh-nude-art-02-360x540.jpg",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
             "image",
             "1",
             "sent"
@@ -61,7 +61,7 @@ class ChatLogFragmentViewModel(var latestMessage: LatestMessage) : ViewModel() {
         val message2 = Message(
             "2",
             System.currentTimeMillis(),
-            "Build a bitch",
+            "test text 0",
             "text",
             "0",
             "sent"
@@ -70,7 +70,7 @@ class ChatLogFragmentViewModel(var latestMessage: LatestMessage) : ViewModel() {
         val message3 = Message(
             "3",
             System.currentTimeMillis(),
-            "dit khong????",
+            "test text",
             "text",
             "1",
             "sent"
@@ -79,7 +79,7 @@ class ChatLogFragmentViewModel(var latestMessage: LatestMessage) : ViewModel() {
         val message4 = Message(
             "4",
             System.currentTimeMillis(),
-            "https://nude.vn/wp-content/uploads/2021/01/ngoc-trinh-nude-art-02-360x540.jpg",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
             "image",
             "0",
             "sent"
@@ -88,7 +88,7 @@ class ChatLogFragmentViewModel(var latestMessage: LatestMessage) : ViewModel() {
         val message5 = Message(
             "5",
             System.currentTimeMillis(),
-            "cuoi",
+            "last message",
             "text",
             "0",
             "sent"
@@ -97,7 +97,7 @@ class ChatLogFragmentViewModel(var latestMessage: LatestMessage) : ViewModel() {
         val message6 = Message(
             "6",
             System.currentTimeMillis(),
-            "https://nude.vn/wp-content/uploads/2021/01/ngoc-trinh-nude-art-02-360x540.jpg",
+            "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
             "image",
             "0",
             "seen"
@@ -111,8 +111,8 @@ class ChatLogFragmentViewModel(var latestMessage: LatestMessage) : ViewModel() {
             "0",
             Product(
                 "p0",
-                "https://scontent.fhph1-1.fna.fbcdn.net/v/t1.6435-9/248384203_1067157620782867_6617827598330014721_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=VavUaKnuwFYAX9aToDm&_nc_ht=scontent.fhph1-1.fna&oh=92e07c5c07854ba1c60973f97c5e0ae3&oe=61A530BC",
-                "Thùy Dương product",
+                "https://i.pinimg.com/564x/26/ab/79/26ab7951865d85e9077ef173aac36583.jpg",
+                "Sample product",
                 25000,
                 25000
             ),
