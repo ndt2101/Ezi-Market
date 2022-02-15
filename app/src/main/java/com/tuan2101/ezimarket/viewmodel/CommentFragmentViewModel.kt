@@ -1,5 +1,6 @@
 package com.tuan2101.ezimarket.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tuan2101.ezimarket.dataclasses.Comment
 import com.tuan2101.ezimarket.dataclasses.Post
@@ -10,8 +11,14 @@ import com.tuan2101.ezimarket.dataclasses.DisplayUser
  */
 class CommentFragmentViewModel(val post: Post?) : ViewModel() {
     var commentList: List<Comment> = ArrayList()
+    var selectedUserId = MutableLiveData("")
+
     init {
         commentList = dummyData()
+    }
+
+    fun onNavToPersonalPage(userId: String) {
+        selectedUserId.value = userId
     }
 
     fun dummyData() : ArrayList<Comment> {

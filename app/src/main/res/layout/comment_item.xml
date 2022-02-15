@@ -7,6 +7,10 @@
         <variable
             name="comment"
             type="com.tuan2101.ezimarket.dataclasses.Comment" />
+
+        <variable
+            name="listener"
+            type="com.tuan2101.ezimarket.adapter.CommentAdapter.CommentListener" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,6 +30,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_weight="2"
         loadImage="@{comment.user.avatar}"
+        android:onClick="@{() -> listener.onClickUser(comment.user.id)}"
         tools:src="@drawable/logo" />
 
     <TextView

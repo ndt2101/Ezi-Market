@@ -70,39 +70,44 @@ class CartFragment : Fragment() {
             }
         ))
         binding.productViaShopRecyclerView.adapter = adapter
-        shareViewModel.listProductInCart.observe(viewLifecycleOwner, {
+        shareViewModel.listProductInCart.observe(viewLifecycleOwner) {
             adapter.submitList(it.clone() as ArrayList<ProductViaShopInCart>)
             Log.i("aaa", "vua xoa shop")
-        })
+        }
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = shareViewModel
 
-        shareViewModel.currentShopToGetVoucher.observe(viewLifecycleOwner, {
+        shareViewModel.currentShopToGetVoucher.observe(viewLifecycleOwner) {
             if (it != null) {
-                val voucherFragment = VoucherFragment(it) { voucher -> shareViewModel.setVoucher(voucher) }
+                val voucherFragment =
+                    VoucherFragment(it) { voucher -> shareViewModel.setVoucher(voucher) }
                 voucherFragment.show(childFragmentManager, VoucherFragment.TAG)
             }
-        })
+        }
 
-        shareViewModel.navigateToMarketVoucherFragment.observe(viewLifecycleOwner, {
+        shareViewModel.navigateToMarketVoucherFragment.observe(viewLifecycleOwner) {
             if (it == true) {
                 val voucherFragment =
-                    VoucherFragment(shareViewModel.eziVoucher.value) { voucher -> shareViewModel.setMarketVoucher(voucher) }
+                    VoucherFragment(shareViewModel.eziVoucher.value) { voucher ->
+                        shareViewModel.setMarketVoucher(
+                            voucher
+                        )
+                    }
                 voucherFragment.show(childFragmentManager, VoucherFragment.TAG)
                 shareViewModel.navigateToMarketVoucherFragment.value = false
             }
-        })
+        }
 
-        shareViewModel.totalPrice.observe(viewLifecycleOwner, {
+        shareViewModel.totalPrice.observe(viewLifecycleOwner) {
             shareViewModel.applyMarkerVoucher()
-        })
+        }
 
-        shareViewModel.eziVoucher.observe(viewLifecycleOwner, {
+        shareViewModel.eziVoucher.observe(viewLifecycleOwner) {
             shareViewModel.applyMarkerVoucher()
-        })
+        }
 
-        shareViewModel.navToConfirmFragment.observe(viewLifecycleOwner, {
+        shareViewModel.navToConfirmFragment.observe(viewLifecycleOwner) {
             if (it) {
                 if (shareViewModel.needUpdatingList.size != 0) {
                     findNavController().navigate(R.id.action_cartFragment_to_billConfirmationFragment)
@@ -111,14 +116,14 @@ class CartFragment : Fragment() {
                 }
                 shareViewModel.navToConfirmFragment.value = false
             }
-        })
+        }
 
-        shareViewModel.navToLocationFragment.observe(viewLifecycleOwner, {
+        shareViewModel.navToLocationFragment.observe(viewLifecycleOwner) {
             if (it) {
                 findNavController().navigate(CartFragmentDirections.actionCartFragmentToLocationFragment())
                 shareViewModel.navToLocationFragment.value = false
             }
-        })
+        }
         return binding.root
     }
 

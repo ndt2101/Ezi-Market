@@ -2,4 +2,5 @@
 <resources>
     <dimen name="small">5sp</dimen>
     <dimen name="large">7sp</dimen>
+    <dimen name="padding">10dp</dimen>
 </resources>

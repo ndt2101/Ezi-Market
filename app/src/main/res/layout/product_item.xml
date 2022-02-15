@@ -9,15 +9,16 @@
             type="com.tuan2101.ezimarket.dataclasses.SearchedProduct" />
         <variable
             name="action"
-            type="com.tuan2101.ezimarket.adapter.ProductItemClickListener" />
+            type="com.tuan2101.ezimarket.adapter.ProductListener" />
     </data>
 
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="200dp"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:onClick="@{() -> action.onClickItem(product.id)}">
+    android:layout_marginTop="10dp"
+    android:background="@color/white"
+    android:onClick="@{() -> action.onClickProduct(product)}">
 
     <ImageView
         android:id="@+id/product_img"

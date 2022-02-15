@@ -166,3 +166,14 @@ fun ConstraintLayout.notificationBackground(notification: Notification) {
         ResourcesCompat.getDrawable(resources, R.color.notification_background, null)
     }
 }
+
+@BindingAdapter("followList", "type")
+fun TextView.setFollow(followList: List<String>?, type: String) {
+    var following: Long = followList!!.size.toLong()
+    if (following >= 1000) {
+        following /= 1000
+        this.text = "${type}: ${String.format("%.1f", following)}k"
+    } else {
+        this.text = "${type}: ${following}"
+    }
+}

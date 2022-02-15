@@ -13,7 +13,7 @@ import com.tuan2101.ezimarket.databinding.ProductItemBinding
 import com.tuan2101.ezimarket.dataclasses.Product
 import com.tuan2101.ezimarket.dataclasses.SearchedProduct
 
-class ProductAdapter(val listener: ProductItemClickListener) : ListAdapter<SearchedProduct, ProductViewHolder>(ProductCallBack()) {
+class ProductAdapter(val listener: ProductListener) : ListAdapter<SearchedProduct, ProductViewHolder>(ProductCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder.from(parent)
@@ -25,6 +25,10 @@ class ProductAdapter(val listener: ProductItemClickListener) : ListAdapter<Searc
 
 }
 
+open class ProductListener(val clickProduct: (product: SearchedProduct) -> Unit) {
+    fun onClickProduct(product: SearchedProduct) = clickProduct(product)
+}
+
 class ProductViewHolder(val binding: ProductItemBinding) : RecyclerView.ViewHolder(binding.root), LifecycleOwner {
     companion object {
         fun from(parent: ViewGroup) : ProductViewHolder {
@@ -32,12 +36,12 @@ class ProductViewHolder(val binding: ProductItemBinding) : RecyclerView.ViewHold
         }
     }
 
-    fun bind(product: SearchedProduct, holder: ProductViewHolder, listener: ProductItemClickListener) {
+    fun bind(product: SearchedProduct, holder: ProductViewHolder, listener: ProductListener) {
         binding.product = product
         binding.lifecycleOwner = holder
         binding.action = listener
         binding.executePendingBindings()
-        Log.i("action", listener.clickItem.toString())
+        Log.i("action", listener.clickProduct.toString())
     }
 
     override fun getLifecycle(): Lifecycle {

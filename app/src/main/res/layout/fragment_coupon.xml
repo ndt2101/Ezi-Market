@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".outsidefragment.CouponFragment">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.tuan2101.ezimarket.viewmodel.CouponFragmentViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                app:collapsedTitleGravity="center"
+                app:contentScrim="@color/white"
+                app:expandedTitleMarginBottom="10dp"
+                app:expandedTitleMarginStart="10dp"
+                app:expandedTitleTextAppearance="@style/title_text"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                app:title="Quà của tôi">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    app:contentInsetStartWithNavigation="0dp">
+
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appbar_layout"
+            android:background="#E9E9EC"
+            android:visibility="@{viewModel.isLoading ? View.GONE: View.VISIBLE}"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            tools:listitem="@layout/voucher_item" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:visibility="@{!viewModel.isLoading ? View.GONE : View.VISIBLE}"
+            app:lottie_rawRes="@raw/loading" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

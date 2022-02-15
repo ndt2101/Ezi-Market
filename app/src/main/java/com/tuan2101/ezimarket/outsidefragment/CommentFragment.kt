@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tuan2101.ezimarket.R
@@ -46,11 +47,34 @@ class CommentFragment() : BottomSheetDialogFragment() {
             CommentFragmentViewModelFactory(fakePost())
         }
         viewModel = ViewModelProvider(this, viewModelFactory)[CommentFragmentViewModel::class.java]
-        adapter = CommentAdapter()
+        adapter = CommentAdapter(CommentAdapter.CommentListener { userId: String ->
+            viewModel.onNavToPersonalPage(
+                userId
+            )
+        })
         adapter.submitList(viewModel.commentList)
         binding.rcv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rcv.adapter = adapter
-
+        viewModel.selectedUserId.observe(viewLifecycleOwner) {
+            if (!it.isNullOrEmpty()) {
+                try {
+                    findNavController().navigate(
+                        HostFragmentDirections.actionHostFragmentToPersonalPageFragment(
+                            it
+                        )
+                    )
+                    viewModel.selectedUserId.value = ""
+                } catch (e: IllegalArgumentException) {
+                    findNavController().navigate(
+                        PersonalPageFragmentDirections.actionPersonalPageFragmentSelf(
+                            it
+                        )
+                    )
+                } finally {
+                    dismiss()
+                }
+            }
+        }
         return binding.root
     }
 

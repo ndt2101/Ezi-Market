@@ -12,7 +12,7 @@ import com.tuan2101.ezimarket.dataclasses.Comment
 /**
  * Created by ndt2101 on 11/1/2021.
  */
-class CommentAdapter() : ListAdapter<Comment, CommentAdapter.CommentViewHolder>(CommentCallBack()) {
+class CommentAdapter(val listener: CommentListener) : ListAdapter<Comment, CommentAdapter.CommentViewHolder>(CommentCallBack()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
@@ -20,7 +20,7 @@ class CommentAdapter() : ListAdapter<Comment, CommentAdapter.CommentViewHolder>(
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-        return holder.bind(getItem(position))
+        return holder.bind(getItem(position), listener)
     }
 
     class CommentViewHolder(val binding: CommentItemBinding) :
@@ -37,13 +37,13 @@ class CommentAdapter() : ListAdapter<Comment, CommentAdapter.CommentViewHolder>(
             }
         }
 
-        fun bind(comment: Comment) {
+        fun bind(comment: Comment, listener: CommentListener) {
             binding.comment = comment
             binding.shortCommentContent.setOnClickListener {
                 binding.fullCommentContent.visibility = View.VISIBLE
                 it.visibility = View.GONE
             }
-
+            binding.listener = listener
             binding.fullCommentContent.setOnClickListener {
                 binding.shortCommentContent.visibility = View.VISIBLE
                 it.visibility  = View.GONE
@@ -60,5 +60,9 @@ class CommentAdapter() : ListAdapter<Comment, CommentAdapter.CommentViewHolder>(
             return oldItem == newItem
         }
 
+    }
+
+    class CommentListener(val clickUser: (userId: String) -> Unit) {
+        fun onClickUser(userId: String) = clickUser(userId)
     }
 }

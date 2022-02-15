@@ -91,11 +91,15 @@ class LocationFragment() : Fragment() {
     }
 
     fun setUpForProvince() {
-        shareViewModel.provinceList.observe(viewLifecycleOwner, {
+        shareViewModel.provinceList.observe(viewLifecycleOwner) {
             Log.i("getProvinceList", it.size.toString())
-            provinceSpinnerAdapter = LocationAdapter(requireContext(), R.layout.selected_location_item, shareViewModel.provinceList.value!!)
+            provinceSpinnerAdapter = LocationAdapter(
+                requireContext(),
+                R.layout.selected_location_item,
+                shareViewModel.provinceList.value!!
+            )
             binding.province.adapter = provinceSpinnerAdapter
-        })
+        }
 
         binding.province.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -110,16 +114,20 @@ class LocationFragment() : Fragment() {
     }
 
     fun setUpForProvinceClone() {
-        shareViewModel.provinceList.observe(viewLifecycleOwner, {
+        shareViewModel.provinceList.observe(viewLifecycleOwner) {
             if (it.size > 1) {
                 provinceSpinnerAdapter =
-                    LocationAdapter(requireContext(), R.layout.selected_location_item, shareViewModel.provinceList.value!!)
+                    LocationAdapter(
+                        requireContext(),
+                        R.layout.selected_location_item,
+                        shareViewModel.provinceList.value!!
+                    )
                 binding.province.adapter = provinceSpinnerAdapter
                 binding.province.setSelection(shareViewModel.currentProvincePosition)
                 Log.i("provinceSpinnerAdapter", "${shareViewModel.selectedDistrict.value?.name}")
                 Log.i("provinceSpinnerAdapter", "${shareViewModel.selectedWard.value?.name}")
             }
-        })
+        }
 
         binding.province.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -142,14 +150,18 @@ class LocationFragment() : Fragment() {
     fun setUpForDistrict() {
         districtSpinnerAdapter = LocationAdapter(requireContext(), R.layout.selected_location_item, shareViewModel.districtList.value!!)
         binding.district.adapter = districtSpinnerAdapter
-        shareViewModel.selectedProvince.observe(viewLifecycleOwner, { province ->
+        shareViewModel.selectedProvince.observe(viewLifecycleOwner) { province ->
             shareViewModel.getDistrictList()
-            shareViewModel.districtList.observe(viewLifecycleOwner, {
+            shareViewModel.districtList.observe(viewLifecycleOwner) {
                 Log.i("getProvinceList1", it.size.toString())
-                districtSpinnerAdapter = LocationAdapter(requireContext(), R.layout.selected_location_item, shareViewModel.districtList.value!!)
+                districtSpinnerAdapter = LocationAdapter(
+                    requireContext(),
+                    R.layout.selected_location_item,
+                    shareViewModel.districtList.value!!
+                )
                 binding.district.adapter = districtSpinnerAdapter
-            })
-        })
+            }
+        }
 
         binding.district.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -164,25 +176,35 @@ class LocationFragment() : Fragment() {
     }
 
     fun setUpForDistrictClone() {
-        shareViewModel.selectedProvince.observe(viewLifecycleOwner, {
-            if (shareViewModel.provinceList.value?.size ?: 1 > 1){
+        shareViewModel.selectedProvince.observe(viewLifecycleOwner) {
+            if (shareViewModel.provinceList.value?.size ?: 1 > 1) {
                 CoroutineScope(Dispatchers.Main).launch {
                     shareViewModel.getDistrictListClone()
-                    if (view != null){
-                        shareViewModel.districtList.observe(viewLifecycleOwner, {
+                    if (view != null) {
+                        shareViewModel.districtList.observe(viewLifecycleOwner) {
                             if (it.size > 1) {
                                 districtSpinnerAdapter =
-                                    LocationAdapter(requireContext(), R.layout.selected_location_item, it)
+                                    LocationAdapter(
+                                        requireContext(),
+                                        R.layout.selected_location_item,
+                                        it
+                                    )
                                 binding.district.adapter = districtSpinnerAdapter
                                 binding.district.setSelection(shareViewModel.currentDistrictPosition)
-                                Log.i("districtSpinnerAdapter", "${shareViewModel.selectedDistrict.value?.name}")
-                                Log.i("districtSpinnerAdapter", "${shareViewModel.selectedWard.value?.name}")
+                                Log.i(
+                                    "districtSpinnerAdapter",
+                                    "${shareViewModel.selectedDistrict.value?.name}"
+                                )
+                                Log.i(
+                                    "districtSpinnerAdapter",
+                                    "${shareViewModel.selectedWard.value?.name}"
+                                )
                             }
-                        })
+                        }
                     }
                 }
             }
-        })
+        }
 
         binding.district.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -203,14 +225,18 @@ class LocationFragment() : Fragment() {
     fun setUpForWard() {
         wardSpinnerAdapter = LocationAdapter(requireContext(), R.layout.selected_location_item, shareViewModel.wardList.value!!)
         binding.ward.adapter = wardSpinnerAdapter
-        shareViewModel.selectedDistrict.observe(viewLifecycleOwner, { province ->
+        shareViewModel.selectedDistrict.observe(viewLifecycleOwner) { province ->
             shareViewModel.getWardList()
-            shareViewModel.wardList.observe(viewLifecycleOwner, {
+            shareViewModel.wardList.observe(viewLifecycleOwner) {
                 Log.i("getProvinceList2", it.size.toString())
-                wardSpinnerAdapter = LocationAdapter(requireContext(), R.layout.selected_location_item, shareViewModel.wardList.value!!)
+                wardSpinnerAdapter = LocationAdapter(
+                    requireContext(),
+                    R.layout.selected_location_item,
+                    shareViewModel.wardList.value!!
+                )
                 binding.ward.adapter = wardSpinnerAdapter
-            })
-        })
+            }
+        }
 
         binding.ward.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -225,27 +251,31 @@ class LocationFragment() : Fragment() {
     }
 
     fun setUpForWardClone() {
-        shareViewModel.selectedDistrict.observe(viewLifecycleOwner, {
+        shareViewModel.selectedDistrict.observe(viewLifecycleOwner) {
             Log.i("wardSpinnerAdapter", "${shareViewModel.selectedWard.value?.name}")
-            if (shareViewModel.districtList.value?.size ?: 1 > 1){
-                if (view != null){
+            if (shareViewModel.districtList.value?.size ?: 1 > 1) {
+                if (view != null) {
                     CoroutineScope(Dispatchers.Main).launch {
                         shareViewModel.getWardListClone()
                         if (view != null) {
-                            shareViewModel.wardList.observe(viewLifecycleOwner, {
+                            shareViewModel.wardList.observe(viewLifecycleOwner) {
                                 if (it.size > 1) {
                                     Log.i("wardSpinnerAdapter", it.size.toString())
                                     wardSpinnerAdapter =
-                                        LocationAdapter(requireContext(), R.layout.selected_location_item, it)
+                                        LocationAdapter(
+                                            requireContext(),
+                                            R.layout.selected_location_item,
+                                            it
+                                        )
                                     binding.ward.adapter = wardSpinnerAdapter
                                     binding.ward.setSelection(shareViewModel.currentWardPosition)
                                 }
-                            })
+                            }
                         }
                     }
                 }
             }
-        })
+        }
 
         binding.ward.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -311,21 +341,23 @@ class LocationFragment() : Fragment() {
     }
 
     fun confirm() {
-        shareViewModel.navToCartFragment.observe(viewLifecycleOwner, {
+        shareViewModel.navToCartFragment.observe(viewLifecycleOwner) {
             if (it == 1) {
                 shareViewModel.location = shareViewModel.updatedLocation.clone()
                 requireActivity().onBackPressed()
-                Toast.makeText(context,
+                Toast.makeText(
+                    context,
                     shareViewModel.updatedLocation.ward.name +
-                        shareViewModel.updatedLocation.district.name +
-                        shareViewModel.updatedLocation.province.name +
-                        shareViewModel.updatedLocation.name,
-                    Toast.LENGTH_LONG).show()
+                            shareViewModel.updatedLocation.district.name +
+                            shareViewModel.updatedLocation.province.name +
+                            shareViewModel.updatedLocation.name,
+                    Toast.LENGTH_LONG
+                ).show()
                 shareViewModel.navToCartFragment.value = 0
             } else if (it == -1) {
                 Toast.makeText(context, "Thông tin chưa chính xác", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 
     override fun onDestroyView() {
@@ -334,5 +366,3 @@ class LocationFragment() : Fragment() {
         parentFragment?.let { shareViewModel.wardList.removeObservers(it.viewLifecycleOwner) }
     }
 }
-
-// TODO: can update lai cho cung 1 location trong day va cart

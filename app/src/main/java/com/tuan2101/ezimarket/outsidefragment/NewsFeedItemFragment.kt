@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tuan2101.ezimarket.R
 import com.tuan2101.ezimarket.adapter.PostAdapter
@@ -41,17 +42,39 @@ class NewsFeedItemFragment() : Fragment() {
         Log.i("FragmentType", type)
         adapter = PostAdapter(
             dummyDataForPost(),
-            PostAdapter.OnPostClickListener { post -> viewModel.setCurrentPost(post) })
+            PostAdapter.OnPostClickListener(
+                { post -> viewModel.setCurrentPost(post)},
+                {userId: String -> viewModel.onNavToPersonalPage(userId) }
+            ))
         binding.rcv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rcv.adapter = adapter
 
-        viewModel.currentPost.observe(viewLifecycleOwner, {
+        viewModel.currentPost.observe(viewLifecycleOwner) {
             if (it != null) {
                 commentFragment = CommentFragment(viewModel.currentPost.value!!)
                 commentFragment.show(childFragmentManager, CommentFragment.TAG)
             }
-        })
+        }
+
+        viewModel.selectedUserId.observe(viewLifecycleOwner) {
+            if (!it.isNullOrEmpty()) {
+                try {
+                    findNavController().navigate(
+                        HostFragmentDirections.actionHostFragmentToPersonalPageFragment(
+                            it
+                        )
+                    )
+                } catch (e: IllegalArgumentException) {
+                    findNavController().navigate(
+                        PersonalPageFragmentDirections.actionPersonalPageFragmentSelf(
+                            it
+                        )
+                    )
+                }
+                viewModel.selectedUserId.value = ""
+            }
+        }
 
         return binding.root
     }

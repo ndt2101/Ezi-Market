@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".outsidefragment.RegisterFragment">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.tuan2101.ezimarket.viewmodel.LoginAndSignupViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#EDEEF3">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="15dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/logo" />
+            </androidx.cardview.widget.CardView>
+
+            <EditText
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/search_edittext_background"
+                android:backgroundTint="@color/white"
+                android:hint="Tên đăng nhập"
+                android:singleLine="true"
+                android:maxLength="25"
+                android:paddingStart="10dp"
+                app:layout_constraintTop_toBottomOf="@id/logo"
+                tools:layout_editor_absoluteX="10dp" />
+
+            <LinearLayout
+                android:id="@+id/country_code_picker_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/search_edittext_background"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/user_name">
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/country_code_picker"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-9dp"
+                    android:layout_weight="1.5"
+                    android:padding="2dp"
+                    app:ccp_autoDetectCountry="true"
+                    app:ccp_showFlag="false"
+                    app:ccp_showFullName="false"
+                    app:ccp_showNameCode="false"
+                    app:ccp_showPhoneCode="true" />
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="6"
+                    android:background="@drawable/search_edittext_background"
+                    android:backgroundTint="@color/white"
+                    android:hint="Số điện thoại đăng ký"
+                    android:inputType="phone" />
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/search_edittext_background"
+                android:backgroundTint="@color/white"
+                android:hint="Mật khẩu"
+                android:inputType="textPassword"
+                android:paddingStart="10dp"
+                app:layout_constraintTop_toBottomOf="@id/country_code_picker_area"
+                tools:layout_editor_absoluteX="10dp" />
+
+            <EditText
+                android:id="@+id/rewrite_password"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/search_edittext_background"
+                android:backgroundTint="@color/white"
+                android:drawableTint="@color/green"
+                android:hint="Nhập lại mật khẩu"
+                android:inputType="textPassword"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:layout_constraintTop_toBottomOf="@id/password"
+                tools:layout_editor_absoluteX="10dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="40dp"
+                android:background="@drawable/search_edittext_background"
+                android:backgroundTint="@color/themeColor"
+                android:drawableEnd="@drawable/next"
+                android:drawablePadding="23dp"
+                android:onClick="@{() -> model.onNavToContinueRegister()}"
+                android:paddingEnd="100dp"
+                android:text="Tiếp"
+                android:textAlignment="textEnd"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/rewrite_password" />
+
+            <TextView
+                android:id="@+id/sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:text="Đã có tài khoản"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

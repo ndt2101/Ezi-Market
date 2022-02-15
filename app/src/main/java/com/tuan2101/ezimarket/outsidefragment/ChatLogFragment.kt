@@ -34,7 +34,7 @@ class ChatLogFragment() : Fragment() {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         layoutManager.reverseLayout = true
         binding.messages.layoutManager = layoutManager
-        viewModel.partner.observe(viewLifecycleOwner, {
+        viewModel.partner.observe(viewLifecycleOwner) {
             if (it != null) {
                 adapter = MessageAdapter(
                     viewModel.partner.value!!,
@@ -49,14 +49,14 @@ class ChatLogFragment() : Fragment() {
                     })
                 binding.messages.adapter = adapter
             }
-        })
+        }
 
-        viewModel.messages.observe(viewLifecycleOwner, {
+        viewModel.messages.observe(viewLifecycleOwner) {
             if (it.isNotEmpty() && it != null) {
                 adapter.submitList(it)
                 layoutManager.scrollToPositionWithOffset(it.size - 1, 0)
             }
-        })
+        }
 
         return binding.root
     }

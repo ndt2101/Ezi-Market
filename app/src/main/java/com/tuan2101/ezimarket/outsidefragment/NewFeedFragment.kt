@@ -27,19 +27,18 @@ class NewFeedFragment : Fragment() {
         binding.model = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.currentSubject.observe(viewLifecycleOwner, {
+        viewModel.currentSubject.observe(viewLifecycleOwner) {
             if (it.equals("2")) {
                 transaction(followingFragment)
             }
             if (it.equals("1")) {
                 transaction(exploreFragment)
             }
-        })
+        }
         return binding.root
     }
 
     private fun transaction(fragment: Fragment) {
         childFragmentManager.beginTransaction().replace(R.id.transaction_layout, fragment).commit()
     }
-
 }

@@ -19,7 +19,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="5dp"
-    android:onClick="@{() -> action.onClickItem(news.id)}">
+    android:onClick="@{() -> action.onClickItem(news.url)}">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

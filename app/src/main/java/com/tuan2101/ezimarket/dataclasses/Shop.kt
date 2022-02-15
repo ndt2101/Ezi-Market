@@ -9,11 +9,11 @@ import kotlinx.parcelize.Parcelize
 class Shop(id: String,
            avatar: String,
            shopName: String,
-           override var vital: String = "shop",
-           var followerList: List<String>?,
+           override var vital: String? = "shop",
+           followerList: List<String>?,
            followingList: List<String>?,
            location: Location,
-) : User(id, shopName, avatar, vital, followingList, location)
+) : User(id, shopName, avatar, vital, followingList, followerList, location)
 
 @Parcelize
 class DisplayUser(

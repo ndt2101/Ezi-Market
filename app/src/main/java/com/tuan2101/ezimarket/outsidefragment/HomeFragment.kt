@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -33,7 +34,7 @@ class HomeFragment : Fragment() {
     lateinit var listAdPhoto: List<AdvertisementPhoto>
     lateinit var runnable: Runnable
     val handler = Handler(Looper.getMainLooper())
-    val _testClickedTopNewsItemId = MutableLiveData<String>()
+    val selectedTopNewsItem = MutableLiveData<String>()
     val _testClickedTopNewsFooterItem = MutableLiveData<Boolean>()
     var testClickedTopSaleFooterItem: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     var testClickedTopFlashSaleItemId: MutableLiveData<String> = MutableLiveData<String>("teststss")
@@ -73,60 +74,88 @@ class HomeFragment : Fragment() {
                 { id -> testClickTopFlashSaleItem(id) })
         )
 
-        val topNewsAdapter = TopNewsAdapter(TopNewsAdapter.TopNewsItemClickListener({testClickTopNewFooterItem()}, {id -> testClickTopNewsItem(id) }))
+        val topNewsAdapter = TopNewsAdapter(TopNewsAdapter.TopNewsItemClickListener({testClickTopNewFooterItem()}, {id -> onClickTopNewsItem(id) }))
 
         homeFragmentViewModel = ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
 
         binding.productRcv.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-        val productAdapter = ProductAdapter(ProductItemClickListener({testClickFooterTopFlashSale()}, {id -> testClickTopFlashSaleItem(id)}))
+        val productAdapter = ProductAdapter(ProductListener { product ->
+            testClickTopFlashSaleItem(
+                product
+            )
+        })
         val topCategoryAdapter = TopCategoryItemAdapter(
             TopCategoryItemViewHolder.TopCategoryItemClickListener { id -> onClickTopCategoryItem(id) })
 
         binding.model = homeFragmentViewModel
 
-        homeFragmentViewModel.suggestedClickedItem.observe(viewLifecycleOwner, {
+        homeFragmentViewModel.suggestedClickedItem.observe(viewLifecycleOwner) {
             if (it == "0") {
                 productAdapter.submitList(dummyDataForFlashSale())
-                binding.suggestedAllItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
+                binding.suggestedAllItem.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
             } else {
-                binding.suggestedAllItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.unselected_suggest_item_bg)
+                binding.suggestedAllItem.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.unselected_suggest_item_bg
+                )
             }
 
             if (it == "1") {
                 productAdapter.submitList(dummyDataForFlashSale())
-                binding.suggestedDiscountHuntingItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
+                binding.suggestedDiscountHuntingItem.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
             } else {
-                binding.suggestedDiscountHuntingItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.unselected_suggest_item_bg)
+                binding.suggestedDiscountHuntingItem.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.unselected_suggest_item_bg
+                )
             }
 
             if (it == "2") {
                 productAdapter.submitList(dummyDataForFlashSale())
-                binding.suggestedOutfitItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
+                binding.suggestedOutfitItem.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
             } else {
-                binding.suggestedOutfitItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.unselected_suggest_item_bg)
+                binding.suggestedOutfitItem.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.unselected_suggest_item_bg
+                )
             }
 
             if (it == "3") {
                 productAdapter.submitList(dummyDataForFlashSale())
-                binding.suggestedMakeUpItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
+                binding.suggestedMakeUpItem.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
             } else {
-                binding.suggestedMakeUpItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.unselected_suggest_item_bg)
+                binding.suggestedMakeUpItem.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.unselected_suggest_item_bg
+                )
             }
 
             if (it == "4") {
                 productAdapter.submitList(dummyDataForFlashSale())
-                binding.suggestedBookItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
+                binding.suggestedBookItem.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
             } else {
-                binding.suggestedBookItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.unselected_suggest_item_bg)
+                binding.suggestedBookItem.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.unselected_suggest_item_bg
+                )
             }
 
             if (it == "5") {
                 productAdapter.submitList(dummyDataForFlashSale())
-                binding.suggestedFavoriteItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
+                binding.suggestedFavoriteItem.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.selected_suggest_item_bg)
             } else {
-                binding.suggestedFavoriteItem.background = ContextCompat.getDrawable(requireContext(), R.drawable.unselected_suggest_item_bg)
+                binding.suggestedFavoriteItem.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.unselected_suggest_item_bg
+                )
             }
-        })
+        }
 
         binding.productRcv.adapter = productAdapter
 
@@ -168,43 +197,59 @@ class HomeFragment : Fragment() {
         binding.topNewsRcv.layoutManager = topNewsLayoutManager
         topNewsAdapter.customSubmitList(dummyNewsList)
         binding.topNewsRcv.adapter = topNewsAdapter
-        testClickedTopSaleFooterItem.observe(viewLifecycleOwner, {
+        testClickedTopSaleFooterItem.observe(viewLifecycleOwner) {
             if (it) {
                 Toast.makeText(context, "chuyen", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-        homeFragmentViewModel.navToNotificationFragment.observe(viewLifecycleOwner, {
-            if (it){
+        homeFragmentViewModel.navToNotificationFragment.observe(viewLifecycleOwner) {
+            if (it) {
                 findNavController().navigate(R.id.action_hostFragment_to_notificationFragment)
                 homeFragmentViewModel.navToNotificationFragment.value = false
             }
-        })
+        }
 
-        homeFragmentViewModel.navToChatFragment.observe(viewLifecycleOwner, {
-            if (it){
+        homeFragmentViewModel.navToChatFragment.observe(viewLifecycleOwner) {
+            if (it) {
                 findNavController().navigate(R.id.action_hostFragment_to_chatFragment)
                 homeFragmentViewModel.navToNotificationFragment.value = false
             }
-        })
+        }
 
+        binding.search.imeOptions = EditorInfo.IME_ACTION_DONE
+
+        binding.search.setOnEditorActionListener { _, p1, _ ->
+            var handled = false
+            if (p1 == EditorInfo.IME_ACTION_DONE) {
+                if (binding.search.text.toString() != "") {
+                    findNavController().navigate(
+                        HostFragmentDirections.actionHostFragmentToSearchResultFragment(
+                            binding.search.text.toString()
+                        )
+                    )
+                }
+                handled = true
+            }
+            handled
+        }
 
         return binding.root
     }
     private fun dataForTopCategoryItem(): ArrayList<CategoryItem> {
         val listItem = ArrayList<CategoryItem>()
         listItem.add(CategoryItem("0", R.drawable.go_market, "Đi chợ"))
-        listItem.add(CategoryItem("1", R.drawable.cosmetics, "Mỹ phẩm"))
-        listItem.add(CategoryItem("2", R.drawable.customer_care, "Chat hỗ trợ"))
-        listItem.add(CategoryItem("3", R.drawable.sneakers, "Giày dép"))
+        listItem.add(CategoryItem("1", R.drawable.cosmetics, "Mỹ phẩm nữ"))
+        listItem.add(CategoryItem("2", R.drawable.bike, "Xe máy"))
+        listItem.add(CategoryItem("3", R.drawable.sneakers, "Giày nam"))
         listItem.add(CategoryItem("4", R.drawable.voucher, "Ưu đãi"))
         listItem.add(CategoryItem("5", R.drawable.beef, "Đồ tươi sống"))
         listItem.add(CategoryItem("6", R.drawable.fast_food, "Ăn vặt"))
-        listItem.add(CategoryItem("7", R.drawable.outfit, "Quần áo"))
+        listItem.add(CategoryItem("7", R.drawable.outfit, "Quần áo nữ"))
         listItem.add(CategoryItem("8", R.drawable.gift, "Quà tặng"))
-        listItem.add(CategoryItem("9", R.drawable.devices, "Đồ điện tử"))
+        listItem.add(CategoryItem("9", R.drawable.devices, "Điện thoại"))
         listItem.add(CategoryItem("10", R.drawable.fridge, "Đồ gia dụng"))
-        listItem.add(CategoryItem("11", R.drawable.engineer, "Sửa chữa đồ gia dụng"))
+        listItem.add(CategoryItem("11", R.drawable.furniture, "Nội thất"))
         return listItem
     }
 
@@ -220,9 +265,14 @@ class HomeFragment : Fragment() {
         Log.i("aaa", idItem)
     }
 
-    fun testClickTopNewsItem(idItem: String) {
-        _testClickedTopNewsItemId.value = idItem
-        Log.i("bbb", _testClickedTopNewsItemId.value.toString())
+    fun testClickTopFlashSaleItem(product: Product) {
+        testClickedTopFlashSaleItemId.value = product.id
+        Log.i("aaa", product.id)
+    }
+
+    fun onClickTopNewsItem(url: String) {
+        selectedTopNewsItem.value = url
+        findNavController().navigate(HostFragmentDirections.actionHostFragmentToNewsFragment(url))
     }
 
     fun testClickTopNewFooterItem() {
@@ -235,7 +285,9 @@ class HomeFragment : Fragment() {
 
     fun onClickTopCategoryItem(id: String) {
         topCategoryClickedItem.value = id
-        Log.i("ItemId", id.toString())
+        if (id == "4") {
+            findNavController().navigate(HostFragmentDirections.actionHostFragmentToCouponFragment())
+        }
     }
 
     private fun dummyDataForAdvertisement(): ArrayList<AdvertisementPhoto> {
@@ -251,12 +303,12 @@ class HomeFragment : Fragment() {
 
     private fun dummyDataForTopNews(): ArrayList<News> {
         val listImg = ArrayList<News>()
-        listImg.add(News("a", "Chương trình giảm giá shock trong mùa dịch covid", "", "https://photo-cms-ngaynay.zadn.vn/666x374/Uploaded/2021/uncdwpjwq/2021_06_14/shoppe-8153.jpg"))
-        listImg.add(News("b", "Chương trình giảm giá shock trong mùa dịch covid", "","https://shopeeplus.com/upload/images/L%E1%BA%AFc-L%C3%A0-Sale-Shopee.jpg"))
-        listImg.add(News("c", "Chương trình giảm giá shock trong mùa dịch covid", "","https://ben.com.vn/tin-tuc/wp-content/uploads/2021/09/cach-san-sale-0d-tren-shopee-5.png"))
-        listImg.add(News("d", "Chương trình giảm giá shock trong mùa dịch covid", "","https://channel.mediacdn.vn/thumb_w/640/2020/10/10/photo-1-16023035696791479981389.jpg"))
-        listImg.add(News("e", "Chương trình giảm giá shock trong mùa dịch covid", "","https://cafefcdn.com/thumb_w/650/pr/2020/1606892520840-0-0-375-600-crop-1606892525006-63742515071978.jpg"))
-        listImg.add(News("f", "Chương trình giảm giá shock trong mùa dịch covid", "","https://file.publish.vn/blogktcity/flash-sale-shopee-1593746001532.jpg"))
+        listImg.add(News("a", "Chương trình giảm giá shock trong mùa dịch covid", "https://shopee.vn/m/tro-lai-san-deal-jan", "https://photo-cms-ngaynay.zadn.vn/666x374/Uploaded/2021/uncdwpjwq/2021_06_14/shoppe-8153.jpg"))
+        listImg.add(News("b", "Chương trình giảm giá shock trong mùa dịch covid", "https://shopee.vn/m/tro-lai-san-deal-jan","https://shopeeplus.com/upload/images/L%E1%BA%AFc-L%C3%A0-Sale-Shopee.jpg"))
+        listImg.add(News("c", "Chương trình giảm giá shock trong mùa dịch covid", "https://shopee.vn/m/tro-lai-san-deal-jan","https://ben.com.vn/tin-tuc/wp-content/uploads/2021/09/cach-san-sale-0d-tren-shopee-5.png"))
+        listImg.add(News("d", "Chương trình giảm giá shock trong mùa dịch covid", "https://shopee.vn/m/tro-lai-san-deal-jan","https://channel.mediacdn.vn/thumb_w/640/2020/10/10/photo-1-16023035696791479981389.jpg"))
+        listImg.add(News("e", "Chương trình giảm giá shock trong mùa dịch covid", "https://shopee.vn/m/tro-lai-san-deal-jan","https://cafefcdn.com/thumb_w/650/pr/2020/1606892520840-0-0-375-600-crop-1606892525006-63742515071978.jpg"))
+        listImg.add(News("f", "Chương trình giảm giá shock trong mùa dịch covid", "https://shopee.vn/m/tro-lai-san-deal-jan","https://file.publish.vn/blogktcity/flash-sale-shopee-1593746001532.jpg"))
         return listImg
     }
 

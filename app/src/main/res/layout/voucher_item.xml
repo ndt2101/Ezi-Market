@@ -88,6 +88,18 @@
                         android:textColor="@color/black" />
 
                     <TextView
+                        android:id="@+id/time_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/search_edittext_background"
+                        android:backgroundTint="@color/orange"
+                        android:padding="2dp"
+                        tools:text="Hết hạn sau 3 ngày"
+                        android:visibility="gone"/>
+
+                    <TextView
                         android:id="@+id/exp"
                         dateFormat="@{voucher.exp}"
                         android:layout_width="wrap_content"

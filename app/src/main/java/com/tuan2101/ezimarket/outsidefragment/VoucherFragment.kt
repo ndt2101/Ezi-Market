@@ -59,7 +59,7 @@ class VoucherFragment() : BottomSheetDialogFragment() {
         } else if (shop == null) {
             val factory = VoucherFragmentViewModelFactory(
                 shop = ProductViaShopInCart(
-                    "",
+                    "ezi_market",
                     "Ezi Market",
                     false,
                     0L,

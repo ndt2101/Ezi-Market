@@ -62,7 +62,8 @@ class PostAdapter(val postList: List<Post>, val listener: OnPostClickListener) :
         return postList.size
     }
 
-    class OnPostClickListener(val clickComment: (post: Post) -> Unit) {
+    class OnPostClickListener(val clickComment: (post: Post) -> Unit, val clickUser: (userId: String) -> Unit) {
         fun onClickComment(post: Post) = clickComment(post)
+        fun onClickUser(userId: String) = clickUser(userId)
     }
 }

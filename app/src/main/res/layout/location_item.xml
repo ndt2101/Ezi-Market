@@ -11,6 +11,7 @@
         android:id="@+id/location_name"
         android:layout_width="match_parent"
         android:textColor="@color/black"
+        android:background="@color/white"
         android:textSize="18sp"
         tools:text="Hai Duong"
         android:padding="5dp"

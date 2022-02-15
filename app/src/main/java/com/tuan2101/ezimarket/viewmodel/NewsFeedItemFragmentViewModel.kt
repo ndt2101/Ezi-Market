@@ -14,10 +14,15 @@ class NewsFeedItemFragmentViewModel() : ViewModel() {
 
     val currentPost = MutableLiveData<Post>()
     val oldPost = MutableLiveData<Post>()
+    val selectedUserId = MutableLiveData("")
 
 
     fun setCurrentPost(post: Post) {
         currentPost.value = post
         oldPost.value = currentPost.value
+    }
+
+    fun onNavToPersonalPage(userId: String) {
+        selectedUserId.value = userId
     }
 }

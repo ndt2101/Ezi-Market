@@ -18,6 +18,21 @@
         <action
             android:id="@+id/action_hostFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_hostFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+        <action
+            android:id="@+id/action_hostFragment_to_personalPageFragment"
+            app:destination="@id/personalPageFragment" />
+        <action
+            android:id="@+id/action_hostFragment_to_couponFragment"
+            app:destination="@id/couponFragment" />
+        <action
+            android:id="@+id/action_hostFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+        <action
+            android:id="@+id/action_hostFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/imageDetailFragment"
@@ -54,4 +69,44 @@
             android:id="@+id/action_chatLogFragment_to_imageDetailFragment"
             app:destination="@id/imageDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.SearchResultFragment"
+        android:label="fragment_search_result"
+        tools:layout="@layout/fragment_search_result" >
+        <argument
+            android:name="target"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalPageFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.PersonalPageFragment"
+        android:label="fragment_personal_page"
+        tools:layout="@layout/fragment_personal_page" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_personalPageFragment_self"
+            app:destination="@id/personalPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/couponFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.CouponFragment"
+        android:label="fragment_coupon"
+        tools:layout="@layout/fragment_coupon" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.tuan2101.ezimarket.outsidefragment.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>

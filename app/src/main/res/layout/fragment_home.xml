@@ -163,6 +163,8 @@
                             android:minHeight="40dp"
                             android:minWidth="300dp"
                             android:paddingStart="10dp"
+                            android:singleLine="true"
+                            android:imeOptions="actionDone"
                             android:textColor="@color/black"
                             android:textColorHint="#888585"
                             android:layout_weight="3" />
@@ -193,7 +195,7 @@
 
             <HorizontalScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="75dp"
+                android:layout_height="60dp"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -214,12 +216,12 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
+                            android:layout_height="30dp"
                             android:src="@drawable/all"/>
 
                         <TextView
                             android:text="Tất cả"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textColor="@color/black"
                             android:layout_width="match_parent"
                             android:textAlignment="center"
@@ -240,12 +242,12 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
+                            android:layout_height="30dp"
                             android:src="@drawable/hot_deal"/>
 
                         <TextView
                             android:text="Săn sale"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textColor="@color/black"
                             android:layout_width="match_parent"
                             android:textAlignment="center"
@@ -265,12 +267,12 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
+                            android:layout_height="30dp"
                             android:src="@drawable/outfit"/>
 
                         <TextView
                             android:text="Thời trang"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textColor="@color/black"
                             android:layout_width="match_parent"
                             android:textAlignment="center"
@@ -292,12 +294,12 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
+                            android:layout_height="30dp"
                             android:src="@drawable/cosmetics"/>
 
                         <TextView
                             android:text="Làm đẹp"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textColor="@color/black"
                             android:layout_width="match_parent"
                             android:textAlignment="center"
@@ -317,12 +319,12 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
+                            android:layout_height="30dp"
                             android:src="@drawable/book"/>
 
                         <TextView
                             android:text="Sách"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textColor="@color/black"
                             android:layout_width="match_parent"
                             android:textAlignment="center"
@@ -342,12 +344,12 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
+                            android:layout_height="30dp"
                             android:src="@drawable/love" />
 
                         <TextView
                             android:text="Yêu thích"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textColor="@color/black"
                             android:layout_width="match_parent"
                             android:textAlignment="center"

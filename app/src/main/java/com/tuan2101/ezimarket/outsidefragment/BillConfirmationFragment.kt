@@ -44,32 +44,43 @@ class BillConfirmationFragment : Fragment() {
         )
         binding.listProductViaShop.adapter = confirmationAdapter
         customizedNavBack()
-        shareViewModel.navToPaymentMethodFragment.observe(viewLifecycleOwner, {
+        shareViewModel.navToPaymentMethodFragment.observe(viewLifecycleOwner) {
             if (it) {
                 findNavController().navigate(R.id.action_billConfirmationFragment_to_paymentMethodFrament)
                 shareViewModel.navToPaymentMethodFragment.value = false
             }
-        })
-        shareViewModel.navToPaymentDetailFragment.observe(viewLifecycleOwner, {
+        }
+        shareViewModel.navToPaymentDetailFragment.observe(viewLifecycleOwner) {
             if (it) {
                 for (index in shareViewModel.listBills.indices) {
                     if (shareViewModel.listBills[index].shippingMethod == null) {
-                        binding.scrollView.scrollTo(0, binding.listProductViaShop.getChildAt(index).y.toInt())
-                        Toast.makeText(context, "Chưa chọn phương thức giao hàng $index", Toast.LENGTH_SHORT).show()
+                        binding.scrollView.scrollTo(
+                            0,
+                            binding.listProductViaShop.getChildAt(index).y.toInt()
+                        )
+                        Toast.makeText(
+                            context,
+                            "Chưa chọn phương thức giao hàng $index",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         shareViewModel.navToPaymentDetailFragment.value = false
                         return@observe
                     }
                 }
                 if (shareViewModel.paymentMethod.value == "") {
-                    Toast.makeText(context, "Chưa chọn hình thức thanh toán", Toast.LENGTH_SHORT).show()
-                    binding.scrollView.scrollTo(0, binding.listProductViaShop.getChildAt(shareViewModel.listBills.size - 1).y.toInt() + 350)
+                    Toast.makeText(context, "Chưa chọn hình thức thanh toán", Toast.LENGTH_SHORT)
+                        .show()
+                    binding.scrollView.scrollTo(
+                        0,
+                        binding.listProductViaShop.getChildAt(shareViewModel.listBills.size - 1).y.toInt() + 350
+                    )
                     shareViewModel.navToPaymentDetailFragment.value = false
                     return@observe
                 }
                 findNavController().navigate(R.id.action_billConfirmationFragment_to_paymentDetailFragment)
                 shareViewModel.navToPaymentDetailFragment.value = false
             }
-        })
+        }
 
 
         return binding.root

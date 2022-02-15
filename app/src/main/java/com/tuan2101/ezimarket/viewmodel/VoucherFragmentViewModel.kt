@@ -13,18 +13,23 @@ class VoucherFragmentViewModel(val shop: ProductViaShopInCart): ViewModel() {
     var listVoucher = ArrayList<PostVoucher>()
     val shopName: String = shop.shopName
     init {
-        listVoucher = fetchVoucher(shop.shopId)
-        listVoucher.forEach {
-            if (it.voucherId == shop.voucher?.voucherId) {
-                it.voucherStatus = shop.voucher?.voucherStatus == true
-            } else {
-                it.voucherStatus = false
+        if (shop.shopId != ""){
+            listVoucher = fetchVoucher(shop.shopId)
+            listVoucher.forEach {
+                if (it.voucherId == shop.voucher?.voucherId) {
+                    it.voucherStatus = shop.voucher?.voucherStatus == true
+                } else {
+                    it.voucherStatus = false
+                }
             }
         }
     }
 
     private fun fetchVoucher(shopId: String): ArrayList<PostVoucher> {
-        return if (shopId == "") dummyData1() else dummyData()
+        return when(shopId) {
+            "ezi_market" -> dummyData1() // cua cho
+            else -> dummyData() // cua shop
+        }
     }
 
     private fun dummyData(): java.util.ArrayList<PostVoucher> {

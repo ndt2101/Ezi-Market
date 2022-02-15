@@ -17,14 +17,14 @@ class TopNewsAdapter(val topNewsItemClickListener: TopNewsItemClickListener) :
 
     class TopNewsItemClickListener(
         val clickFooter: () -> Unit,
-        val clickItem: (id: String) -> Unit
-    ) : FooterListener() {
+        val clickItem: (url: String) -> Unit
+    ) : FooterListener {
         override fun onClickFooter() {
             clickFooter()
         }
 
-        fun onClickItem(id: String) {
-            clickItem(id)
+        fun onClickItem(url: String) {
+            clickItem(url)
         }
     }
 
@@ -116,6 +116,6 @@ class TopNewsViewHolder(val binding: TopNewsItemBinding) : RecyclerView.ViewHold
     }
 }
 
-abstract class FooterListener() {
+interface FooterListener {
     abstract fun onClickFooter()
 }

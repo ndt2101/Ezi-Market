@@ -10,5 +10,7 @@
     <color name="custom">#DD2020</color>
     <color name="themeColor">#95a2f1</color>
     <color name="gray">#818598</color>
+    <color name="orange">#F1941A</color>
+    <color name="green">#76FF03</color>
     <color name="notification_background">#120524ED</color>
 </resources>
